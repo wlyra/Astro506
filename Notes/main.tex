@@ -1,0 +1,87 @@
+\documentclass[a4paper,10pt]{book}
+
+\input{./auxiliary/preamble_book.tex}
+%\usepackage[utf8]{inputenc}
+% !TeX TXS-program:compile = txs:///pdflatex/[--shell-escape]
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3}
+
+\begin{document}
+
+\title{Dynamics and Hydrodynamics}
+\author{Wladimir Lyra}
+\date{}
+\maketitle
+
+
+\frontmatter
+\tableofcontents
+
+\mainmatter
+
+\include{chapters/intro}
+\include{chapters/chapter1}
+\include{chapters/chapter2}
+\include{chapters/chapter3}
+\include{chapters/chapter4}
+
+\appendix
+
+\include{chapters/appendix1}
+\include{chapters/appendix2}
+\include{chapters/appendix3}
+%\include{chapter2}
+%\include{chapter3}
+%\include{chapter4}
+%\include{chapter5}
+%\include{chapter6}
+%\include{chapter7}
+%\include{chapter8}
+%\include{chapter9}
+%\include{chapter10}
+%\include{answers}
+
+%\input{etc}
+
+\backmatter
+
+\bibliographystyle{ieeetr}
+\bibliography{auxiliary/biblio}
+
+\end{document}
