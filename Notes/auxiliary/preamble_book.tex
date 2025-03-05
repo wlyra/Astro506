@@ -1,0 +1,226 @@
+\usepackage{color}
+\usepackage{amsmath}
+\usepackage{ulem}
+\usepackage{xfrac}
+\usepackage{empheq}
+\usepackage{hyperref}
+\usepackage{cancel}
+
+%\usepackage{apjfonts}
+\usepackage{txfonts} % looks nicer
+\AtBeginDocument{\mathcode`v=\varv}
+
+\usepackage{titlesec}
+\usepackage{wasysym}
+%\usepackage{marvosym}
+
+\setcounter{tocdepth}{4} 
+\setcounter{secnumdepth}{4}
+%and \setcounter{secnumdepth}{4}. For subparagraph, use {5}
+
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+
+%\bibliographystyle{apj}
+
+\definecolor{brown}{rgb}{0.42,0.24,0.07}
+\definecolor{darkgreen}{rgb}{0.0,0.6,0.00}
+\definecolor{purple}{rgb}{0.7,0.0,0.7}
+\definecolor{black}{rgb}{0.0,0.0,0.0}
+\def\red#1{\textcolor{red}{#1}}
+\def\blue#1{\textcolor{blue}{#1}}
+\def\green#1{\textcolor{darkgreen}{#1}}
+\def\brown#1{\textcolor{brown}{#1}}
+\def\purple#1{\textcolor{purple}{#1}}
+
+\newcommand\cut[1]{\red{\sout{#1}}}
+
+%%% Useful commands
+\newcommand{\alex}[1]{\darkgreen{{#1}}}
+\newcommand{\marc}[1]{\brown{{#1}}}
+\newcommand{\wlad}[1]{\purple{{#1}}}
+\newcommand{\comm}[1]{\blue{{#1}}} %for updates for referee comments
+\newcommand{\wcomm}[1]{\wlad{({\it WL: {#1}})}}
+\newcommand{\classcomm}[1]{\brown{\it Class Comment: {#1}}}
+% Variables:
+\newcommand{\Sigmagas}{\ensuremath{\varSigma_\mathrm{g}}}
+\newcommand{\Sigmadust}{\ensuremath{\varSigma_\mathrm{d}}}
+\newcommand{\Sigmagasref}{\ensuremath{\varSigma_\mathrm{g,0}}}
+\newcommand{\OmegaK}{\ensuremath{\varOmega_\mathrm{K}}}
+\newcommand{\Omegaref}{\ensuremath{\varOmega_\mathrm{0}}}
+\newcommand{\rhogas}{\ensuremath{\rho_\mathrm{g}}}
+\newcommand{\rhodust}{\ensuremath{\rho_\mathrm{d}}}
+\newcommand{\rhopmat}{\ensuremath{\rho_\mathrm{mat}}}
+\newcommand{\epsdtog}{\ensuremath{\epsilon_\mathrm{d/g}}}
+\newcommand{\phieffi}{\varPhi_{\mathrm{eff},i}}
+\newcommand{\nsuper}{N}
+\newcommand{\nsub}{n}
+\newcommand{\tauf}{\tau_\mathrm{f}}
+\newcommand{\taucool}{\tau_\mathrm{cool}}
+\newcommand{\zetape}{\zeta_\mathrm{pe,0}}
+\newcommand{\Gammape}{\varGamma_\mathrm{pe}}
+\newcommand{\Tref}{T_\mathrm{0}} % reference temperature profile
+\newcommand{\alphaSS}{\ensuremath{\alpha_\mathrm{SS}}} % Shakura-Sunyaev alpha
+\newcommand{\alphaSSref}{\ensuremath{\alpha_\mathrm{SS,ref}}} % Shakura-Sunyaev alpha at reference radius
+\newcommand{\alphaSB}{\alpha_\mathrm{SB}} % surface brightness slope
+\newcommand{\alphaOD}{\alpha_\mathrm{OD}} % optical depth slope
+\newcommand{\tauOD}{\tau_\mathrm{OD}} % optical depth
+\newcommand{\betaPR}{\ensuremath{\beta_\mathrm{PR}}} % Poynting-Robertson beta
+\newcommand{\betaref}{\ensuremath{\beta_\mathrm{PR,0}}} % Poynting-Robertson beta
+\newcommand{\betai}{\ensuremath{\beta_\mathrm{PR,i}}} % Poynting-Robertson beta
+\newcommand{\rBR}{\ensuremath{r_\mathrm{BR}}} % reference radius (birth ring)
+\newcommand{\tcol}{t_{\rm col}}
+\newcommand{\treside}{t_{\rm reside}}
+\newcommand{\betaPE}{\beta_{\rm PE}}
+\newcommand{\dragtime}{\ensuremath{\rm St}}
+\newcommand{\mmm}{\ensuremath{\mu}}
+\newcommand{\Mstar}{\ensuremath{M_\star}}
+\newcommand{\Lstar}{\ensuremath{L_\star}}
+\newcommand{\dragcoef}{\ensuremath{C_D}}
+\newcommand{\e}{\ensuremath{e}}
+\newcommand{\grainradius}{\ensuremath{a}}
+\newcommand{\cs}{\ensuremath{c_s}}
+\newcommand{\St}{\ensuremath{\mathrm{St}}}
+\newcommand{\Ma}{\ensuremath{\mathrm{Ma}}}
+% Units:
+
+\newcommand{\Msun}{\ensuremath{M_\odot}}
+\newcommand{\Mearth}{\ensuremath{M_\oplus}}
+\newcommand{\Mdust}{\ensuremath{M_\mathrm{dust}}}
+\newcommand{\AU}{\ensuremath{\mathrm{AU}}}
+\newcommand{\micrometer}{\ensuremath{\muup\mathrm{m}}}
+\newcommand{\Lsun}{\ensuremath{L_\odot}}
+\newcommand{\cm}{\ensuremath{\mathrm{cm}}}
+\newcommand{\gram}{\ensuremath{\mathrm{g}}}
+% Operators:
+\newcommand{\deriv}[2]{\frac{d{#1}}{d{#2}}}
+\newcommand{\pderiv}[2]{\frac{\partial{#1}}{\partial{#2}}}
+\newcommand{\ptderiv}[1]{\frac{\partial{#1}}{\partial{t}}}
+\newcommand{\ptderivn}[2]{\frac{\partial^{#2}{#1}}{\partial{t}^{#2}}}
+\renewcommand{\v}[1]{{\boldsymbol{#1}}}
+\newcommand{\aderiv}[1]{\frac{D{#1}}{D t}}
+\newcommand{\del}{\v{\nabla}}
+\newcommand{\grad}{\del}
+\newcommand{\Div}{\del\cdot}
+\newcommand{\curl}{\del\times}
+\newcommand{\Laplace}{\nabla^2}
+%
+\newcommand{\xtimes}[2]{{#1}\times{10^{#2}}}
+\newcommand{\ttimes}[1]{10^{#1}}
+% Misc:
+\newcommand{\Htwo}{\textit{H}\ensuremath{_2}}
+%%%
+\newcommand{\runcaption}[3]{Gas (left panel) and dust (right panel) surface
+densities after 400 orbits for run #1
+($\Sigmagasref=#2$; $\Mdust=#3$). Dashed circle indicates {\rBR} (100~AU).}
+\newcommand{\kdecaption}[3]{Radial dust distribution by grain size after 400
+orbits for run #1 ($\Sigmagasref=#2$; $\Mdust=#3$). Vertical dashed lines
+indicate approximate apastron distances for the smallest dust grains in each
+bin.}
+
+\newcommand{\gasA}{\ensuremath{1.2\times10^{-7}}}
+\newcommand{\gasB}{\ensuremath{1.2\times10^{-6}}}
+\newcommand{\gasC}{\ensuremath{1.2\times10^{-5}}}
+\newcommand{\gasD}{\ensuremath{1.2\times10^{-4}}}
+\newcommand{\gasE}{\ensuremath{1.2\times10^{-3}}}
+\newcommand{\gasF}{\ensuremath{1.2\times10^{-3}}}
+\newcommand{\gasG}{\ensuremath{1.2\times10^{-3}}}
+\newcommand{\dustA}{\ensuremath{9\times10^{-3}}}
+\newcommand{\dustB}{\ensuremath{9\times10^{-3}}}
+\newcommand{\dustC}{\ensuremath{9\times10^{-3}}}
+\newcommand{\dustD}{\ensuremath{9\times10^{-3}}}
+\newcommand{\dustE}{\ensuremath{9\times10^{-3}}}
+\newcommand{\dustF}{\ensuremath{9\times10^{-2}}}
+\newcommand{\dustG}{\ensuremath{9\times10^{-2}}}
+\newcommand{\gasAwu}{\ensuremath{1.2\times10^{-7}~\gram~\cm^{-2}}}
+\newcommand{\gasBwu}{\ensuremath{1.2\times10^{-6}~\gram~\cm^{-2}}}
+\newcommand{\gasCwu}{\ensuremath{1.2\times10^{-5}~\gram~\cm^{-2}}}
+\newcommand{\gasDwu}{\ensuremath{1.2\times10^{-4}~\gram~\cm^{-2}}}
+\newcommand{\gasEwu}{\ensuremath{1.2\times10^{-3}~\gram~\cm^{-2}}}
+\newcommand{\gasFwu}{\ensuremath{1.2\times10^{-3}~\gram~\cm^{-2}}}
+\newcommand{\gasGwu}{\ensuremath{1.2\times10^{-3}~\gram~\cm^{-2}}}
+\newcommand{\dustAwu}{\ensuremath{9\times10^{-3}~\Mearth}}
+\newcommand{\dustBwu}{\ensuremath{9\times10^{-3}~\Mearth}}
+\newcommand{\dustCwu}{\ensuremath{9\times10^{-3}~\Mearth}}
+\newcommand{\dustDwu}{\ensuremath{9\times10^{-3}~\Mearth}}
+\newcommand{\dustEwu}{\ensuremath{9\times10^{-3}~\Mearth}}
+\newcommand{\dustFwu}{\ensuremath{9\times10^{-2}~\Mearth}}
+\newcommand{\dustGwu}{\ensuremath{9\times10^{-2}~\Mearth}}
+
+
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\beqn}{\begin{eqnarray}}
+\newcommand{\eeqn}{\end{eqnarray}}
+
+\newcommand{\Eq}[1]{Eq. (\ref{#1})}
+\newcommand{\Eqs}[2]{Eqs. (\ref{#1}) and~(\ref{#2})}
+\newcommand{\Eqss}[2]{Eqs. (\ref{#1})--(\ref{#2})}
+\newcommand{\eq}[1]{\Eq{#1}}
+\newcommand{\eqs}[2]{\Eqs{#1}{#2}}
+\newcommand{\eqss}[2]{\Eqss{#1}{#2}}
+\newcommand{\eqp}[1]{(Eq. \ref{#1})}
+\newcommand{\eqt}[1]{Eq. \ref{#1}}
+
+\newcommand{\Figure}[1]{Figure~\ref{#1}}
+\newcommand{\Fig}[1]{Fig.~\ref{#1}}
+\newcommand{\fig}[1]{\Fig{#1}}
+\newcommand{\figp}[1]{(\Fig{#1})}
+\newcommand{\Figs}[2]{Figs.~\ref{#1} and \ref{#2}}
+\newcommand{\Figss}[3]{Figs.~\ref{#1},~\ref{#2}, and \ref{#3}}
+\newcommand{\Figsss}[4]{Figs.~\ref{#1},~\ref{#2},~\ref{#3}, and \ref{#4}}
+\newcommand{\Figssss}[5]{Figs.~\ref{#1},~\ref{#2},~\ref{#3},~\ref{#4}, and \ref{#5}}
+\newcommand{\Figdash}[2]{Figs.~\ref{#1}--\ref{#2}}
+\newcommand{\figs}[2]{\Figs{#1}{#2}}
+
+\newcommand{\boltz}{{\rm exp}\left(h\nu/kT \right)}
+\newcommand{\boltzm}{{\rm exp}\left(h\nu_M/kT \right)}
+
+\newcommand{\atom}[2]{$^{#2}${#1}}
+\newcommand{\qatom}[2]{^{#2}{\rm #1}}
+
+\newcommand{\segment}[1]{\overline{\mathrm{#1}}}
+
+%avoid figures from occupying the whole page                                   
+%\renewcommand{\topfraction}{0.95}
+%\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.85}
+\newcommand{\ksi}{\xi}
+\renewcommand{\Re}{\rm Re} 
+\newcommand{\Sc}{\rm Sc} 
+
+\renewcommand{\deg}{^\circ}
+\renewcommand{\min}{^\prime}
+\renewcommand{\sec}{^{\prime\prime}}
+
+\newcommand{\hatr}{\hat{\v{r}}}
+\newcommand{\hattht}{\hat{\v{\theta}}}
+\newcommand{\hatphi}{\hat{\v{\phi}}}
+\newcommand{\hatu}{\hat{\v{u}}}
+\newcommand{\hatv}{\hat{\v{\varv}}}
+\newcommand{\hatw}{\hat{\v{w}}}
+\newcommand{\hatx}{\hat{\v{x}}}
+\newcommand{\haty}{\hat{\v{y}}}
+\newcommand{\hatz}{\hat{\v{z}}}
+\renewcommand{\mod}{\ {\rm mod} \ }
+
+\newcommand{\hmin}{h_{\rm min}}
+\newcommand{\hmax}{h_{\rm max}}
+\newcommand{\degree}[3]{{#1}\deg{#2}\min{#3}\sec}
+\newcommand{\hour}[3]{{#1}{\rm h}\,{#2}{\rm m}\,{#3}{\rm s}}
+
+\newcommand{\const}{\rm const}
+\renewcommand{\sun}{\ensuremath{\odot}}
+\renewcommand{\earth}{\ensuremath{\oplus}}
+
+\newcommand{\sect}[1]{Sect \ref{#1}}
+\newcommand{\vt}[1]{\boldsymbol{\mathrm{#1}}} 
+
+\newcommand{\cv}{c_{_V}}
+
+\newcommand{\nhalf}{{n+\sfrac{1}{2}}}
+
