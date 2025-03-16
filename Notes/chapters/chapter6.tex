@@ -1,4 +1,855 @@
-\chapter{Applications: Waves and Instabilities}
 
-\section{Sedov problem: Point explosion}
+
+\chapter{Time discretization}
+
+\section{Courant criterion (aka Courant–Friedrichs–Lewy condition)}
+
+The Courant criterion is the condition to select the timestep of a hydrodynamical simulation. We encountered it already when we derived the stability condition of the upwinding scheme. Given the Courant number, $C$, we found that the condition for stability was  $C \leq 1$. Recalling the definition of the Courant number
+
+\begin{equation}
+C \equiv \frac{v\Delta t}{\Delta x}
+\end{equation}
+
+The condition $C \leq 1$ means that $v\Delta t \leq \Delta x$. So, qualitatevely, it means that the timestep must be such that no flux crosses more than one grid cell at a time. This is a necessary, but not sufficient, intuitive condition for stability.
+
+The timestep is in practice given by choosing the Courant number and solving for 
+
+\begin{equation}
+\Delta t = \frac{C\Delta x}{v}
+\end{equation}
+
+where $v = \mbox{max}(u,c_s) $, where u is the velocity field.
+
+\section{Time evolution}
+
+Let us start simple, one planet, one star
+
+\beqn
+\frac{dx_i}{dt} &=& v\\
+\frac{dv_i}{dt} &=& -G\sum_{j\neq i} \frac{M_i}{|r_i-r_j|^3}\left(r_i-r_j \right)
+\eeqn
+
+and integrate
+
+\beqn
+x_i &=& x_i + \int_{t_0}^{t_1} \frac{dx_i}{dt} dt\\
+v_i &=& v_i + \int_{t_0}^{t_1} \frac{dv_i}{dt} dt\\
+t &=& t+\int_{t_0}^{t_1} dt
+\eeqn
+
+that is
+
+\beqn
+x_i &=& x_i + v_0 \Delta t + \mathcal{O}(\Delta t^2)\\
+v_i &=& v_i + a_0 \Delta t + \mathcal{O}(\Delta t^2)\\
+t &=& t+\Delta t 
+\eeqn
+
+\classcomm{Update the system with naive (Euler) scheme (2nd order
+  accurate), 3rd order RK, 4th order RK, and KDK}
+
+The Euler scheme is a truncation to first order. Expanding in series
+
+\beq
+x(t+\Delta t) = x(t) + \frac{dx}{dt}\Delta t +\frac{1}{2}\frac{d^2x}{dt^2}\Delta t^2+\frac{1}{3!}\frac{d^3x}{dt^3}\Delta t^3
+\eeq
+
+Given $f=dx/dt$, the Euler scheme simply discards the higher order
+terms, keeping the linear. This is equivalent to approximating the derivative at the present point \figp{fig:euler-time}
+
+\beq
+x(t_{i+1}) = x(t_i) + \Delta t f(x(t_i),t_i) 
+\eeq
+
+
+Notice that although for a single timestep the error is quadratic,
+over time the error accumulates, and becomes linear. If $x\propto
+f\Delta t$, and one needs $N=T/\Delta t$ timesteps to achieve the
+solution, then the error is the number of timesteps $T/\Delta t$ times
+the truncation error per timestep, $\Delta t^2$, i.e.,  
+$\mathcal{O}(\Delta t)$. 
+
+Every step advance assumes the object drifts at uniform velocity in
+$\Delta t$. The Euler scheme does not reproduce the curvature of the solution for
+large timesteps. A high-order scheme is needed. 
+
+Consider the evolution equation 
+
+\beq
+y(t+\Delta t ) = y(t) + \int_t^{t+\Delta t} f(t^\prime,y^\prime) \ dt^\prime 
+\label{eq:evolution}
+\eeq
+
+\noindent where $y(t)$ is known and $y(t+\Delta t)$ is desired. In
+addition, $y^\prime \equiv y(t^\prime)$ and 
+
+\beq
+f(y,t) \equiv \frac{dy}{dt}
+\label{eq:function}
+\eeq
+
+
+We approximate the integral as 
+
+\beq
+\bar{f} = \frac{1}{\Delta t}\int_t^{t+\Delta t} f(t^\prime,y^\prime) \ dt^\prime
+\label{eq:bar}
+\eeq
+
+
+\noindent where $\bar{f}$ is some approximation of $f(t^\prime,y^\prime)$ in the interval of
+integration. The evolution then becomes 
+
+\beq
+y(t+\Delta t ) = y(t) + \bar{f} \Delta t 
+\eeq
+
+\noindent or in subscript notation 
+
+\beq
+y_{n+1} = y_n + \bar{f} \Delta t 
+\eeq
+
+\section{Euler method}
+
+The Euler method uses $\bar{f} = f(t_n,y_n)$, which is equivalent to
+truncation at the first-order term in Taylor expansion 
+
+\beq
+y(t+\Delta t ) = y(t) + \frac{dy}{dt} \Delta t + \mathcal{O}(\Delta t^2)
+\eeq
+
+So this approximation has local truncation error of second order. Because it takes $N=T/\Delta t$ timesteps to reach a
+solution, the order of the accumulated error is 
+
+\beq
+N \ \mathcal{O}(\Delta t^2)  = \mathcal{O}(\Delta t)
+\eeq
+
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/euler_time.png}}
+  \end{center}
+  \caption[]{Euler method}
+  \label{fig:euler-time}
+\end{figure}
+
+\section{Middle point method}
+
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/Midpoint_method_illustration.png}}
+  \end{center}
+  \caption[]{Midpoint method}
+  \label{fig:midpoint-method}
+\end{figure}
+
+Another possibility is to use the slope of the derivative at the midpoint between present and future \figp{fig:midpoint-method}
+
+\beq
+\bar{f} = f(t_\nhalf,y_\nhalf)
+\eeq
+
+\noindent where $y_\nhalf =y(t+\Delta t/2)$. This is equivalent to the trapezoidal rule for integration 
+
+\beq
+\int_t^{t+\Delta t} f(t) dt  \approx \left(\frac{f(t_{n+1}) +  f(t_n)}{2}\right)\Delta t = f(t_\nhalf)\Delta t
+\eeq
+
+One can prove that this is equivalent to second order. If $y_\nhalf$
+is obtained by the forward Euler integration by half a timestep
+
+\beq
+y_\nhalf = y_n + f(t_n,y_n) \frac{\Delta t}{2} 
+\eeq
+
+\noindent then
+
+\beqn
+y_{n+1} &=& y_n + f(t_\nhalf,y_\nhalf )\Delta t \\
+             &=&y_n + f\left(t+\frac{\Delta t}{2},y_n + f(t_n,y_n) \frac{\Delta t}{2} \right) \Delta t \label{eq:xn1}\\
+\eeqn
+
+\noindent and because $f(t,y) \equiv d y/d t$,
+
+\beqn
+f\left(t+\frac{\Delta t}{2}, y(t) + f(y,t) \frac{\Delta t}{2}\right)&=&\frac{d}{d{\left(t+\frac{\Delta
+        t}{2}\right)}} \left(y(t) + f(y,t) \frac{\Delta t}{2}\right)\\
+&=&\frac{d y}{d t} + \frac{d f}{d t}\frac{\Delta t}{2}
+\eeqn
+
+Substituting into \eq{eq:xn1},
+
+\beq
+y_{n+1} = y_n + \frac{d y}{d t}\Delta t +
+\frac{d^2 y}{d t^2}\frac{\Delta t^2}{2} +
+\mathcal{O}(\Delta t^3)
+\eeq
+
+Which shows this approximation has local truncation error of third order. Because it takes $N=T/\Delta t$ timesteps to reach a
+solution, the order of the accumulated error is second order. 
+
+\beq
+N \ \mathcal{O}(\Delta t^3)  = \mathcal{O}(\Delta t^2)
+\eeq
+
+\subsection{Leapfrog}
+
+The leapfrog integration uses the midpoint rule to offset the position and velocities by half a timestep (hence leapfrog). In the system below
+
+\beqn
+v_{i+1/2} = v_{i-1/2} + a_i \Delta t \\
+x_{i+1} = x_i + v_{i+1/2} \Delta t
+\eeqn
+
+where $\ddot{x} = \dot{v} = F(x)$, and $\dot{x}=v$. The
+velocities are always calculated at half timesteps, and the positions (and hence accelerations) always at integer timesteps. 
+
+\subsubsection{Order of Leapfrog} 
+
+Applied to a gravitational problem, or any problem where the acceleration depends only on position,
+leapfrog in fact achieves 4th order accuracy. Consider $i=0$
+
+\beqn
+v_{1/2} = v_{-1/2} + g_0 \Delta t \\
+x_1 = x_0 + v_{1/2} \Delta t
+\eeqn
+
+and the second derivative $\ddot{x}=g$
+
+\beq
+x_1 - 2x_0 + x_{-1} = g_0 \Delta t^2 + \epsilon
+\label{eq:leap1}
+\eeq
+
+where $\epsilon$ is the truncation error. Expanding in Taylor the points $x_1$ and $x_{-1}$
+
+\beqn
+x_1 &=& x_0 + \frac{dx}{dt}\Delta t + \frac{d^2x}{dt^2}\frac{\Delta t^2}{2} + \frac{d^3x}{dt^3}\frac{\Delta t^3}{3!} + \mathcal{O}\left(\Delta t^4\right)\\
+x_{-1} &=& x_0 - \frac{dx}{dt}\Delta t + \frac{d^2x}{dt^2}\frac{\Delta t^2}{2} - \frac{d^3x}{dt^3}\frac{\Delta t^3}{3!} + \mathcal{O}\left(\Delta t^4\right)\\
+\eeqn
+
+Summing them
+
+\beq
+x_1 + x_{-1} = 2x_0 + \frac{d^2x}{dt^2}\Delta t^2 + \mathcal{O}\left(\Delta t^4\right)
+\label{eq:leap2}
+\eeq
+
+comparing \eq{eq:leap1} and \eq{eq:leap2}, the truncation error is $\mathcal{O}\left(\Delta t^4\right)$
+
+\subsection{Kick-drift-kick}
+
+The kick-drift-kick algorithm uses a version of leapfrog, taking first a half time step in velocity (kick)
+
+\beq
+v_{i+1/2} = v_i + a_i\frac{\Delta t}{2}
+\label{eq:kick1}
+\eeq
+
+\noindent then using that velocity to advance the position (drift)
+
+
+\beq
+x_{i+1} = x_i + v_{i+1/2} \Delta t 
+\label{eq:drift}
+\eeq
+
+\noindent and finally bringing the velocity to $i+1$ with another half-time step kick, now with acceleration computed in the future
+
+\beq
+v_{i+1} = v_{i+1/2} + a_{i+1}\frac{\Delta t}{2}
+\label{eq:kick2}
+\eeq
+
+
+The kick-drift-algorithm is this series of steps. Notice between \eq{eq:drift} and \eq{eq:kick2}, the acceleration is computed at point $i+1$. The 1st kick is an Euler step, the drift is a midpoint, and the last kick is an modified Euler, using the derivative at the future point. 
+
+\subsubsection{Time reversibility}
+
+The KDK algorith is time reversible. Notice that if you want to take the backsteps, starting from the second kick and setting $\Delta t \rightarrow -\Delta t$
+
+\beq
+v_{i+1/2} = v_{i+1} - a_{i+1}\frac{\Delta t}{2}
+\eeq
+
+\noindent all variables are present. Now the drift back in time
+
+\beq
+x_{i}= x_{i+1} -	v_{i+1/2} \Delta t
+\eeq
+
+\noindent again all variables are present. Finally the last kick back in time
+
+\beq
+v_{i} = v_{i+1/2} - a_{i}\frac{\Delta t}{2}
+\eeq
+
+\noindent both $x_i$ and $v_i$ are now back at the same spot. 
+
+
+Trying that with the Euler step does not work. Time-reversing Euler will lead to
+
+\beq
+x_i = x_{i+1} - v_i \Delta t
+\eeq
+
+\noindent needs $v_i$. One would instead do 
+
+\beq
+x_i = x_{i+1} - v_{i+1} \Delta t
+\eeq
+
+\noindent which is not the same operation. Similarly with the velocities, the reverse Euler timestep should be
+
+\beq
+v_i = v_{i+1} - a_i \Delta t
+\eeq
+
+\noindent but instead we would do 
+
+\beq
+v_i = v_{i+1} - a_{i+1} \Delta t
+\eeq
+
+\noindent which is again not the same operation. 
+
+The time reversibility of KDK leads to the property that the energy error is bound. As such, it is a powerful method for gravitational problems (although there is phase error). 
+
+\section{4th order Runge Kutta}
+
+The Euler method is equivalent to a shooting method, whereas the midpoint rule is equivalent to the trapezoidal rule. A better method would be the equivalent to the Simpson integration rule. This is the 4th order Runge-Kutta, which is the standard for numerical integration
+
+\beq
+x(t+\Delta t) = x(t) + \frac{1}{6}\left[f(x_1,t_1) + 2f(x_2,t_2) + 2f(x_3,t_3) +  f(x_4,t_4)   \right]\Delta t
+\eeq
+
+It advances by using 4 points in space (beginning end and two intermmediate) and three in time (beginning, middle point, and end)
+
+\beqn
+x_1 = x(t) &\quad& t_1 = t\\
+x_2 = x(t) + \frac{1}{2}f(x_1,t_1)\Delta t &\quad& t_2 = t+\frac{1}{2}\Delta t\\
+x_3 = x(t) + \frac{1}{2}f(x_2,t_2)\Delta t &\quad& t_3 = t+\frac{1}{2}\Delta t\\
+x_4 = x(t) + f(x_3,t_3)\Delta t &\quad& t_4 = t+\Delta t\\
+\eeqn
+
+The Simpson integration equivalency is evidenced if $f$ does not depend on $x$
+
+\beq
+x(t+\Delta t) = x(t) + \frac{1}{6}\left[f(t_1) + 2f(t_2) + 2f(t_3) +  f(t_4)\right]\Delta t
+\eeq
+
+and since $t_2=t_3=t_m$
+
+\beq
+x(t+\Delta t) = x(t) + \frac{1}{6}\left[f(t_1) + 4f(t_m) + f(t_4)\right]\Delta t
+\eeq
+
+which is the Simpson rule
+
+\beq
+\int_a^b x(t) dx \approx  \frac{b-a}{6}\left[f(a) + 4f(\frac{a+b}{2}) + f(b)\right]
+\eeq
+
+
+\section{Runge-Kutta methods}
+
+Both the Euler method and the middle-point method are examples of a
+larger family of algorithms known as Runge-Kutta methods. The general method
+considers \eq{eq:evolution}, \eq{eq:function}, and \eq{eq:bar}
+
+
+\beqn
+y(t+\Delta t ) &=& y(t) + \int_t^{t+\Delta t} f(y^\prime,t^\prime) \ dt^\prime \nonumber\\
+f(y,t) &\equiv& \frac{dy}{dt} \nonumber\\
+\bar{f} &\equiv& \frac{1}{\Delta t}\int_t^{t+\Delta t} f(y^\prime,t^\prime) \ dt^\prime \nonumber
+\eeqn
+
+\noindent and generalizes the solution by approximating the integral
+as a weighted sum of points along the way from $t$ to $t+\Delta t$
+
+\beq
+\bar{f} \approx \sum_{i=1}^N b_i  k_i
+\label{eq:barf}
+\eeq
+
+
+\noindent where
+
+\beq
+k_i = f \left(t_n+ c_i \Delta t ,  y_n + \Delta t \sum_{j=1}^{i-1} a_{ij} k_j \right) 
+\eeq
+
+%\noindent the points where the function is sampled are 
+
+%\beqn
+%t_i \equiv 
+%\eeqn
+
+These coefficients are arranged in a so-called {\it Butcher tableau}
+
+\[
+\begin{array}
+{c|ccccc}
+0\\
+c_2 & a_{21}\\
+c_3 &a_{31} &a_{32} \\
+\vdots & \vdots & &\ddots \\ 
+c_s& a_{s1}& a_{s2}& \cdots &a_{s,s-1}\\
+\hline
+& b_1 &b_2 &\cdots &b_{s-1} & b_s 
+\end{array}
+\]
+
+The numbers along the left side are the coefficients of $\Delta t$ in
+the first argument of $f$. The numbers along the bottom are the
+coefficients of the $k$s in the expression for the value of $y$ at the
+next step. The numbers in the middle of the array are the coefficients
+of the $k$s in second argument  of $f$.
+
+
+%The 4th order Runge-Kutta has tableau
+
+%\[
+%  \renewcommand\arraystretch{1.2}
+%\begin{array}
+%{c|cccc}
+%0\\
+%\frac{1}{2} & \frac{1}{2}\\
+%\frac{1}{2} &0 &\frac{1}{2} \\
+%1& 0& 0& 1\\
+%\hline
+%& \frac{1}{6} &\frac{1}{3} &\frac{1}{3} &\frac{1}{6} 
+%\end{array}
+%\]
+
+
+%In general, the main difficulty of the method is to calculate 
+
+%\beqn
+%x_i &\equiv& x(t+\alpha_i\Delta t) \\
+% &=& x + \beta_{i-1} k_{i-1} 
+%\eeqn
+
+The methods differ in
+
+\begin{itemize}
+\item the number of terms $N$ in the summation (the order of the method);
+\item the position $c_i$ of the nodes where the function is sampled,  and; 
+\item the weights $b_i$ give to each node;
+\end{itemize}
+
+
+We can immediately see that for the Euler method, $N=1$, $b_1 =1$ and
+$c_1 = 0$, making it a Runge-Kutta method of 1st order. The Butcher tableau for the
+Euler method is
+
+\[
+    \renewcommand\arraystretch{1.2}
+\begin{array}
+{c|c}
+0 &  \\
+\hline
+  & 1
+\end{array}
+\]
+
+
+The middle point method is also a Runge-Kutta, with $N=2$, with $b_1 = b_2 =
+1/2$, $c_1 = 0$ and $c_2 = 1$. These choices give the middle point
+
+\beq
+f(x_{1/2},t_{1/2}) = \frac{1}{2}\left(f(x_1,t_1) + f(x_2,t_2)\right)
+\eeq
+
+with $t_2 = t_1 + \Delta t$. The Butcher tableau is
+
+\[
+  \renewcommand\arraystretch{1.2}
+  \begin{array}
+{c|ccccc}
+0\\
+1& 1\\
+\hline
+  & \frac{1}{2} &\frac{1}{2}
+\end{array}
+\]
+
+Let us prove this rigorously, in a way that will also lay out the
+general method, which will be used for higher order Runge-Kutta
+methods. 
+
+\subsection{General method}
+
+The solution for the 2nd order method uses $N=2$, thus
+
+\beq
+y_{n+1} = y_n + \Delta t  \left( b_1 k_1 + b_2 k_2\right)
+\label{eq:expand}
+\eeq
+
+We first choose $c_1 = 0$, defining
+
+\beq
+k_1 \equiv f(t_1,y_1) 
+\eeq
+
+\noindent which we know since $t_1=t_n$ and $y_1=y_n$ are the initial conditions. We then use this to find $k_2$
+
+\beq
+k_2 \equiv f(t_n+c_2 \Delta t,y_n+\Delta t \ a_{21} \ k_1) 
+\eeq
+
+
+\noindent To find $c_2$, $b_1$, $b_2$ and $a_{21}$, we expand $y(t)$ in Taylor series.
+
+\beq
+y(t+\Delta t) = y(t) + \frac{d y}{d t}\Delta t +
+\frac{d^2 y}{d t^2}\frac{\Delta t^2}{2} +
+\mathcal{O}(\Delta t^3) 
+\label{eq:taylor}
+\eeq
+
+To make the two expressions, \eq{eq:expand} and \eq{eq:taylor} match, we need
+
+\beq
+\frac{d y}{d t}\Delta t +\frac{d^2 y}{d
+  t^2}\frac{\Delta t^2}{2}  = \Delta t \left(b_1 k_1 + b_2 k_2 \right)
+\eeq
+
+substituting $k_1 = f(t_1,y_1) $ and $k_2 =  f(t_2,y_2)$,
+
+\beq
+\frac{d y}{d t}\Delta t +\frac{d^2 y}{d t^2}\frac{\Delta t^2}{2}  = b_1 \Delta t f(t_1,y_1) + b_2 \Delta t
+f(t_2,y_2)
+\eeq
+
+and since $f=\frac{d y}{d t}$, then the second derivative is 
+
+\beqn
+\frac{d^2 y}{d  t^2} &=& \frac{d f}{d t}  \\
+ &=& \frac{\partial f}{\partial t}  + \frac{\partial y}{\partial t}\frac{\partial f}{\partial  y}\\
+  &=& \frac{\partial f}{\partial t}  + f \frac{\partial f}{\partial y}
+\eeqn
+
+Substituting the second derivative on the LHS 
+
+\beq
+f\Delta t + \left(\frac{\partial f}{\partial t}  + f \frac{\partial f}{\partial y}\right)\frac{\Delta t^2}{2}  = b_1 \Delta t f(t_1,y_1) + b_2 \Delta t
+f(t_2,y_2)
+\label{eq:mu}
+\eeq
+
+now use the multi-variable Taylor expansion for $f(t_2,y_2)$
+
+\beq
+f(x_0+\Delta x,y_0+\Delta y) = f(x_0,y_0) + \Delta x \frac{\partial  f}{\partial x} +\Delta y \frac{\partial  f}{\partial y} + \mathcal{O}(\Delta^2) 
+\eeq
+
+so that
+
+\beqn
+f(t_2,y_2) &=& f(t_1+c_2\Delta t,y_1+\Delta t \ a_{21} \ k_1)\\
+&\approx&  f(t_1,y_1) +  c_2\Delta t \frac{\partial  f}{\partial t} + \Delta t \ a_{21} k_1 \frac{\partial  f}{\partial y} 
+\eeqn
+
+
+substituting into \eq{eq:mu}
+
+
+\beqn
+f\Delta t + \left(\frac{\partial f}{\partial t}  + f \frac{\partial f}{\partial y}\right)\frac{\Delta t^2}{2}  &=& b_1\Delta t f + b_2\Delta t \left(f +  c_2\Delta t \frac{\partial  f}{\partial t} + \Delta t \ a_{21} k_1 \frac{\partial  f}{\partial y} \right)\\
+&=&(b_1+b_2)\Delta t f + \left(b_2 c_2 \frac{\partial
+    f}{\partial t} + b_2 \ a_{21} f \frac{\partial
+    f}{\partial y} \right)\Delta t^2
+\eeqn
+
+where we also substituted $k_1=f$. These expressions are equivalent if 
+
+\beqn
+b_1 + b_2 &=& 1 \\
+b_2 \ c_2 &=& \frac{1}{2}\\
+b_2 \ a_{21} &=& \frac{1}{2} 
+\eeqn
+
+Notice that the
+solution is not unique, because these are three equations and four
+variables. The choice for the second order Runge-Kutta using middle point is 
+$b_1=b_2 = 1/2$, $c_2=a_{21}=1$.  
+
+\section{Runge-Kutta 3rd order}
+
+The solution for the 3rd order method uses $N=3$, thus
+
+\beq
+y_{n+1} = y_n + \Delta t  \left( b_1 k_1 + b_2 k_2 + b_3 k_3\right)
+\label{eq:expand}
+\eeq
+
+with
+
+\beqn
+k_1 &=& f(t_1,y_1)\\
+k_2 &=& f(t_1 + c_2\Delta t,y_1+\Delta t a_{21} k_1)\\
+k_3 &=& f(t_1 + c_3\Delta t,y_1+\Delta t \left(a_{31} k_1+a_{32} k_2\right)) 
+\eeqn
+
+\noindent Again, to find the coefficients, we expand $y(t)$ in Taylor
+series, now to 3rd order
+
+\beq
+y(t+\Delta t) = y(t) + \frac{d y}{d t}\Delta t +
+\frac{d^2 y}{d t^2}\frac{\Delta t^2}{2} +
+\frac{d^3 y}{d t^3}\frac{\Delta t^3}{6} +
+\mathcal{O}(\Delta t^4) 
+\label{eq:taylor3}
+\eeq
+
+To make the two expressions match, we need
+ 
+\beq
+\frac{d y}{d t} +\frac{d^2 y}{d t^2}\frac{\Delta t}{2}+\frac{d^3 y}{d t^3}\frac{\Delta t^2}{6}  = b_1 k_1 + b_2 k_2 + b_3 k_3 
+\eeq
+
+
+We replace the operator $d/dt = \partial_t + f \partial_y$, leading to 
+
+\beqn
+\frac{d y}{d t} &=& \left(\partial_t + f \partial_y  \right) y\\
+&=& f 
+\eeqn
+
+\beqn
+\frac{d^2 y}{d t^2} &=& \left(\partial_t + f \partial_y  \right) f \\
+&=&f_t + f f_y 
+\eeqn
+
+\beqn
+\frac{d^3 y}{d t^3} &=& \left(\partial_t + f \partial_y  \right) \left(f_t + f f_y \right)\\
+&=& f_{tt} + 2f f_{yt} + f_tf_y + ff_y^2 + f^2 f_{yy} 
+\eeqn
+
+now use the multi-variable Taylor expansion for $f(t_2,y_2)$ to 3rd
+order 
+
+\beq
+f(x_0+\Delta x,y_0+\Delta y) = f(x_0,y_0) + \Delta x f_x +\Delta y f_y + \frac{1}{2}\Delta x^2 f_{xx} +\frac{1}{2}\Delta y^2 f_{yy} + \Delta x\Delta y f_{xy} + \mathcal{O}(\Delta^3) 
+\eeq
+
+so we have the expressions for $k_2$ and $k_3$
+
+\beq
+k_2 = f + c_2\Delta t f_t + \Delta t a_{21} f f_y + \frac{1}{2}f_{tt}c_2^2 \Delta t^2 + \frac{1}{2}f^2f_{yy}a_{21}^2\Delta t^2+ff_{yt}c_2\Delta t^2 a_{21}
+\eeq
+
+\beq
+k_3 = f + c_3\Delta t f_t + \Delta t \left(a_{31} f + a_{32}k_2 \right) f_y + \frac{1}{2}f_{tt}c_3^2 \Delta t^2 + \frac{1}{2}f^2f_{yy}\left(a_{31} f + a_{32}k_2\right)^2\Delta t^2+ff_{yt}c_3\Delta t^2 \left(a_{31} f + a_{32}k_2 \right)
+\eeq
+
+Substituting $dy/dt$, $d^2y/dt^2$, $d^3y/dt^3$ on the LHS, and $k_2$ and
+$k_3$ on the RHS 
+
+\beqn
+f + \left(f_t + f f_y\right)\frac{\Delta t}{2} + \left(f_{tt} + 2f f_{yt} + f_tf_y + ff_y^2 + f^2 f_{yy} \right) \frac{\Delta t^2}{6}&=& \nonumber \\
+%
+b_1 f &+&\nonumber\\
+b_2 \left(f + c_2 \Delta t f_t + \Delta t a_{21} f f_y + f_{tt} c_2^2\frac{\Delta t^2}{2} + f^2 f_{yy}a_{21}^2 \frac{\Delta t^2}{2} + ff_{yt}c_2 a_{21}\Delta t^2\right) &+& \nonumber \\
+b_3 \left[f + c_3 \Delta t f_t + \Delta t  \left(a_{31} f + a_{32}k_2 \right) f_y + f_{tt} c_3^2\frac{\Delta t^2}{2} + f_{yy}\left(a_{31} f + a_{32}k_2 \right)^2 \frac{\Delta t^2}{2} + ff_{yt}c_3 \left(a_{31} f + a_{32}k_2 \right)\Delta t^2\right]&&\nonumber\\
+\eeqn
+
+Expanding now the terms with $k_2$ keeping only the terms up to
+$\Delta t^2$,
+
+\beqn
+f + \left(f_t + f f_y\right)\frac{\Delta t}{2} + \left(f_{tt} + 2f f_{yt} + f_tf_y + ff_y^2 + f^2 f_{yy} \right) \frac{\Delta t^2}{6}&=& \nonumber \\
+%
+b_1 f &+&\nonumber\\
+b_2 \left(f + c_2 \Delta t f_t + \Delta t a_{21} f f_y + f_{tt} c_2^2\frac{\Delta t^2}{2} + f^2 f_{yy}a_{21}^2 \frac{\Delta t^2}{2} + ff_{yt}c_2 a_{21}\Delta t^2\right) &+& \nonumber \\
+b_3 \left(f + c_3 \Delta t f_t + \Delta t  a_{31} f f_y + f_{tt}  c_3^2\frac{\Delta t^2}{2} + f^2 f_{yy}a_{31}^2 \frac{\Delta t^2}{2} +  ff_{yt}c_3 a_{31}  \Delta t^2 + \right.&&\nonumber\\
+\left. f\Delta t^2 f_{yt}c_3 a_{32}+\Delta t^2  a_{31}a_{32}f^2f_{yy}+f^2 \frac{\Delta t^2}{2}a_{32}^2f_{yy}+\Delta t a_{32}f_y f + \Delta t^2 a_{32}f_yf_t c_2 + \Delta t^2a_{32}f_y^2fa_{21}\right)&&\nonumber\\
+\eeqn
+
+The coefficients that multiply $f$, $f_t$, $ff_y$, $f_{tt}$, $ff_{yt}$, $f_tf_y$, $ff_y^2$,
+and $f^2f_{yy}$ lead to the system 
+
+\beqn
+b_1 + b_2 + b_3 &=& 1\\
+b_2 c_2 + b_3 c_2 &=& \frac{1}{2}\\
+b_2 a_{21} + b_3 a_{31} + b_3 a_{32} &=& \frac{1}{2}\\
+b_2 c_2^2 + b_3 c_3^2 &=& \frac{1}{3}\\
+b_2 c_2 a_{21} + b_3 c_3 a_{31} + b_3 c_3 a_{32} &=& \frac{1}{6}\\
+b_3 a_{32} c_2 &=& \frac{1}{6}\\
+b_3 a_{32} a_{21} &=& \frac{1}{6}\\
+b_2 a_{21}^2 + b_3 a_{31}^2 + 2b_3 a_{31} a_{32} + b_3a_{32}^2 &=& \frac{1}{3}
+\eeqn
+
+This system defines the coefficients for 3rd order Runge-Kutta
+methods. Kutta's original method was $b_1 = b_3 = 1/6$, $b_2 = 2/3$,
+$c_1 = 1/2$, $c_2 = 1$, $a_{21} = 1/2$, $a_{31}=-1$, $a_{32}=2$. The
+Butcher tableau is
+
+
+\[
+  \renewcommand\arraystretch{1.2}
+  \begin{array}
+{c|ccccc}
+0\\
+\sfrac{1}{2}& \sfrac{1}{2}\\
+1& -1 & 2\\
+\hline
+  & \sfrac{1}{6} &\sfrac{2}{3} & \sfrac{1}{6}
+\end{array}
+\]
+
+Other 3rd order methods are Heun's
+
+
+\[
+  \renewcommand\arraystretch{1.2}
+  \begin{array}
+{c|ccccc}
+0\\
+\sfrac{1}{3}& \sfrac{1}{3}\\
+\sfrac{2}{3}& 0 & \sfrac{2}{3}\\
+\hline
+  & \sfrac{1}{4} &0 & \sfrac{3}{6}
+\end{array}
+\]
+
+and Ralston's
+
+\[
+  \renewcommand\arraystretch{1.2}
+  \begin{array}
+{c|ccccc}
+0\\
+\sfrac{1}{2}& \sfrac{1}{2}\\
+\sfrac{3}{4}& 0 & \sfrac{3}{4}\\
+\hline
+  & \sfrac{2}{9} &\sfrac{1}{3} & \sfrac{4}{9}
+\end{array}
+\]
+
+All these methods are solution to the system. 
+
+\section{Runge-Kutta 4th order}
+
+The 4th order method follows the same procedure. It uses $N=4$, so the summation is 
+
+\beq
+y_{n+1} = y_n + \Delta t  \left( b_1 k_1 + b_2 k_2 + b_3 k_3 + b_4k_4\right)
+\label{eq:expand}
+\eeq
+
+with
+
+\beqn
+k_1 &=& f(t_1,y_1)\\
+k_2 &=& f(t_1 + c_2\Delta t,y_1+\Delta t a_{21} k_1)\\
+k_3 &=& f(t_1 + c_3\Delta t,y_1+\Delta t \left(a_{31} k_1+a_{32} k_2\right)) \\
+k_4 &=& f(t_1 + c_4\Delta t,y_1+\Delta t \left(a_{41} k_1+a_{42} k_2+a_{43} k_3\right)) 
+\eeqn
+
+\noindent Again, to find the coefficients, we expand $y(t)$ in Taylor
+series, now to 4th order
+
+\beq
+y(t+\Delta t) = y(t) + \frac{d y}{d t}\Delta t +
+\frac{d^2 y}{d t^2}\frac{\Delta t^2}{2} +
+\frac{d^3 y}{d t^3}\frac{\Delta t^3}{6} +
+\frac{d^4 y}{d t^4}\frac{\Delta t^4}{24} +
+\mathcal{O}(\Delta t^5) 
+\label{eq:taylor3}
+\eeq
+
+To make the two expressions match, we need
+ 
+\beq
+\frac{d y}{d t} +\frac{d^2 y}{d t^2}\frac{\Delta t}{2}+\frac{d^3 y}{d t^3}\frac{\Delta t^2}{6}+\frac{d^4 y}{d t^4}\frac{\Delta t^3}{24}  = b_1 k_1 + b_2 k_2 + b_3 k_3 +b_4k_4
+\eeq
+
+
+To get $d^4y/dt^4$, we use  $d/dt= \partial_t + f \partial_y$ on the
+expression we found for $d^3y/dt^3$, leading to 
+
+\beqn
+\frac{d^4 y}{d t^4} &=& \left(\partial_t + f \partial_y  \right) \left(f_{tt} + 2f f_{yt} + f_tf_y + ff_y^2 + f^2 f_{yy} \right)\\
+&=& f_{ttt} + 3f_tf_{yt} + 3ff_{ytt} + f_{tt}f_y + f_tf_y^2 +5ff_yf_{yt} + 3ff_tf_{yy} + 3f^2f_{yyt} + ff_y^3 +4f^2f_yf_{yy} + f^3 f_{yyy}\nonumber\\
+\eeqn
+
+now use the multi-variable Taylor expansion for $f(t,y)$ to 3rd order
+to define $k_2$, $k_3$, and $k_4$
+
+\beqn
+f(x_0+\Delta x,y_0+\Delta y) &=& f(x_0,y_0) \nonumber\\
+&+&\Delta x f_x +\Delta y f_y \nonumber\\
+&+& \frac{1}{2}\Delta x^2 f_{xx} +\frac{1}{2}\Delta y^2 f_{yy} +\Delta x\Delta y f_{xy}\nonumber\\
+&+& \frac{1}{6}\Delta x^3 f_{xxx} +\frac{1}{6}\Delta y^3 f_{yyy} +\frac{1}{2}\Delta x^2\Delta y f_{xxy}+\frac{1}{2}\Delta x\Delta y^2 f_{xyy}\nonumber\\
+&+& \mathcal{O}(\Delta^4) 
+\eeqn
+
+
+From now on the algebra is (very) messy and tedious, but
+straightforward. The resulting butcher tableau is
+
+
+\[
+  \renewcommand\arraystretch{1.2}
+  \begin{array}
+{c|cccccc}
+0\\
+\sfrac{1}{2}& \sfrac{1}{2}\\
+\sfrac{1}{2}& 0 & \sfrac{1}{2} & 0 \\
+1& 0 & 0 & 1\\    
+\hline
+  & \sfrac{1}{6} &\sfrac{1}{3} & \sfrac{1}{3} & \sfrac{1}{6}
+\end{array}
+\]
+
+
+Notice that the 4th order Runge-Kutta is equivalent to the Simpson
+integration rule. The points are
+
+\[
+x(t+\Delta t) = x(t) + \frac{1}{6}\left[ f(x_1^\prime,t_1^\prime) +
+  2f(x_2^\prime,t_2^\prime) + 2f(x_3^\prime,t_3^\prime) +
+  f(x_4^\prime,t_4^\prime)\right]\Delta t
+\]
+
+\beqn
+x_1^\prime&=& x(t)\\
+x_2^\prime&=& x(t)+\frac{1}{2}f(x_1^\prime,t_1^\prime) \Delta t\\
+x_3^\prime&=& x(t)+\frac{1}{2}f(x_2^\prime,t_2^\prime) \Delta t\\
+x_4^\prime&=& x(t)+f(x_3^\prime,t_3^\prime) \Delta t
+\eeqn
+
+and
+
+\beqn
+t_1^\prime&=& t\\
+t_2^\prime&=& t+\frac{1}{2}\Delta t\\
+t_3^\prime&=& t+\frac{1}{2}\Delta t\\
+t_4^\prime&=& t+\Delta t
+\eeqn
+
+If $f$ does not depend on $x$
+
+
+\[
+x(t+\Delta t) = x(t) + \frac{1}{6}\left[ f(t_1^\prime) +
+  4f(t_m^\prime) +
+  f(t_4^\prime)\right]\Delta t
+\]
+
+where $t_m = t_2 = t_3$ is the middle point. If $h = \Delta t/2$, and
+setting $t_1 = t_a$ and $t_4 = t_b$
+
+\[
+x(t+\Delta t) = x(t) + \frac{1}{3}\left[ f(t_a^\prime) +
+  4f(t_m^\prime) +
+  f(t_b^\prime)\right]h
+\]
+
+which is Simpson's rule. The 2/2 split comes from considering a
+different point in space.
 

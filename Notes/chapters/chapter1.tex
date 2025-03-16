@@ -739,56 +739,5 @@ After its journey, a fluid parcel lies on the same adiabat as it started out.
 This statement is only true if there is no heating or cooling. Heating or cooling
 affect the entropy. So will shocks, which do not conserve entropy.
 
-A simple heat exchange is to consider that the heat flux $\v{F}$ inside a
-fluid can usually be assumed to follow Fick's law, i.e., proportional
-to the gradient, 
 
-\beq
-\v{F} = -K\grad{T}
-\eeq
-
-\noindent where $K$ is the coefficient of thermal conductivity (units erg s$^{-1}$cm$^{-1}$ K$^{-1}$). The heat loss
-rate from a volume is the heat flux integrated over the surface
-
-\beq
-\oint \v{F}\cdot d\v{A} = \int  \Div{\v{F}} dV
-\eeq
-
-\noindent Notice that $\Div{\v{F}}$ has units of erg s$^{-1}$
-cm$^{-3}$. Thus the heat gain and loss that
-we called $H-C$ (in units of erg s$^{-1}$ g$^{-1}$) in the energy equation is 
-$\rho^{-1}\Div{\v{F}}$
-
-\beq
-\frac{De}{Dt} = - \frac{p}{\rho} \Div{\v{u}} -\frac{1}{\rho}\Div{\v{F}}
-\eeq
-
-For the case considered, this term simply becomes $K\Laplace{T}$. For
-incompressible fluids, this becomes 
-
-\beq
-\rho\frac{De}{Dt} = K\Laplace{T}
-\eeq
-
-For no bulk flows in 1D (so Eulerian=Lagrangian, canceling the
-$\v{u}\cdot\del$ term), and considering $e=c_v T$, this becomes the
-celebrated heat equation
-
-\beq
-\frac{\partial T(x,t)}{\partial t} = \chi \frac{\partial^2 T(x,t)}{\partial x^2}
-\eeq
-
-\noindent where $\chi = K/c_v \rho$ is the coefficient of thermal
-diffusivity.  
-
-The steady-state equilibrium solution is to
-zero to the second derivative, i.e., constant gradient. Valleys are
-filled, peaks are eroded. So is the nature of diffusion: it tends to
-smooth gradients. 
-
-In astrophysics diffusion processes tend to be slow, because the
-dimensions are too large, but diffusion is important numerically, and
-many planetary processes are diffusion-dominated. Heat transport in
-astrophysics is often radiative, in which case the energy flux $\v{F}$ is
-the usual flux from radiative transfer theory. 
 
