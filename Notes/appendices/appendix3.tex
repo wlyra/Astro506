@@ -1,0 +1,664 @@
+
+\chapter{Microphysics derivation of the Hydro equations}
+
+\section{Distribution function}
+
+To describe the state of the gas statistically, we define the distribution function $f (\v{x}, \v{v}, t)$ such that $f d\v{x} d\v{v}$ is the average number of particles contained in a volume element $d\v{x}$ about $\v{x}$ and a velocity-space element $d\v{v}$ about $\v{v}$ at time $t$. Macroscopic properties of the gas can be computed from $f (\v{x}, \v{v}, t)$, e.g.:
+
+\begin{eqnarray}
+n(\v{x}, t) &=& \int_{-\infty}^\infty f (\v{x}, \v{v}, t) \ d\v{v} \\
+\rho(\v{x}, t) &=& m \ n(\v{x}, t)\\
+\v{u}(\v{x}, t) &=& \frac{1}{n}\int_{-\infty}^\infty f (\v{x}, \v{v}, t) \ \v{v} \ d\v{v} = \langle \v{v} \rangle 
+\end{eqnarray}
+
+
+\noindent i.e. the number density of the particles $n$, the mass density $\rho$ (where $m$ is the mass of a single particle) and the average velocity of a gas parcel $\v{u}$ (= macroscopic flow velocity). 
+
+\noindent We demand that $f \geq 0$ and that $f \rightarrow 0$ as the components of the particle velocity tends to infinity, sufficiently rapidly to guarantee that a finite number of particles has a finite energy.
+
+\noindent To study macroscopic properties of the gas it is useful to decompose the particle velocity $\v{v}$ into the average velocity $\v{u}$ and a random velocity relative to the mean flow $\v{w}$
+
+
+\begin{equation}
+\v{v} = \v{u} + \v{w}
+\end{equation}
+
+\subsection{Boltzmann Equation}
+
+We now search for an equation describing the changes of $f (\v{x}, \v{v}, t)$ with time. Consider a group of particles located in a phase-space volume element $(d\v{x}_0, d\v{v}_0)$ around ($\v{x}_0, \v{v}_0$). We assume that an external force $\v{F}(\v{x}, t)$ is acting on the particles so that they experience an acceleration $\v{a}(\v{x}, t) = \v{F}(\v{x}, t)/m$. For the moment, we ignore collisions (and interactions) between the particles. The phase-space element will evolve into ($d\v{x},d\v{v}$) around ($\v{x},\v{v}$) where
+
+\begin{eqnarray}
+\v{x} &=& \v{x}_0 + \v{v}_0 dt \\
+\v{v} &=& \v{v}_0 + \v{a} dt 
+\end{eqnarray}
+
+\noindent Because of the Hamiltonian nature of the coordinates $\v{x},\v{v}$, the transformation conserves volume in phase space (Liouville's theorem)
+
+\begin{equation}
+d\v{x} \ d\v{v} = d\v{x}_0 \ d\v{v}_0
+\end{equation}
+
+\noindent The number of particles inside the original phase-space element is
+
+\begin{equation}
+dN_0 =f(\v{x}_0,\v{v}_0,t_0)\ d\v{x}_0 \ d\v{v}_0 
+\end{equation}
+
+\noindent if the number of particles is conserved $dN_0 = dN$ where
+
+\begin{eqnarray}
+dN &=& f(\v{x},\v{v},t) \ d\v{x} \ d\v{v} \\
+&=& f(\v{x}_0 +\v{v}_0 dt,\v{v}_0 +\v{a}dt,t_0 +dt)\ d\v{x} \ d\v{v}
+\end{eqnarray}
+
+
+\noindent Together with Liouville's theorem, this implies that
+
+\begin{equation}
+f(\v{x}_0 + \v{v}_0dt,\v{v}_0 +\v{a}dt,t_0 + dt)=f(\v{x}_0,\v{v}_0,t_0)
+\end{equation}
+
+
+\noindent i.e. in the absence of collisions the phase-space density of a group
+of particles is {\bf invariant}; that is
+
+
+\begin{equation}
+\frac{Df}{Dt} = 0 
+\end{equation}
+
+
+\noindent Expanding the advective derivative
+
+\begin{equation}
+\boxed{
+\frac{\partial f}{\partial t} + \v{\dot{x}}\cdot\del_x f + \v{\dot{v}}\cdot\del_v f = 0 
+}
+\end{equation}
+
+\noindent which is known as the {\bf collisionless Boltzmann's
+  equation}. It is useful to write it in component form  %, or
+%{\bf Vlasov’s equation}.
+
+
+
+\begin{equation}
+\frac{\partial f}{\partial t} + \dot{x}_i\frac{\partial}{\partial x_i}f + \dot{v}_i\frac{\partial}{\partial v_i} f = 0 
+\end{equation}
+
+\noindent Notice that the equation can be written as 
+
+\begin{equation}
+\frac{\partial f}{\partial t} + \del_{6D}\cdot \left( f \v{W} \right) = 0 
+\end{equation}
+
+\noindent where $\v{W} = (\v{x},\v{v})$ is a 6D state vector and $\del_{6D}$ is a 6D divergence. This equation has the form of the continuity equation. Boltzmann's equation is derived under the condition that no particle can jump in phase space. Particles can only go smoothly (continuously) from one place to another. Thus, the Boltzmann equation is just the continuity equation of the flow of particles in phase space. 
+
+
+\subsubsection{Collisions}
+
+When particles suffer a collision during $dt$ their velocities will be
+changed and they will not, in general, end up in the velocity element
+$d\v{v}$ centered around $\v{v}$ but in a different velocity element
+$d\v{v}^\prime$ centered around $\v{v}^\prime$ with $\v{v}^\prime \neq
+\v{v}$. On the other hand, particles not contained in the original
+element $d\v{v}_0$ may end up in $d\v{v}$ due to
+collisions. Therefore, $f$ is no longer invariant. To take these
+processes into account we have to add a term on the right-hand side of
+the Boltzmann equation which gives the net rate at which particles are entering into the phase-space element under consideration. We write this term symbolically as
+
+\begin{equation}
+\left(\frac{Df}{Dt}\right)_{\rm coll} 
+\end{equation}
+
+\noindent and obtain the Boltzmann transport equation
+
+\begin{equation}
+\frac{\partial f}{\partial t} + \v{v}\cdot\del_x f + \v{a}\cdot\del_v f = \left(\frac{Df}{Dt}\right)_{\rm coll} 
+\end{equation}
+
+\subsubsection{The collision integral}
+
+The transport equation is of little use until we specify the right-hand side. Let us find an expression for it.
+
+\paragraph{Dynamics of binary collisions}
+
+We consider elastic collisions between two classic point particles. Such a collision is subject to mass, momentum, and energy conservation
+
+\begin{eqnarray}
+m_1\v{v}_1 + m_2\v{v}_2 &=& m_1\v{v}_1^\prime + m_2\v{v}_2^\prime\\
+\frac{1}{2}\left( m_1v^2_1 + m_2v^2_2 \right) &=& \frac{1}{2}\left(m_1v_1^{\prime 2} + m_2v_2^{\prime 2}\right)
+\end{eqnarray}
+
+where $m_1$ and $m_2$ are the masses of the two particles (labeled ‘1’ and ‘2’), $\v{v}_1$ and $\v{v}_2$ are their velocities before the collision, and $\v{v}^\prime_1$ and $\v{v}^\prime_2$ their velocities after the collision. 
+
+For the description of the collision it is useful to define the relative velocity of the two
+particles as
+
+\begin{equation}
+q_{21} = \v{v}_2-\v{v}_1
+\end{equation}
+
+\paragraph{Basic Form of the Collision Integral}
+
+The right-hand side of Boltzmann's equation is defined as the net rate at which particles are entering into the phase-space element under consideration. Thus, we can write
+
+
+\begin{equation}
+\left(\frac{Df}{Dt}\right)_{\rm coll}  = R_{\rm in} - R_{\rm out}
+\end{equation}
+
+
+\noindent where $R_{\rm in}$ and $R_{\rm out}$ are the rates at which particles are scattered in and out of a given phase-space element due to collisions.
+
+First, we calculate the rate at which particles of type 1 are scattered out of $d\v{x}_1 d\v{v}_1$. For each particle of type 1 the number of particles of type 2 moving with velocities in the range ($\v{v}_2, \v{v}_2 + d\v{v}_2$), incident within a range of impact parameters $(b, b + db)$ and within azimuth range $d\phi$ in a unit time is 
+
+\begin{equation}
+(f_2 \ d\v{v}_2) \ q \ b \ db \ d\phi
+\end{equation}
+
+\noindent  where $q = |\v{v}_2-\v{v}_1|$ and $f_2 \equiv f(\v{x},\v{v}_2,t)$. The total number of collisions is given by integrating over all impact parameters, azimuths and incident velocities, and then multiplying by the number of particles of type 1, i.e. 
+
+\begin{equation}
+f_1 d\v{x}_1 d\v{v}_1 
+\end{equation}
+
+We obtain
+
+\begin{equation}
+R_{\rm out}  d\v{x}_1 d\v{v}_1 = \int f_1 f_2 \ q \ b \ db \ d\phi \ d\v{v}_2 d\v{x}_1 d\v{v}_1 
+\end{equation}
+
+\noindent $R_{\rm in}$ can be evaluated by considering the inverse enounters, i.e. collisions where initial velocities $\v{v}_1^\prime$ and $\v{v}_2^\prime$ are changed to the final values $\v{v}_1$ and $\v{v}_2$ within the considered phase-space element. We find
+
+\begin{equation}
+R_{\rm in} d\v{x}_1 d\v{v}_1  = \int f_1^\prime f_2^\prime \ q^\prime \ b \ db \ d\phi \ d\v{v}_2^\prime d\v{x}_1 d\v{v}_1^\prime 
+\end{equation}
+
+\noindent  where $f_i^\prime \equiv f(\v{x},\v{v}_i^\prime,t)$. It can
+be shown that $q = q^\prime$ and that $d\v{v}_1 d\v{v}_2 = d\v{v}_1^\prime
+d\v{v}_2^\prime$. Therefore we can re-write $R_{\rm in}$ as
+
+\begin{equation}
+R_{\rm in} d\v{x}_1 d\v{v}_1  = \int f_1^\prime f_2^\prime \ q \ b \ db \ d\phi \ d\v{v}_2 d\v{x}_1 d\v{v}_1^\prime 
+\end{equation}
+
+\noindent  Thus we obtain
+
+\begin{equation}
+\left(\frac{Df}{Dt}\right)_{\rm coll} = \int \left(f_1^\prime f_2^\prime-f_1f_2 \right)q \ b \ db \ d\phi \ d\v{v}_2
+\end{equation}
+
+\noindent  Introducing the cross section $\sigma(\Omega)d\Omega = bdbd\phi$ instead of the impact parameter and azimuth we can write the Boltzmann equation, accounting for binary collisions, as
+
+\begin{equation}
+\boxed{
+\left(\frac{Df}{Dt}\right)_{\rm coll} = \int \left(f_1^\prime f_2^\prime-f_1f_2 \right)q \sigma(\Omega)d\Omega \ d\v{v}_2
+}
+\end{equation}
+
+\paragraph{Properties of the Collision Integral}
+
+Let $Q(\v{v})$ be any function of the particle velocity $\v{v}$ and define
+
+\begin{eqnarray}
+I &\equiv& \int Q(\v{v}_1) \left(f_1^\prime f_2^\prime-f_1f_2 \right)q \sigma(\Omega)d\Omega \ d\v{v}_1\ d\v{v}_2 \\
+&=& \int Q(\v{v}_1)  \left(\frac{Df}{Dt}\right)_{\rm coll}\ d\v{v}_1
+\end{eqnarray}
+
+
+\noindent  If we just interchange the labeling 1 and 2 of the particles then obviously the value of $I$ does not change. Adding these two expressions we get
+ 
+\begin{equation}
+I = \frac{1}{2}\int \left[Q(\v{v}_1)-Q(\v{v}_2)\right] \left(f_1^\prime f_2^\prime-f_1f_2 \right)q \sigma(\Omega)d\Omega \ d\v{v}_1\ d\v{v}_2 
+\end{equation}
+ 
+ 
+\noindent  If we replace the collision by its inverse the integral still has the same value because for every collision exist an inverse collision with the same cross section. Therefore we get
+
+\begin{equation}
+I = \frac{1}{2}\int \left[Q(\v{v}_1^\prime)-Q(\v{v}_2^\prime)\right] \left(f_1f_2-f_1^\prime f_2^\prime \right)q \sigma(\Omega)d\Omega \ d\v{v}_1 \ d\v{v}_2 
+\end{equation}
+
+ 
+\noindent  Adding the two expressions
+
+\begin{equation}
+I = -\frac{1}{4}\int \left[\delta Q(\v{v}_1)+\delta Q(\v{v}_2)\right] \left(f_1^\prime f_2^\prime -f_1f_2 \right)q \sigma(\Omega)d\Omega \ d\v{v}_1 \ d\v{v}_2 
+\end{equation}
+
+\noindent  where we have defined $\delta Q(\v{v}) =
+Q(\v{v}^\prime)-Q(\v{v})$. By definition
+
+\begin{equation}
+\delta Q(\v{v}_1)+ \delta Q(\v{v}_2) = \left[Q(\v{v}_1^\prime)+ Q(\v{v}_2^\prime)\right]  -\left[Q(\v{v}_1)+ Q(\v{v}_2)\right] 
+\end{equation}
+
+ \noindent  Thus, if $Q$ is a quantity which is conserved during the collision (mass, momentum, energy), then $\delta Q(\v{v}_1)+ \delta Q(\v{v}_2) = 0$, i.e. the integrand in the collision integral vanishes so consequently $I = 0$. We will use this property when deriving the conservation laws of a fluid from the Boltzmann equation.
+
+\subsection{Moments of the Boltzmann Equation}
+
+The equations of fluid dynamics can be derived by calculating moments of the Boltzmann equation for quantities that are conserved.
+
+\subsubsection{The Conservation Theorem}
+
+We form moments of the Boltzmann equation by multiplying by a quantity $Q$ and integrating 
+
+\begin{equation}
+\int Q \left( \frac{\partial f}{\partial t} + \v{v}\cdot\del_x f + \v{a}\cdot\del_v f \right) d\v{v}  = 0
+\end{equation}
+
+In the following discussion we assume that $Q$ is conserved. The moment equation then can be transformed into the conservation theorem. For that, we split the equation above into three integrals. Call this Eq (1)  
+
+\begin{equation}
+\int Q \frac{\partial f}{\partial t}d\v{v}  + \int Q\v{v}\cdot\del_x f  d\v{v} + \int Q \v{a}\cdot\del_v f d\v{v}  = 0  
+\label{eq:eq1-cons}
+\end{equation}
+
+\noindent We treat each term separately. For the first integral 
+
+\begin{equation}
+\frac{\partial }{\partial t}  \int Q f d\v{v}  =  \int Q \frac{\partial f}{\partial t} d\v{v} + \int f \frac{\partial Q}{\partial t} d\v{v}  
+\end{equation}
+
+\noindent Isolating the term containing $\partial_t f$
+
+\begin{equation}
+\int Q \frac{\partial f}{\partial t} d\v{v}  = \frac{\partial }{\partial t}  \int Q f d\v{v}  - \int f \frac{\partial Q}{\partial t} d\v{v}  
+\label{eq:eq2-cons}
+\end{equation}
+
+For the second integral 
+
+\begin{equation}
+\frac{\partial}{\partial x_i}\int Q v_i f  d\v{v}  = \int \frac{\partial Q}{\partial x_i} v_i f  d\v{v} + \int Q \frac{\partial v_i}{\partial x_i} f  d\v{v} + \int Q v_i \frac{\partial f}{\partial x_i}  d\v{v}  
+\end{equation}
+
+\noindent and because $v$ and $x$ are independent, the middle integral vanishes, leading to
+
+
+\begin{equation}
+\int Q v_i \frac{\partial f}{\partial x_i}  d\v{v} =
+\frac{\partial}{\partial x_i}\int Q v_i f  d\v{v}   -\int \frac{\partial
+  Q}{\partial x_i} v_i f  d\v{v}  
+\label{eq:eq3-cons}
+\end{equation}
+
+\noindent As for the 3rd integral, along the same lines 
+
+\begin{equation}
+\frac{\partial}{\partial v_i}\int Q a_i f  d\v{v}  = \int \frac{\partial Q}{\partial v_i} a_i f  d\v{v} + \int Q \frac{\partial a_i}{\partial v_i} f  d\v{v} + \int Q a_i \frac{\partial f}{\partial v_i}  d\v{v}  
+\end{equation}
+
+\noindent Isolating the last integral 
+
+\begin{equation}
+\int Q a_i \frac{\partial f}{\partial v_i}  d\v{v}   = \frac{\partial}{\partial v_i}\int Q a_i f  d\v{v}  - \int \frac{\partial Q}{\partial v_i} a_i f  d\v{v} - \int Q \frac{\partial a_i}{\partial v_i} f  d\v{v} 
+\label{eq:eq4-cons}
+\end{equation}
+
+
+\noindent Substituting \eqs{eq:eq2-cons,eq:eq3-cons} and
+\eq{eq:eq4-cons} into \eq{eq:eq1-cons}
+
+
+\begin{equation}
+\frac{\partial }{\partial t}  \int Q f d\v{v}   - \int f \frac{\partial Q}{\partial t} d\v{v} +  \frac{\partial}{\partial x_i}\int Q v_i f  d\v{v}   -\int \frac{\partial Q}{\partial x_i} v_i f  d\v{v} + \frac{\partial}{\partial v_i}\int Q a_i f  d\v{v}  - \int \frac{\partial Q}{\partial v_i} a_i f  d\v{v} - \int Q \frac{\partial a_i}{\partial v_i} f  d\v{v} = 0  
+\label{eq:eq5-cons}
+\end{equation}
+
+\paragraph{Simplification}
+
+
+The fifth term in \eq{eq:eq5-cons} cancels because it is the divergence of a volume integral. By virtue of Gauss theorem we replace by an area integral, and make the radius infinite, where $f$ vanishes. 
+
+\begin{equation}
+\frac{\partial }{\partial t}  \int Q f d\v{v}   - \int f \frac{\partial Q}{\partial t} d\v{v} +  \frac{\partial}{\partial x_i}\int Q v_i f  d\v{v}   -\int \frac{\partial Q}{\partial x_i} v_i f  d\v{v} - \int \frac{\partial Q}{\partial v_i} a_i f  d\v{v} - \int Q \frac{\partial a_i}{\partial v_i} f  d\v{v} = 0 
+\end{equation}
+
+
+\noindent Considering that the acceleration is independent of the velocity, we eliminate the last term 
+
+
+\begin{equation}
+\frac{\partial }{\partial t}  \int Q f d\v{v}   - \int f \frac{\partial Q}{\partial t} d\v{v} +  \frac{\partial}{\partial x_i}\int Q v_i f  d\v{v}   -\int \frac{\partial Q}{\partial x_i} v_i f  d\v{v} - \int \frac{\partial Q}{\partial v_i} a_i f  d\v{v} = 0 
+\end{equation}
+
+\noindent And because the quantity $Q$ is conserved, i.e., 
+
+\begin{equation}
+\frac{D Q}{D t}  = \frac{\partial Q}{\partial t}  + v_i\frac{\partial Q}{\partial x_i} = 0
+\end{equation}
+
+\noindent the 2nd and 4th term cancel together. This finally leaves 
+
+\begin{equation}
+\frac{\partial }{\partial t}  \int Q f d\v{v}   +  \frac{\partial}{\partial x_i}\int Q v_i f  d\v{v}   - \int \frac{\partial Q}{\partial v_i} a_i f  d\v{v} = 0 \quad\quad\quad (\mathrm{6})
+\end{equation}
+
+\paragraph{Averaging}
+
+The average value $\langle A \rangle$ of a quantity $A$ is 
+
+\begin{equation}
+\langle A \rangle = \frac{\int A f d\v{v}}{\int f d\v{v}} = \frac{1}{n}\int A f d\v{v}
+\end{equation}
+
+\noindent That is 
+
+\begin{equation}
+\int A f d\v{v} = n \langle A \rangle
+\end{equation}
+
+Using this definition, Eq (6) becomes the equation below, the {\bf conservation theorem}
+
+\begin{equation}
+\boxed{
+\frac{\partial }{\partial t} \left(n\langle Q \rangle\right) + \del_x \cdot \left(n\langle Q  \v{v} \rangle\right) - n\v{a}\cdot \langle \del_v Q \rangle = 0 
+}
+\end{equation}
+
+For a gas consisting of particles which have no inner structure we have 5 conserved
+quantities $Q$, these are the mass $m$, the three components of the momentum $m\v{v}$, and the energy $mv^2/2$.
+
+
+\section{The equations of Hydrodynamics}
+
+\subsection{Mass conservation: The Equation of Continuity}
+
+If we choose $Q = m$ and insert this into the conservation equation, we get
+
+\begin{equation}
+\frac{\partial }{\partial t} \left(n m\right) + \del_x \cdot \left(nm\langle \v{v} \rangle \right)  = 0 
+\end{equation}
+
+Using $nm=\rho$ and $\v{u} = \langle \v{v} \rangle$ we
+obtain the {\bf continuity equation}
+
+\begin{equation}
+\boxed{
+\frac{\partial \rho}{\partial t}  + \del \cdot \left(\rho \v{u} \right)  = 0 
+}
+\end{equation}
+
+Notice that we can use the product rule in the gradient and write the continuity equation as
+
+\begin{equation}
+\frac{\partial \rho}{\partial t}  + \left(\v{u} \cdot \del\right) \rho = - \rho \del \cdot  \v{u}
+\end{equation}
+
+
+In this form, we recognize the second term as an {\bf advection}
+term. This term transports the density along a streamline. The last
+terms depends on the divergence of the velocity, and is the {\bf compression} term. A negative divergence (convergence) increases the density. A positive divergence decreases it. 
+
+\subsection{Momentum conservation: The Navier-Stokes Equation}
+
+If $Q = mv_i$ (the i-th component of the particle momentum), the conservation equation becomes
+
+
+\begin{equation}
+\frac{\partial }{\partial t} \left(nm\langle v_i \rangle\right) + \frac{\partial}{\partial x_j} \left(nm\langle v_i  v_j \rangle\right) - nm a_j \left\langle \frac{\partial}{\partial v_j} v_i \right\rangle = 0 
+\end{equation}
+
+\noindent substitute $nm$ by the density
+
+
+\begin{equation}
+\frac{\partial }{\partial t} \left(\rho\langle v_i \rangle\right) + \frac{\partial}{\partial x_j} \left(\rho\langle v_i  v_j \rangle\right) - \rho a_j \left\langle \frac{\partial}{\partial v_j} v_i \right\rangle = 0 
+\end{equation}
+
+\noindent In the last term the derivative is a Kronecker delta. 
+
+
+\begin{equation}
+\frac{\partial }{\partial t} \left(\rho\langle v_i \rangle\right) + \frac{\partial}{\partial x_j} \left(\rho\langle v_i  v_j \rangle\right) - \rho a_j \delta_{ij} = 0 
+\end{equation}
+
+\noindent leaving only $a_i$
+
+
+\begin{equation}
+\frac{\partial }{\partial t} \left(\rho\langle v_i \rangle\right) + \frac{\partial}{\partial x_j} \left(\rho\langle v_i  v_j \rangle\right) = \rho a_i 
+\end{equation}
+
+\noindent Substituting $\langle v_i \rangle \equiv u_i$ for the mean flow velocity
+
+\begin{equation}
+\frac{\partial }{\partial t} \left(\rho u_i \right) + \frac{\partial}{\partial x_j} \left(\rho\langle v_i  v_j \rangle\right) = \rho a_i 
+\end{equation}
+
+\noindent Keeping in mind that we are using the decomposition $v_i = u_i + w_i$ (particle velocity = mean flow velocity + random component) where $\langle w_i \rangle = 0$.
+
+
+\noindent We can define the tensor
+
+\begin{equation}
+P_{ij} = \rho \langle w_i w_j\rangle
+\end{equation}
+
+\noindent and substituting $w_i = v_i - u_i$
+
+\begin{eqnarray}
+P_{ij} &=& \rho \langle (v_i - u_i)(v_j - u_j)\rangle\\
+&=&\rho \langle v_iv_j - v_i u_j - u_iv_j + u_iu_j\rangle\\
+&=&\rho \left(\langle v_iv_j\rangle - \langle v_i \rangle u_j - u_i\langle v_j\rangle + u_iu_j\right)\\
+&=&\rho \left(\langle v_iv_j\rangle - u_iu_j\right)
+\end{eqnarray}
+
+\noindent We thus have an expression for $\rho\langle v_i  v_j \rangle$
+
+
+\begin{equation}
+\rho \langle v_iv_j\rangle = \rho u_iu_j + P_{ij}
+\end{equation}
+
+
+\noindent Substituting this expression, we find the momentum-conservation equation 
+
+\begin{equation}
+\boxed{
+\frac{\partial }{\partial t} \left(\rho u_i \right) + \frac{\partial}{\partial x_j} \left(\rho\langle u_i  u_j \rangle\right) = -\frac{\partial P_{ij}}{\partial x_j}  + \rho a_i 
+}
+\end{equation}
+
+
+\noindent We can cast the equation in an advection form by expanding the first term  
+
+
+\begin{equation}
+\rho \frac{\partial u_i}{\partial t} + u_i \frac{\partial \rho}{\partial t} +  + \frac{\partial}{\partial x_j} \left(\rho u_i  u_j \right) = -\frac{\partial P_{ij}}{\partial x_j}  + \rho a_i 
+\end{equation}
+
+\noindent and using the mass continuity equation to remove $\frac{\partial \rho}{\partial t}$
+
+
+\begin{equation}
+\rho \frac{\partial u_i}{\partial t} - u_i \frac{\partial}{\partial x_j} \left(\rho u_j\right)  + \frac{\partial}{\partial x_j} \left(\rho u_i  u_j \right) = -\frac{\partial P_{ij}}{\partial x_j}  + \rho a_i 
+\end{equation}
+
+\noindent expanding the 3rd term cancels the 2nd term, leaving 
+
+\begin{equation}
+\rho \frac{\partial u_i}{\partial t}  + \rho  u_j\frac{\partial}{\partial x_j}u_i = -\frac{\partial P_{ij}}{\partial x_j}  + \rho a_i 
+\end{equation}
+
+
+\noindent Diving all terms by $\rho$ 
+
+
+\begin{equation}
+\frac{\partial u_i}{\partial t}  +  u_j\frac{\partial}{\partial x_j}u_i = -\frac{1}{\rho}\frac{\partial P_{ij}}{\partial x_j}  + a_i 
+\end{equation}
+
+\noindent We can decompose the tensor $P$ into a diagonal term, $p$, the pressure, and a traceless component 
+
+\begin{equation}
+P_{ij} \equiv p \delta_{ij} - \Pi_{ij} 
+\end{equation}
+
+\noindent Given how we defined $P_{ij}$, the pressure is 
+
+\begin{equation}
+p =  \frac{1}{3} \rho \langle w^2 \rangle
+\end{equation}
+
+\noindent And the tensor $\Pi_{ij}$ is found by 
+
+\begin{eqnarray}
+\Pi_{ij} &=& p \delta_{ij} - P_{ij}  \\
+&=&\rho\left(\frac{1}{3}\langle w^2 \rangle - \langle w_i w_j \rangle \right)
+\end{eqnarray}
+
+\noindent this tensor is the viscous stress tensor. The Navier Stokes equation then becomes
+
+
+\begin{equation}
+\frac{\partial \v{u}}{\partial t}  +  \left(\v{u}\cdot \del\right) \v{u} = -\frac{1}{\rho} \del p  + \v{a} +\frac{1}{\rho}\del\cdot\Pi
+\end{equation}
+
+\subsection{The Energy Equation}
+
+Going back to the conservation equation 
+
+\begin{equation}
+\frac{\partial }{\partial t} \left(n\langle Q \rangle\right) + \del_x \cdot \left(n\langle Q  \v{v} \rangle\right) - n\v{a}\cdot \langle \del_v Q \rangle = 0 
+\end{equation}
+
+\noindent If we choose $Q = mv^2/2$, the conservation equation assumes the form
+
+
+\begin{equation}
+\frac{\partial }{\partial t} \left(\frac{1}{2}n m \langle v^2 \rangle\right) + \frac{\partial}{\partial x_j}\left(\frac{1}{2}nm\langle v^2v_j \rangle\right) - \frac{1}{2}nma_j \left\langle \frac{\partial}{\partial v_j} v^2 \right\rangle = 0 
+\end{equation}
+
+\noindent We write this as $A+B+C=0$ and work out the individual terms. The first term is 
+
+\begin{eqnarray}
+A &=& \frac{\partial }{\partial t} \left(\frac{1}{2}\rho \langle v^2 \rangle\right)\\
+&=& \frac{\partial }{\partial t} \left[\frac{1}{2}\rho \left(u^2 + 2u\langle w \rangle + \langle w^2 \rangle\right)\right]
+\end{eqnarray}
+
+\noindent Given that $\langle w \rangle = 0$, the middle term cancels, and we have 
+
+\begin{equation}
+A = \frac{\partial }{\partial t} \left(\frac{1}{2}\rho u^2 + \rho e \right)
+\end{equation}
+
+\noindent where we define the <b>specific internal energy</b>
+
+\begin{equation}
+e \equiv \frac{1}{2} \langle w^2\rangle
+\end{equation}
+
+\noindent and the total energy (bulk kinetic plus thermal) is 
+
+\begin{equation}
+E \equiv \frac{u^2}{2} + e 
+\end{equation}
+
+\noindent The second term is 
+
+\begin{equation}
+B = \frac{\partial}{\partial x_j}\left(\frac{1}{2}nm\langle v^2v_j \rangle\right)
+\end{equation}
+
+\noindent Again expanding $\v{v} = \v{u} + \v{w}$, this becomes  
+
+\begin{equation}
+B = \frac{\partial}{\partial x_j}\left[\frac{1}{2}\rho\langle (u^2 + 2u_iw_i + w^2)(u_j + w_j) \rangle\right]
+\end{equation}
+
+
+\noindent Expanding the brackets, 
+
+\begin{equation}
+B = \frac{\partial}{\partial x_j}\left\{ \frac{\rho}{2}\left[(u^2 + 2u_i\langle w_i\rangle + \langle w^2\rangle)u_j + u^2\langle w_j\rangle + 2u_i\langle w_i w_j\rangle + \langle w^2 w_j \rangle \right]\right\}
+\end{equation}
+
+\noindent and because $\langle w_i \rangle = 0$, the second term in the first parentheses cancels, as well as the first term after the parentheses, leading to  
+
+\begin{equation}
+B = \frac{\partial}{\partial x_j}\left\{ \frac{\rho}{2}\left[(u^2 + \langle w^2\rangle)u_j + 2u_i\langle w_i w_j\rangle + \langle w^2 w_j \rangle \right]\right\}
+\end{equation}
+
+\noindent We now substitute $\langle w^2\rangle$ by the internal energy, and $\langle w_i w_j\rangle$ by the stress tensor $P_{ij}$. 
+
+
+\begin{equation}
+B = \frac{\partial}{\partial x_j}\left\{ \left[\left(\frac{\rho}{2}u^2 + \rho e\right)u_j + u_iP_{ij}  + \frac{1}{2}\rho \langle w^2 w_j \rangle \right]\right\}
+\end{equation}
+
+
+\noindent The last term is defined as the {\bf heat conduction flow}
+
+\begin{equation}
+\v{H} \equiv  \frac{\rho}{2} \langle w^2 \v{w} \rangle
+\end{equation}
+
+\noindent So 
+
+\begin{equation}
+B = \frac{\partial}{\partial x_j}\left\{ \left[\left(\frac{\rho}{2}u^2 + \rho e\right)u_j + u_iP_{ij}  + H_j \right]\right\}
+\end{equation}
+
+\noindent The last term is 
+
+
+\begin{eqnarray}
+C &=&\frac{1}{2}nma_j \left\langle \frac{\partial}{\partial v_j} v^2 \right\rangle \\
+&=&\frac{1}{2}\rho a_j \left\langle \frac{\partial}{\partial v_j} v_k v_k \right\rangle \\
+&=&\rho a_j \left\langle v_k \delta_{jk}\right\rangle \\
+&=&\rho a_j \left\langle v_j\right\rangle \\
+&=&\rho a_j \left\langle u_j  + w_j \right\rangle \\
+&=&\rho a_j u_j \\
+\end{eqnarray}
+
+\noindent Thus, collecting all terms 
+
+\begin{equation}
+\frac{\partial }{\partial t} \left(\frac{1}{2}\rho u^2 + \rho e \right) + \frac{\partial}{\partial x_j}\left[ \left(\frac{1}{2}\rho u^2 + \rho e \right)u_j + P_{ij}u_i + H_j\right] = \rho a_j u_j 
+\end{equation}
+
+\noindent Substituting $E$ for the energy 
+
+\begin{equation}
+\frac{\partial E}{\partial t} + \frac{\partial}{\partial x_j}\left[ E u_j + P_{ij}u_i + H_j\right] = \rho a_j u_j 
+\end{equation}
+
+\noindent or, in vector notation 
+
+\begin{equation}
+\frac{\partial E}{\partial t} + \del \cdot \left( E \v{u} + \v{P}\cdot\v{u} + \v{H}\right) = \rho \ \v{a}\cdot\v{u} 
+\end{equation}
+
+\noindent substituting the viscous tensor 
+
+\begin{equation}
+\boxed{
+\frac{\partial E}{\partial t} + \del \cdot \left[ (E+p) \v{u} \right] = \rho \ \v{a}\cdot\v{u}  - \del\cdot \v{H} + \del \cdot \left(\v{\Pi}\cdot\v{u}\right)
+}
+\end{equation}
+
+\noindent These conservation equations are exact for the adopted model of the gas but have no practical value until we can evaluate the viscous tensor and the heat conduction flow. Using kinetic theory this can be done from first principles.
+
+
+\subsection{Conservation Equations for Equilibrium Flow}
+
+The gas can be considered to be in local equilibrium if particle mean free paths are very small compared to characteristic length scales of the flow and if gradients are sufficiently small. Then we can assume that the distribution function $f(\v{x},\v{v},t)$ is given by a Maxwellian velocity distribution
+
+\begin{equation}
+f(w) =  n \left(\frac{m}{2\pi k T}\right)^{3/2} \mathrm{exp}\left(-\frac{mw^2}{2kT}\right)
+\end{equation}
+
+\noindent with a local temperature $T$ and particle density $n$ ($w$ is the random part of the particle velocity as before).
+
+Using this distribution function it can be shown that $\Pi_{ij}$ and
+$H_i$ as defined in the previous section are {\bf zero}. Therefore, the conservation equations become
+
+
+\begin{eqnarray}
+  \ptderiv{\rho}  + \left(\v{u}\cdot \del\right)\rho  &=& -\rho \del \cdot \v{u}   \\
+\ptderiv{\v{u}} +  \left(\v{u}\cdot \del\right) \v{u} &=& -\frac{1}{\rho} \grad{p}  + \v{a} \\
+\ptderiv{E} + \del \cdot \left[ (E+p) \v{u} \right] &=& \rho \ \v{a}\cdot\v{u}  
+\end{eqnarray}

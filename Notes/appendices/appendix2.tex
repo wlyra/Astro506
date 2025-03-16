@@ -1,0 +1,278 @@
+\chapter{Index notation}
+
+We introduce now the index notation, which can be used for vectors,
+matrices, and other higher rank tensors, for algebraic
+manipulation. It will prove to be much more powerful than the standard
+vector notation. To clarify this we will translate all well-know
+vector and matrix manipulations (addition, multiplication and so on)
+to index notation.
+
+Consider the transformation 
+
+\begin{equation}
+\v{u} = \vt{A} \v{v} 
+\end{equation}
+
+in $n$-space. In matrix form 
+
+\begin{equation}
+\left[\begin{array}{c}
+u_1\\
+\vdots\\
+u_n \end{array}\right] = \left[\begin{array}{ccc}
+A_{11} & \dots  & A_{1n} \\
+\vdots & \ddots &  \vdots\\
+A_{n1} & \dots & A_{nn}
+\end{array}\right] 
+\left[\begin{array}{c}
+v_1\\
+\vdots\\
+v_n \end{array}\right]
+\end{equation}
+
+
+According to the rules of matrix multiplication the above equation is 
+
+
+\begin{eqnarray}
+u_1 &=& A_{11} v_1 + A_{12} v_2 + \dots + A_{1n} v_n \\ 
+u_2 &=& A_{21} v_1 + A_{22} v_2 + \dots + A_{2n} v_n \\ 
+\vdots && \\
+u_n &=& A_{n1} v_1 + A_{n2} v_2 + \dots + A_{nn} v_n \\ 
+\end{eqnarray}
+
+Or, equivalently 
+
+
+\begin{eqnarray}
+u_1 &=& \sum_{j=1}^n A_{1j} v_j \\ 
+u_2 &=& \sum_{j=1}^n A_{2j} v_j \\ 
+\vdots && \\
+u_n &=& \sum_{j=1}^n A_{nj} v_j \\ 
+\end{eqnarray}
+
+
+or, more compactly 
+
+
+\begin{equation}
+u_i = \sum_{j=1}^n A_{ij} v_j \\ 
+\end{equation}
+
+This formula has the essence of matrix multiplication. The index $j$ is a
+{\it dummy index} and $i$ is a {\it running index}. The names of these indices, in this case $i$ and $j$ are chosen arbitrarily. The could equally well have been called $\alpha$ and $\beta$
+
+\begin{equation}
+u_\alpha = \sum_{\beta=1}^n A_{\alpha\beta} v_\beta \\ 
+\end{equation}
+
+The following statements are therefore equivalent
+
+\begin{equation}
+\begin{array}{ccccccc}
+\v{v} = \v{y} &\quad\longleftrightarrow\quad& \vec{v} = \vec{y} &\quad\longleftrightarrow\quad & v_i = y_i& \quad\longleftrightarrow\quad & v_\alpha = y_\alpha\\
+\v{v} = \vt{A}\v{y} & \quad\longleftrightarrow\quad & \vec{v} = \vt{A}\vec{y} & \quad\longleftrightarrow\quad & v_i = \sum_{j=1}^n A_{ij}y_j & \quad\longleftrightarrow\quad & v_\alpha = \sum_{\beta=1}^n A_{\alpha\beta}y_\beta
+\end{array}
+\end{equation}
+
+This index notation is also applicable to other manipulations, for instance the inner
+product. Take two vectors $\v{v}$ and $\v{w}$, then we define the inner product as
+
+\begin{equation}
+\v{v} \cdot \v{w} = v_1w_1 + \dots + v_nw_n = \sum_{k=1}^n v_k w_k 
+\end{equation}
+
+
+\section{Dropping the summation symbol}
+
+The summation symbols $\sum$ can be put at the start of the formula and the order of the factors is irrelevant. We can therefore in principle omit these summation symbols, if we make clear in advance over which indices we perform a summation, for instance 
+
+\begin{equation}
+\begin{array}{ccccc}
+\sum_{j=1}^n A_{ij}v_j &\quad\longleftrightarrow\quad& A_{ij}v_j && \left\{j\right\}\\
+\sum_{j=1}^n \sum_{k=1}^n A_{ij}B_{jk} C_{k}   &\quad\longleftrightarrow\quad& A_{ij}B_{jk} C_{k} && \left\{j,k\right\}
+\end{array}
+\end{equation}
+
+
+When using index notation routinely, one soon experiences that it is unnecessary to denote explicitly over which indices the summation is performed. We can introduce the convention that, unless explicitly stated otherwise
+
+\begin{itemize}
+\item a summation is assumed over all indices that appear twice in a product, and
+\item no summation is assumed over indices that appear only once.
+\end{itemize}
+  
+From now on we will write all our formulae in index notation with this
+particular convention, which is called  {\it Einstein summation notation}.
+
+In index notation we thus have
+
+
+\begin{eqnarray}
+  \v{v} \cdot \v{w} &=& v_j w_j \\
+  \v{v} \otimes \v{w} &=& v_i w_j \\
+\nabla \cdot \v{w} &=& \partial_j w_j\\ 
+\v{v} \phi &=& v_i \phi \\
+\nabla \phi &=& \partial_i \phi\\
+\nabla^2\phi  &=& \partial_j\partial_j \phi\\
+\nabla^2\v{v}  &=& \partial_j\partial_j v_i\\
+\v{v}\cdot\vt{A} &=& v_jA_{ij}\\
+\nabla \cdot \vt{A} &=& \partial_j A_{ij}
+\end{eqnarray}
+
+
+\section{The Levi-Civita symbol (or Levi-Civita tensor)}
+
+The curl takes a slightly different form. In components, the curl is  
+
+\begin{equation}
+\v{v} \times \v{w} = \left(\begin{array}{c}v_yw_z-v_zw_y\\ v_zw_x-v_xw_z\\ v_xw_y-v_yw_x\end{array} \right)
+\end{equation}
+
+For each direction $i$, the components are of the form
+$v_jw_k-v_kw_j$, with $i\neq j,k$. We need though, to specify with
+term is positive and which term is negative. For this purpose, we can
+specify the {\it Levi-Civita symbol} that will take care of the positive and negative signs 
+
+
+\begin{equation}
+\left(\v{v} \times \v{w}\right)_i = \varepsilon_{ijk} v_j w_k
+\end{equation}
+
+\noindent the Levi-Civita symbol has the properties 
+
+\begin{equation}
+\varepsilon_{ijk}  = \left\{\begin{array}{cl}
+1&\mbox{if $ijk=$ 123, 231, 312 (even permutation)}\\
+-1&\mbox{if $ijk=$  132, 213, 321 (odd permutation)} \\
+0&\mbox{if $i=j$ or $i=k$ or $j=k$ (if any index repeats)} \\
+\end{array}
+\right.
+\end{equation}
+
+
+\noindent and it is a 3rd rank tensor. Manipulating the symbol requires keeping track of permutations of the index. If the permutation is cyclic (or even), i.e., does not swap the order of the indices, then the sign is unchanged
+
+\begin{equation}
+\varepsilon_{ijk} = \varepsilon_{kij} = \varepsilon_{jki}  
+\end{equation}
+
+\noindent conversely, an anticyclic (or odd) permutation, i.e., that does swap the order of the indices, flips the sign 
+
+\begin{eqnarray}
+\varepsilon_{ijk} &=& -\varepsilon_{ikj} \\
+\varepsilon_{ijk} &=& -\varepsilon_{jik} \\
+\varepsilon_{ijk} &=& -\varepsilon_{kji} 
+\end{eqnarray}
+
+The Levi-Civita symbol is related to the Kronecker delta by 
+
+\begin{eqnarray}
+\varepsilon_{ijk}\varepsilon_{lmn}  &=& \left\vert\begin{array}{ccc}
+\delta_{il}&\delta_{im}&\delta_{in}\\
+\delta_{jl}&\delta_{jm}&\delta_{jn}\\
+\delta_{kl}&\delta_{km}&\delta_{kn}\\
+\end{array}
+\right\vert\\
+&=&\delta_{il}\left(\delta_{jm}\delta_{kn}-\delta_{jn}\delta_{km}\right) -   \delta_{im}\left(\delta_{jl}\delta_{kn}-\delta_{jn}\delta_{kl}\right)-
+\delta_{in}\left(\delta_{jl}\delta_{km}-\delta_{jm}\delta_{kl}\right) \nonumber
+\end{eqnarray}
+
+
+\noindent If we have $l=i$, this contracts to 
+
+\begin{equation}
+\varepsilon_{ijk}\varepsilon_{imn}  = \delta_{jm}\delta_{kn}-\delta_{jn}\delta_{km}
+\end{equation}
+
+
+\section{Example: the double curl}
+
+The Levi-Civita symbol is very useful in dealing with cross products. For instance, let us prove that the double curl is the gradient of the divergence minus the Laplacian
+
+\begin{equation}
+\curl{\left(\curl{\v{A}}\right)} = \grad{\left(\Div{\v{A}}\right)} - \Laplace\v{A}
+\label{eq:curlcurl}
+\end{equation}
+
+
+\noindent Let us first write $\v{B}=\curl{\v{A}}$, so that
+$\curl{\left(\curl{\v{A}}\right)} = \curl{\v{B}}$. In index notation 
+
+\begin{eqnarray}
+\left[\curl{\left(\curl{\v{A}}\right)}\right]_i&=&\left[\curl{\v{B}}\right]_i\\
+&=&\varepsilon_{ijk}\partial_j B_k
+\end{eqnarray}
+
+\noindent Because $\v{B}=\curl{\v{A}}$ let us also write in index notation, 
+
+\begin{equation}
+B_k =\varepsilon_{kmn}\partial_m A_n
+\end{equation}
+
+\noindent and substitute it 
+
+
+\begin{equation}
+\left[\curl{\left(\curl{\v{A}}\right)}\right]_i=\varepsilon_{ijk}\partial_j \left(\varepsilon_{kmn}\partial_m A_n\right)
+\end{equation}
+
+\noindent The partial derivative does not affect the Levi-Civita tensor, so we can group them 
+
+\begin{equation}
+\left[\curl{\left(\curl{\v{A}}\right)}\right]_i=\varepsilon_{ijk}\varepsilon_{kmn}\partial_j \partial_m A_n
+\end{equation}
+
+
+\noindent We now use the property of the Levi-Civita symbol 
+
+\begin{equation}
+\varepsilon_{ijk}\varepsilon_{imn}  = \delta_{jm}\delta_{kn}-\delta_{jn}\delta_{km}
+\end{equation}
+
+\noindent except that the repeated index we want is the last of the first symbol and the first of the second, not the first of both. To rearrange it, we use the fact that the symbols are dummy and swap $i$ and $k$
+
+\begin{equation}
+\varepsilon_{kji}\varepsilon_{kmn}  = \delta_{jm}\delta_{in}-\delta_{jn}\delta_{im}
+\end{equation}
+
+\noindent We now do an even permutation to place $k$ in the end of the first symbol. An even permutation does not change the sign, so the RHS is unchanged
+
+\begin{equation}
+\varepsilon_{jik}\varepsilon_{kmn}  = \delta_{jm}\delta_{in}-\delta_{jn}\delta_{im}
+\end{equation}
+
+\noindent now we do an odd permutation on the first symbol, to have it as $ijk$ instead of $jik$. An odd permutation will flip the sign, so it results in 
+
+\begin{equation}
+\varepsilon_{ijk}\varepsilon_{kmn}  = \delta_{jn}\delta_{im}-\delta_{jm}\delta_{in}
+\end{equation}
+
+
+\noindent substituting back into the double curl, leads to 
+
+\begin{equation}
+\left[\curl{\left(\curl{\v{A}}\right)}\right]_i=\left(\delta_{jn}\delta_{im}-\delta_{jm}\delta_{in}\right)\partial_j \partial_m A_n
+\end{equation}
+
+
+\noindent that is 
+
+\begin{equation}
+\left[\curl{\left(\curl{\v{A}}\right)}\right]_i=\delta_{jn}\delta_{im}\partial_j \partial_m A_n-\delta_{jm}\delta_{in}\partial_j \partial_m A_n
+\end{equation}
+
+\noindent and contracting the Kronecker deltas 
+
+\begin{equation}
+\left[\curl{\left(\curl{\v{A}}\right)}\right]_i=\partial_i\partial_j  A_j-\partial_j \partial_j A_i
+\end{equation}
+
+\noindent in the first term, $\partial_j  A_j$ is the divergence of $\v{A}$. The second term has the Laplacian $\partial_j \partial_j$ (repeated indices sum). Thus, this is 
+
+\begin{equation}
+\left[\curl{\left(\curl{\v{A}}\right)}\right]_i=\partial_i\left(\Div{\v{A}}\right) -\Laplace A_i
+\end{equation}
+
+\noindent This is true for every component $i$, so reverting back to
+vector notation we get \eq{eq:curlcurl}. QED.
