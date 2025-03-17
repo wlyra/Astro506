@@ -18,9 +18,9 @@ The timestep is in practice given by choosing the Courant number and solving for
 \Delta t = \frac{C\Delta x}{v}
 \end{equation}
 
-where $v = \mbox{max}(u,c_s) $, where u is the velocity field.
+where $v = \mbox{max}(u,c_s) $, where u is the velocity field. In this chapter, we will study some common methods to do the time integration. 
 
-\section{Time evolution}
+%\section{Time evolution}
 
 Let us start simple, one planet, one star
 
@@ -318,7 +318,13 @@ The time reversibility of KDK leads to the property that the energy error is bou
 
 \section{4th order Runge Kutta}
 
-The Euler method is equivalent to a shooting method, whereas the midpoint rule is equivalent to the trapezoidal rule. A better method would be the equivalent to the Simpson integration rule. This is the 4th order Runge-Kutta, which is the standard for numerical integration
+The Euler method is equivalent to a shooting method, whereas the
+midpoint rule is equivalent to the trapezoidal rule. A better method
+would be the equivalent to the Simpson integration rule. This is the
+4th order Runge-Kutta, which is a standard for numerical integration
+of ODEs, and can also be used for PDEs such as those appearing in
+numerical hydrodynamics. We show it here without proof (which will be
+worked out soon in \sect{sect:rk4-proof})
 
 \beq
 x(t+\Delta t) = x(t) + \frac{1}{6}\left[f(x_1,t_1) + 2f(x_2,t_2) + 2f(x_3,t_3) +  f(x_4,t_4)   \right]\Delta t
@@ -348,7 +354,7 @@ x(t+\Delta t) = x(t) + \frac{1}{6}\left[f(t_1) + 4f(t_m) + f(t_4)\right]\Delta t
 which is the Simpson rule
 
 \beq
-\int_a^b x(t) dx \approx  \frac{b-a}{6}\left[f(a) + 4f(\frac{a+b}{2}) + f(b)\right]
+\int_a^b x(t) dx \approx  \frac{b-a}{6}\left[f(a) + 4f\left(\frac{a+b}{2}\right) + f(b)\right]
 \eeq
 
 
@@ -577,7 +583,7 @@ solution is not unique, because these are three equations and four
 variables. The choice for the second order Runge-Kutta using middle point is 
 $b_1=b_2 = 1/2$, $c_2=a_{21}=1$.  
 
-\section{Runge-Kutta 3rd order}
+\section{3rd order Runge Kutta}
 
 The solution for the 3rd order method uses $N=3$, thus
 
@@ -732,7 +738,7 @@ and Ralston's
 
 All these methods are solution to the system. 
 
-\section{Runge-Kutta 4th order}
+\section{4th order Runge Kutta - proof}
 
 The 4th order method follows the same procedure. It uses $N=4$, so the summation is 
 
