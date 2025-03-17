@@ -3,35 +3,35 @@
 \chapter{Spatial discretization}
 
 
-Consider the 1D advection equation
+Consider the 1D advection equation of a quantity $q$
 
 \begin{equation}
-\frac{\partial f}{\partial t} = -u\frac{\partial f}{\partial x}
+\frac{\partial q}{\partial t} = -u\frac{\partial q}{\partial x}
 \end{equation}
 
-and let us discretize it in time and space. There are different ways
+\noindent and let us discretize it in time and space. There are different ways
 we can approximate the spatial derivative
 
 \beqn
-\frac{\partial f}{\partial x} &\approx& \frac{f_i -
-  f_{i-1}}{\Delta x} \quad \mathrm{FTBS \ forward \ time \ back \ space}\\
-\frac{\partial f}{\partial x} &\approx& \frac{f_{i+1} -  f_i}{\Delta  x} \quad \mathrm{FTFS \ forward \ time \ foward \ space}\\
-\frac{\partial f}{\partial x} &\approx& \frac{f_{i+1} -  f_{i-1}}{2\Delta x}\quad \mathrm{FTBS \ forward \ time \ center \ space}\\
-\frac{\partial f}{\partial x} &\approx& \frac{f_{i+1/2} - f_{i-1/2}}{\Delta x}
+\frac{\partial q}{\partial x} &\approx& \frac{q_i -
+  q_{i-1}}{\Delta x} \quad \mathrm{FTBS \ forward \ time \ back \ space}\\
+\frac{\partial q}{\partial x} &\approx& \frac{q_{i+1} -  q_i}{\Delta  x} \quad \mathrm{FTFS \ forward \ time \ foward \ space}\\
+\frac{\partial q}{\partial x} &\approx& \frac{q_{i+1} -  q_{i-1}}{2\Delta x}\quad \mathrm{FTBS \ forward \ time \ center \ space}\\
+\frac{\partial q}{\partial x} &\approx& \frac{q_{i+1/2} - q_{i-1/2}}{\Delta x}
 \eeqn
 
 
 Let us pick the centered 
 
 \begin{equation}
-\frac{f^{(n+1)}_i - f^{(n)}_i}{\Delta t } = - u \left( \frac{f^{(n)}_{i+1} - f^{(n)}_{i-1}}{2\Delta x}\right)
+\frac{q^{(n+1)}_i - q^{(n)}_i}{\Delta t } = - u \left( \frac{q^{(n)}_{i+1} - q^{(n)}_{i-1}}{2\Delta x}\right)
 \end{equation}
 
 
-We isolate the quantity we want to find, $f_i$ in the future
+We isolate the quantity we want to find, $q_i^{(n+1)}$ in the future
 
 \begin{equation}
-f^{(n+1)}_i  = f^{(n)}_i - \frac{u\Delta t}{2\Delta x} \left( f^{(n)}_{i+1} - f^{(n)}_{i-1}\right)
+q^{(n+1)}_i  = q^{(n)}_i - \frac{u\Delta t}{2\Delta x} \left( q^{(n)}_{i+1} - q^{(n)}_{i-1}\right)
 \end{equation}
 
 We define the {\bf Courant number}, which is a dimensionless quantity
@@ -45,13 +45,13 @@ C \equiv \frac{u\Delta t}{\Delta x}
 
 In terms of the Courant number, the recurrence relation is 
 \begin{equation}
-f^{(n+1)}_i  = f^{(n)}_i - \frac{C}{2} \left( f^{(n)}_{i+1} - f^{(n)}_{i-1}\right)
+q^{(n+1)}_i  = q^{(n)}_i - \frac{C}{2} \left( q^{(n)}_{i+1} - q^{(n)}_{i-1}\right)
 \end{equation}
 
 
 \section{Stencil Diagrams}
 
-The field $f_i^{(n+1)}$ at grid point $i$ and time step $n + 1$
+The field $q_i^{(n+1)}$ at grid point $i$ and time step $n + 1$
 depends on values at the old time step $n$. This is sketched in a
 so-called {\it stencil diagram}. 
 
@@ -68,7 +68,7 @@ so-called {\it stencil diagram}.
 %The ``naive'' scheme averages the adjacent grid points 
 
 %\begin{equation}
-%f_{i+1/2} = \frac{v}{2}\left(\rho_{i+1} + \rho_i\right)
+%q_{i+1/2} = \frac{v}{2}\left(\rho_{i+1} + \rho_i\right)
 %\end{equation}
 
 %Leading to 
@@ -76,8 +76,20 @@ so-called {\it stencil diagram}.
 Consider the equation we obtained 
 
 \begin{equation}
-f^{(n+1)}_i  = f^{(n)}_i - \frac{C}{2}\left(f_{i+1} - f_{i-1}\right)
+q^{(n+1)}_i  = q^{(n)}_i - \frac{C}{2}\left(q_{i+1} - q_{i-1}\right)
 \end{equation}
+
+
+And let us use it to advance the function $q$ shown in \fig{fig:function-advect}
+
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/function_to_advect.pdf}}
+  \end{center}
+  \caption[]{Function we will use to test the advection schemes. A
+    hat function, a block function, and a gaussian.}
+  \label{fig:function-advect}
+\end{figure}
 
 
 \begin{figure}
@@ -157,7 +169,7 @@ The back space scheme uses the point upwind
 (back space) for the derivative. The scheme results in 
 
 \begin{equation}
-f^{(n+1)}_i  = (1-C) f^{(n)}_i + Cf^{(n)}_{i-1}
+q^{(n+1)}_i  = (1-C) q^{(n)}_i + Cq^{(n)}_{i-1}
 \end{equation}
 
 The stencil is sketched in \fig{fig:donor}. It depends on the point and the point immediately upwind. The Courant number is the weight given to the upwind point. 
@@ -246,8 +258,8 @@ One way of seeing this is by doing the following exercise. Consider the upwind s
 uses the derivative $i- 1/2$ for the update of the state at $i$. So let us write the derivative at $i- 1/2$ as:
 
 \beq
-\frac{f_i-f_{i-1}}{\Delta x} = \frac{q_{i+1}-q_{i-1}}{2\Delta x} -
-\Delta x \frac{f_{i+1}-2f_i+f_{i-1}}{2\Delta x^2}
+\frac{q_i-q_{i-1}}{\Delta x} = \frac{q_{i+1}-q_{i-1}}{2\Delta x} -
+\Delta x \frac{q_{i+1}-2q_i+q_{i-1}}{2\Delta x^2}
 \eeq
 
 The left-hand-side is the upstream difference, the first term on the
@@ -272,7 +284,7 @@ derivative. But it is nevertheless a useful way of looking at the concept of num
 In principle one could say that it is as if we are solving
 
 \beq
-\frac{\partial f}{\partial t} = - u \frac{\partial f}{\partial x} +\frac{u\Delta x}{2}\frac{\partial^2 f}{\partial^2 x}
+\frac{\partial q}{\partial t} = - u \frac{\partial q}{\partial x} +\frac{u\Delta x}{2}\frac{\partial^2 f}{\partial^2 x}
 \eeq
 
 Clearly, for $\Delta x \rightarrow 0$ the diffusion vanishes. This is obviously a necessary condition, otherwise
@@ -288,25 +300,25 @@ Taylor series are  expansions of a function $f(x)$ for some
 finite distance $\Delta x$ to $f(x+\Delta x)$
 
 \beq
-f(x\pm \Delta x) = f(x) \pm \Delta x f^\prime(x) + \frac{\Delta
-  x^2}{2} f^{\prime\prime}(x) \pm \frac{\Delta x^3}{3!}
-f^{\prime\prime\prime}(x) + \frac{\Delta
-  x^4}{4!} f^{\prime\prime \prime\prime}(x) \pm ...
+f(x\pm \Delta x) = f(x) \pm \Delta x q^\prime(x) + \frac{\Delta
+  x^2}{2} q^{\prime\prime}(x) \pm \frac{\Delta x^3}{3!}
+q^{\prime\prime\prime}(x) + \frac{\Delta
+  x^4}{4!} q^{\prime\prime \prime\prime}(x) \pm ...
 \eeq
 
 What happens, if we use this expression for the forward derivative
 
 \beq
-\frac{\partial f}{\partial x} \approx \frac{f(x+\Delta x) - f(x)}{\Delta x}
+\frac{\partial q}{\partial x} \approx \frac{f(x+\Delta x) - f(x)}{\Delta x}
 \eeq
 
 which leads to
 
 \beqn
-\frac{f(x+\Delta x) - f(x)}{\Delta x} &=& \frac{1}{\Delta x} \left[ \Delta x f^\prime(x) + \frac{\Delta
-  x^2}{2} f^{\prime\prime}(x) + \frac{\Delta x^3}{3!}
-f^{\prime\prime\prime}(x)\right]\\
-&=&f^\prime(x) + \mathcal{O}\left(\Delta x\right)
+\frac{q(x+\Delta x) - q(x)}{\Delta x} &=& \frac{1}{\Delta x} \left[ \Delta x q^\prime(x) + \frac{\Delta
+  x^2}{2} q^{\prime\prime}(x) + \frac{\Delta x^3}{3!}
+q^{\prime\prime\prime}(x)\right]\\
+&=&q^\prime(x) + \mathcal{O}\left(\Delta x\right)
 \eeqn
 
 The error of the first derivative using the forward 
@@ -316,10 +328,10 @@ Let’s check.
 With the centered formulation we get:
 
 \beqn
-\frac{f(x+\Delta x/2) - f(x-\Delta x/2)}{\Delta x} &=&\frac{1}{\Delta
-  x} \left[ \Delta x f^\prime(x) + \frac{\Delta
-    x^2}{3!}f^{\prime\prime\prime}(x)+...\right]\\
-&=&f^\prime(x) + \mathcal{O}(\Delta x^2)
+\frac{q(x+\Delta x/2) - q(x-\Delta x/2)}{\Delta x} &=&\frac{1}{\Delta
+  x} \left[ \Delta x q^\prime(x) + \frac{\Delta
+    x^2}{3!}q^{\prime\prime\prime}(x)+...\right]\\
+&=&q^\prime(x) + \mathcal{O}(\Delta x^2)
 \eeqn
 
 The error of the first derivative using the centered 
@@ -333,19 +345,19 @@ stable. {\it Accuracy does not guarantee stability.}
 The first derivative, to 2nd order accuracy is 
 
 \begin{equation}
-f_i^\prime = \frac{-f_{i-1} + f_{i+1}}{2\Delta x} + \mathcal{O}(\Delta x^2)
+q_i^\prime = \frac{-q_{i-1} + q_{i+1}}{2\Delta x} + \mathcal{O}(\Delta x^2)
 \end{equation}
 
 to 4th order accuracy, it is 
 
 \begin{equation}
-f_i^\prime = \frac{f_{i-2} -8f_{i-1} +8f_{i+1} - f_{i+2}}{12\Delta x} + \mathcal{O}(\Delta x^4)
+q_i^\prime = \frac{q_{i-2} -8q_{i-1} +8q_{i+1} - q_{i+2}}{12\Delta x} + \mathcal{O}(\Delta x^4)
 \end{equation}
 
 to 6th order accuracy, it is 
 
 \begin{equation}
-f_i^\prime = \frac{-f_{i-3} + 9f_{i-2} -45f_{i-1} +45f_{i+1} -9f_{i+2} + f_{i+3}}{60\Delta x} + \mathcal{O}(\Delta x^6)
+q_i^\prime = \frac{-q_{i-3} + 9q_{i-2} -45q_{i-1} +45q_{i+1} -9q_{i+2} + q_{i+3}}{60\Delta x} + \mathcal{O}(\Delta x^6)
 \end{equation}
 
 The table shown in \fig{fig:tablecoefficients} shows the coefficients (weights) given to each point on computing a derivative to desired accuracy. We will draw from this table to compute first and second derivatives, mostly. But how are these coefficients determined?  
@@ -361,7 +373,7 @@ The table shown in \fig{fig:tablecoefficients} shows the coefficients (weights) 
 These coefficients come from Taylor expansion. Suppose that we want to compute df/dx to 2nd order. Using a 3-point stencil, we have 
 
 \begin{equation}
-\frac{df}{dx} = \frac{1}{h}\left[Af(x-h) + Bf(x) + Cf(x+h)\right]
+\frac{df}{dx} = \frac{1}{h}\left[Aq(x-h) + Bq(x) + Cq(x+h)\right]
 \end{equation}
 
 where $h=\Delta x$. According to the table in \fig{fig:tablecoefficients}, we expect to find $A=-1/2$, $B=0$ and $C=1/2$. Let us prove this.
@@ -369,15 +381,15 @@ where $h=\Delta x$. According to the table in \fig{fig:tablecoefficients}, we ex
 If we Taylor expand around $x$, 
 
 \begin{eqnarray}
-Af(x-h) &=& Af(x) + Af^\prime(x)(-h) + Af^{\prime\prime}(x)\frac{h^2}{2}  \\
-Bf(x)   &=& Bf(x)   \\
-Cf(x+h) &=& Cf(x) + Cf^\prime(x)(h) + Cf^{\prime\prime}(x)\frac{h^2}{2} 
+Aq(x-h) &=& Aq(x) + Aq^\prime(x)(-h) + Aq^{\prime\prime}(x)\frac{h^2}{2}  \\
+Bq(x)   &=& Bq(x)   \\
+Cq(x+h) &=& Cq(x) + Cq^\prime(x)(h) + Cq^{\prime\prime}(x)\frac{h^2}{2} 
 \end{eqnarray}
 
 Summing them all 
 
 \begin{equation}
-h\frac{df}{dx} = f(x)(A+B+C) + f^\prime(x)(A-C)h + f^{\prime\prime}(x)\frac{h^2}{2}(A+C) 
+h\frac{df}{dx} = q(x)(A+B+C) + q^\prime(x)(A-C)h + q^{\prime\prime}(x)\frac{h^2}{2}(A+C) 
 \end{equation}
 
 Since only the first derivative should survive in the RHS, this leads to the conditions 
@@ -395,27 +407,27 @@ Another example, find the fourth derivative $d^4f/dx^4$, with a 5-point stencil
 
 
 \begin{equation}
-h^4\frac{d^4f}{dx^4} = Af(x-2h) + Bf(x-h) + Cf(x) + Df(x+h) + Ef(x+2h)
+h^4\frac{d^4f}{dx^4} = Aq(x-2h) + Bq(x-h) + Cq(x) + Dq(x+h) + Eq(x+2h)
 \end{equation}
 
 Expanding the terms in Taylor to fourth order 
 
 \begin{eqnarray}
-Af(x-2h) &=& Af(x) + Af^\prime(x)(-2h) + Af^{\prime\prime}(x)\frac{(2h)^2}{2}  + Af^{\prime\prime\prime}(x)\frac{(-2h)^3}{6}+ Af^{\prime\prime\prime\prime}(x)\frac{(2h)^4}{24}\nonumber\\
-Bf(x-h) &=& Bf(x) + Bf^\prime(x)(-h) + Bf^{\prime\prime}(x)\frac{h^2}{2}  + Bf^{\prime\prime\prime}(x)\frac{(-h)^3}{6}+ Bf^{\prime\prime\prime\prime}(x)\frac{h^4}{24}\nonumber\\
-Cf(x) &=& Cf(x) \\
-Df(x+h) &=& Df(x) + Df^\prime(x)(h) + Df^{\prime\prime}(x)\frac{h^2}{2}  + Df^{\prime\prime\prime}(x)\frac{h^3}{6}+ Df^{\prime\prime\prime\prime}(x)\frac{h^4}{24}\nonumber\\
-Ef(x+2h) &=& Ef(x) + Ef^\prime(x)(2h) + Ef^{\prime\prime}(x)\frac{(2h)^2}{2}  + Ef^{\prime\prime\prime}(x)\frac{(2h)^3}{6}+ Ef^{\prime\prime\prime\prime}(x)\frac{(2h)^4}{24}\nonumber
+Aq(x-2h) &=& Aq(x) + Aq^\prime(x)(-2h) + Aq^{\prime\prime}(x)\frac{(2h)^2}{2}  + Aq^{\prime\prime\prime}(x)\frac{(-2h)^3}{6}+ Aq^{\prime\prime\prime\prime}(x)\frac{(2h)^4}{24}\nonumber\\
+Bq(x-h) &=& Bq(x) + Bq^\prime(x)(-h) + Bq^{\prime\prime}(x)\frac{h^2}{2}  + Bq^{\prime\prime\prime}(x)\frac{(-h)^3}{6}+ Bq^{\prime\prime\prime\prime}(x)\frac{h^4}{24}\nonumber\\
+Cq(x) &=& Cq(x) \\
+Dq(x+h) &=& Dq(x) + Dq^\prime(x)(h) + Dq^{\prime\prime}(x)\frac{h^2}{2}  + Dq^{\prime\prime\prime}(x)\frac{h^3}{6}+ Dq^{\prime\prime\prime\prime}(x)\frac{h^4}{24}\nonumber\\
+Eq(x+2h) &=& Eq(x) + Eq^\prime(x)(2h) + Eq^{\prime\prime}(x)\frac{(2h)^2}{2}  + Eq^{\prime\prime\prime}(x)\frac{(2h)^3}{6}+ Eq^{\prime\prime\prime\prime}(x)\frac{(2h)^4}{24}\nonumber
 \end{eqnarray}
 
 And grouping together the terms with same order in the derivative
 
 \begin{eqnarray}
-f(x)[A+B+C+D+E] &=& 0\\
-f^\prime(x)h[-2A-B+D+2E] &=& 0\\
-f^{\prime\prime}(x)\frac{h^2}{2}[(-2)^2+B +D+2^2E] &=& 0\\
-f^{\prime\prime\prime}(x)\frac{h^3}{3!}[(-2)^3A-B +D+2^3E]&=&0\\
-f^{\prime\prime\prime\prime}(x)\frac{h^4}{4!}[(-2)^4A+B +D+2^4E]&=&f^{\prime\prime\prime\prime}(x)h^4
+q(x)[A+B+C+D+E] &=& 0\\
+q^\prime(x)h[-2A-B+D+2E] &=& 0\\
+q^{\prime\prime}(x)\frac{h^2}{2}[(-2)^2+B +D+2^2E] &=& 0\\
+q^{\prime\prime\prime}(x)\frac{h^3}{3!}[(-2)^3A-B +D+2^3E]&=&0\\
+q^{\prime\prime\prime\prime}(x)\frac{h^4}{4!}[(-2)^4A+B +D+2^4E]&=&q^{\prime\prime\prime\prime}(x)h^4
 \end{eqnarray}
 
 The system  is 
