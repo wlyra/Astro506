@@ -507,7 +507,7 @@ The solution for the 2nd order method uses $N=2$, thus
 
 \beq
 y_{n+1} = y_n + \Delta t  \left( b_1 k_1 + b_2 k_2\right)
-\label{eq:expand}
+\label{eq:expand2}
 \eeq
 
 We first choose $c_1 = 0$, defining
@@ -532,7 +532,7 @@ y(t+\Delta t) = y(t) + \frac{d y}{d t}\Delta t +
 \label{eq:taylor}
 \eeq
 
-To make the two expressions, \eq{eq:expand} and \eq{eq:taylor} match, we need
+To make the two expressions, \eq{eq:expand2} and \eq{eq:taylor} match, we need
 
 \beq
 \frac{d y}{d t}\Delta t +\frac{d^2 y}{d
@@ -605,7 +605,7 @@ The solution for the 3rd order method uses $N=3$, thus
 
 \beq
 y_{n+1} = y_n + \Delta t  \left( b_1 k_1 + b_2 k_2 + b_3 k_3\right)
-\label{eq:expand}
+\label{eq:expand2}
 \eeq
 
 with
@@ -760,7 +760,7 @@ The 4th order method follows the same procedure. It uses $N=4$, so the summation
 
 \beq
 y_{n+1} = y_n + \Delta t  \left( b_1 k_1 + b_2 k_2 + b_3 k_3 + b_4k_4\right)
-\label{eq:expand}
+\label{eq:expand4}
 \eeq
 
 with
@@ -781,7 +781,7 @@ y(t+\Delta t) = y(t) + \frac{d y}{d t}\Delta t +
 \frac{d^3 y}{d t^3}\frac{\Delta t^3}{6} +
 \frac{d^4 y}{d t^4}\frac{\Delta t^4}{24} +
 \mathcal{O}(\Delta t^5) 
-\label{eq:taylor3}
+\label{eq:taylor4}
 \eeq
 
 To make the two expressions match, we need
