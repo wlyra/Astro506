@@ -49,7 +49,7 @@ f^{(n+1)}_i  = f^{(n)}_i - \frac{C}{2} \left( f^{(n)}_{i+1} - f^{(n)}_{i-1}\righ
 \end{equation}
 
 
-\subsection{Stencil Diagrams}
+\section{Stencil Diagrams}
 
 The field $f_i^{(n+1)}$ at grid point $i$ and time step $n + 1$
 depends on values at the old time step $n$. This is sketched in a
@@ -63,7 +63,7 @@ so-called {\it stencil diagram}.
   \label{fig:stencil1}
 \end{figure}
 
-\subsection{``Naive'' scheme}
+\section{``Naive'' scheme}
 
 %The ``naive'' scheme averages the adjacent grid points 
 
@@ -94,7 +94,7 @@ seen to grow exponentially \figp{fig:naive-adv}. After some time the
 numerical result does not have the faintest resemblance to true
 solution. We will call this scheme ``naive''. 
 
-\subsection{Von-Neumann stability analysis}
+\section{Von-Neumann stability analysis}
 
 Why does the naive scheme fail so drastically? Let us look at a Fourier mode of the function
 
@@ -143,7 +143,7 @@ A^2(t+\Delta t) = A^2(t)\left[1 + C^2 \sin^2\left(k\Delta x\right)\right]
 
 We see that the amplitude of any wave, irrespective of $k$, will always increase, independently of the Courant number. The scheme is unconditionally unstable. 
 
-\subsection{Back space (upwinding)}
+\section{Back space (upwinding)}
 
 \begin{figure}
   \begin{center}
