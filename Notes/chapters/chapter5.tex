@@ -250,8 +250,6 @@ of the scheme has to be improved.
 \end{figure}
 
 
-
-
 Note on the nature of the ``smoothing'' of the solution. Even though
 the advection equation does not have any diffusion in it, the
 numerical algorithm to solve this advection equation intrinsically has
@@ -349,6 +347,20 @@ stable. {\it Accuracy does not guarantee stability.}
 
 \section{High-order finite-difference derivatives}
 
+A way to achieve higher accuracy is to add points to the
+stencil. Geometrically, this can be understood as using more points
+will naturally sample the function better \fig{fig:order-geometrical}
+
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/orders_geometrical.png}}    
+  \end{center}
+  \caption[]{A larger stencil allows a function to be better sampled,
+    with translates into higher accuracy. The coefficients are chosen
+    as to match the expansion of the function in Taylor series.}
+  \label{fig:order-geometrical}
+\end{figure}
+
 The first derivative, to 2nd order accuracy is 
 
 \begin{equation}
@@ -366,6 +378,34 @@ to 6th order accuracy, it is
 \begin{equation}
 q_i^\prime = \frac{-q_{i-3} + 9q_{i-2} -45q_{i-1} +45q_{i+1} -9q_{i+2} + q_{i+3}}{60\Delta x} + \mathcal{O}(\Delta x^6)
 \end{equation}
+
+\fig{fig:orders-sine} shows the accuracy in taking the numerical
+derivative of a sine function with these different orders of
+accuracy with 1024 points. In the residual, it is seen that at this resolution, the
+6th order accuracy has reached machine precision. The L1 norm is
+shown in \fig{fig:order-l1-norm}. 
+
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/signal_deriv.pdf}}    
+  \end{center}
+  \caption[]{Left: the signal, a sine function, with 1024 points. Middle: numerical
+    derivative taken with different accuracies, analytical
+    superposed. At this resolution, little difference is seen. Right:
+    the absolute residual in analytical compared to the numerical with
+    the different accuracies. It is seen that at this resolution, the
+    6th order accuracy has reached machine precision.}
+  \label{fig:order-sine}
+\end{figure}
+
+
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/orders_deriv_mean.png}}    
+  \end{center}
+  \caption[]{L1 norm of the residuals shown in \fig{fig:order-sine}.}
+  \label{fig:order-l1-norm}
+\end{figure}
 
 The table shown in \fig{fig:tablecoefficients} shows the coefficients (weights) given to each point on computing a derivative to desired accuracy. We will draw from this table to compute first and second derivatives, mostly. But how are these coefficients determined?  
 
