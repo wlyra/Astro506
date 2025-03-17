@@ -157,7 +157,7 @@ processes such as viscosity and thermal conduction.
 
 Viscosity creates forces that tend to prevent velocity gradients, i.e.
 it is a force that opposes layers moving relative to each other. We
-can add this force in the stress tensor as described below. 
+can add this force in the stress tensor as follows. 
 
 \begin{figure}
   \begin{center}
@@ -165,14 +165,42 @@ can add this force in the stress tensor as described below.
   \end{center}
   \caption[]{Particles exchanged between adjacent fluid elements A and
     B are the origin of viscosity. Molecules are exchanged between layers whose thickness is of the order of the
-    mean free path $l$. Fluid elements are much bigger than $l$. If Aand B are moving in
+    mean free path $l$. Fluid elements are much bigger than $l$. If A and B are moving in
     the $y$ direction with diﬀerent velocities, particles escaping from the faster fluid
     element will accelerate the slower one and viceversa. Reproduced
     from \cite{Sormani22}.}
   \label{fig:viscosity}
 \end{figure}
 
-We saw that the surface force acting on a fluid must be related
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/TensorsFig01.png}}
+  \end{center}
+  \caption[]{A stress can be applied to a surface
+either in the perpendicular (red arrows) or in the parallel direction
+(purple arrows) to the surface.}
+  \label{fig:tensor1-ch2}
+\end{figure}
+
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/TensorsFig02.png}}
+  \end{center}
+  \caption[]{In the case of the perpendicular direction, the stress leads to
+compression or expansion. This is pressure.}
+  \label{fig:tensor2-ch2}
+\end{figure}
+
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/TensorsFig03.png}}
+  \end{center}
+  \caption[]{In the parallel direction, the surface is distorted. The
+    parallel stress is a shear.}
+  \label{fig:tensor3-ch2}
+\end{figure}
+
+Mathematically, we concluded that the surface force acting on a fluid must be related
 through a second rank tensor, $P_{ij}$
 
 \beq
@@ -191,22 +219,40 @@ that becomes a gradient, the pressure gradient force. However, that's
 just the diagonal of the tensor. If the full surface was only
 diagonal, then only vertical forces to a surface would occur. Yet, if
 a fluid has internal friction (which in fluids we call viscosity), a
-tangential force to the surface must also happen \classcomm{Show slide
-  with pressure and stress}. 
+tangential force to the surface must also happen. We conclude that
+a stress can be applied to a surface
+either in the perpendicular or in the parallel direction to the
+surface \figp{fig:tensor1-ch2}. In the case of the perpendicular direction, the stress leads to
+compression or expansion \figp{fig:tensor2-ch2}. The perpendicular stress is a {\it pressure}.
+In the parallel direction, the surface is transported \figp{fig:tensor3-ch2}, distorting the
+shape in the direction of the applied stress. The parallel stress is a {\it shear}.
 
-In general, a full second-rank
-tensor should satisfy this requirement, so that
+In general, a full second-rank tensor should satisfy this requirement, so that
 
 \beq
 P_{ij}=p\delta_{ij} + \pi_{ij}
 \eeq
 
 For an ideal fluid, $\pi_{ij}=0$, so there's no
-viscosity. \classcomm{Show slide with shear flow}. If there is
+viscosity. \classcomm{Show slide with shear flow}. However, if there is
 internal friction, a force will be communicated from the faster part
 of the flow to the slower part of the flow, accelerating it to try to
-neutralize the shear. \classcomm{Give the definition of shear:} Shear is a velocity gradient in a different
-direction:
+neutralize the shear \figp{fig:shear1}.
+
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/shear1.png}}
+  \end{center}
+  \caption[]{Shear is a velocity gradient in a different direction. If the fluid has
+    internal friction, slower moving regions will deccelerate the adjacent faster moving regions.
+    The viscous force must be proportional to the shear.}
+  \label{fig:shear1}
+\end{figure}
+
+
+%https://www.facebook.com/photo/?fbid=122205011420179530&set=pb.61555385912605.-2207520000
+
+Shear is a velocity gradient in a different direction:
 
 \beq
 \frac{\partial u_i}{\partial x_j}
