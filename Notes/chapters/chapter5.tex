@@ -80,11 +80,14 @@ q^{(n+1)}_i  = q^{(n)}_i - \frac{C}{2}\left(q_{i+1} - q_{i-1}\right)
 \end{equation}
 
 
-And let us use it to advance the function $q$ shown in \fig{fig:function-advect}
+And let us use it to advance the function $q$ shown in
+\fig{fig:function-advect}. The solution after a few timesteps is shown
+in \fig{fig:naive-adv}.
 
 \begin{figure}
   \begin{center}
-    \resizebox{\textwidth}{!}{\includegraphics{./figs/function_to_advect.pdf}}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/function_to_advect.png}}
+%    \includegraphics[height=5\linewidth]{./figs/function_to_advect.pdf}
   \end{center}
   \caption[]{Function we will use to test the advection schemes. A
     hat function, a block function, and a gaussian.}
@@ -94,15 +97,14 @@ And let us use it to advance the function $q$ shown in \fig{fig:function-advect}
 
 \begin{figure}
   \begin{center}
-    \resizebox{\textwidth}{!}{\includegraphics{./figs/naive.png}}
+    \resizebox{.47\textwidth}{!}{\includegraphics{./figs/naive_stencil.png}}
+    \resizebox{.47\textwidth}{!}{\includegraphics{./figs/naive_solution.png}}
   \end{center}
   \caption[]{Centered difference ``naive'' scheme}
   \label{fig:naive-adv}
 \end{figure}
 
-
-The solution is shown in \fig{fig:naive-adv}. The oscillations are
-seen to grow exponentially \figp{fig:naive-adv}. After some time the
+The oscillations are seen to grow exponentially \figp{fig:naive-adv}. After some time the
 numerical result does not have the faintest resemblance to true
 solution. We will call this scheme ``naive''. 
 
@@ -111,7 +113,7 @@ solution. We will call this scheme ``naive''.
 Why does the naive scheme fail so drastically? Let us look at a Fourier mode of the function
 
 \begin{equation}
-f(x,t) = A(t) e^{-ikx}
+q(x,t) = A(t) e^{-ikx}
 \end{equation}
 
 
@@ -157,14 +159,6 @@ We see that the amplitude of any wave, irrespective of $k$, will always increase
 
 \section{Back space (upwinding)}
 
-\begin{figure}
-  \begin{center}
-    \resizebox{\textwidth}{!}{\includegraphics{./figs/donor.png}}
-  \end{center}
-  \caption[]{Donor cell}
-  \label{fig:donor}
-\end{figure}
-
 The back space scheme uses the point upwind
 (back space) for the derivative. The scheme results in 
 
@@ -172,13 +166,13 @@ The back space scheme uses the point upwind
 q^{(n+1)}_i  = (1-C) q^{(n)}_i + Cq^{(n)}_{i-1}
 \end{equation}
 
-The stencil is sketched in \fig{fig:donor}. It depends on the point and the point immediately upwind. The Courant number is the weight given to the upwind point. 
+The stencil and the solution after one full revolution are sketched in
+\fig{fig:upwind}. From the stencil, we see it depends on the point and the point immediately upwind. The Courant number is the weight given to the upwind point. The result is smooth but smeared out severely.
 
-The result is smooth but smeared out severely. Let us look at the von Neumann stability analysis upwind scheme. Using again a single Fourier mode 
-
+Let us look at the von Neumann stability analysis upwind scheme. Using again a single Fourier mode 
 
 \begin{equation}
-f(x,t) = A(t) e^{-ikx}
+q(x,t) = A(t) e^{-ikx}
 \end{equation}
 
 The upwind scheme turns into
@@ -245,6 +239,19 @@ This is the {\it condition of stability} of the upwind scheme.
 Upwinding seems promising to achieve stability. However, the accuracy
 of the scheme has to be improved.
 
+\begin{figure}
+  \begin{center}
+    \resizebox{.47\textwidth}{!}{\includegraphics{./figs/upwind_stencil.png}}    
+    \resizebox{.47\textwidth}{!}{\includegraphics{./figs/upwind_advect.png}}
+  \end{center}
+  \caption[]{Results after one revolution with an upwind advection
+    scheme. The scheme is stable, but of low accuracy.}
+  \label{fig:upwind}
+\end{figure}
+
+
+
+
 Note on the nature of the ``smoothing'' of the solution. Even though
 the advection equation does not have any diffusion in it, the
 numerical algorithm to solve this advection equation intrinsically has
@@ -255,7 +262,7 @@ discontinuities. But in principle numerical diffusion is
 unavoidable.
 
 One way of seeing this is by doing the following exercise. Consider the upwind scheme. It
-uses the derivative $i- 1/2$ for the update of the state at $i$. So let us write the derivative at $i- 1/2$ as:
+uses the derivative $i- \sfrac{1}{2}$ for the update of the state at $i$. So let us write the derivative at $i- \sfrac{1}{2}$ as:
 
 \beq
 \frac{q_i-q_{i-1}}{\Delta x} = \frac{q_{i+1}-q_{i-1}}{2\Delta x} -
@@ -276,7 +283,7 @@ is unstable, but once a bit of diffusion is added, the algorithm stabilizes. The
 however, that the diffusion smears any features out. If one would define the centered difference
 formulation of the x-derivative as the ``true'' derivative (which is of course merely a definition),
 then the numerical diffusion of the upstream differencing scheme is
-quantified by D as given in the equation above. 
+quantified by $D$ as given in the equation above. 
 
 In practice it is not possible to perfectly define the diffusivity of an algorithm since the
 centered difference formulation of the derivative is also merely an approximation of the true
@@ -284,7 +291,7 @@ derivative. But it is nevertheless a useful way of looking at the concept of num
 In principle one could say that it is as if we are solving
 
 \beq
-\frac{\partial q}{\partial t} = - u \frac{\partial q}{\partial x} +\frac{u\Delta x}{2}\frac{\partial^2 f}{\partial^2 x}
+\frac{\partial q}{\partial t} = - u \frac{\partial q}{\partial x} +\frac{u\Delta x}{2}\frac{\partial^2 q}{\partial^2 x}
 \eeq
 
 Clearly, for $\Delta x \rightarrow 0$ the diffusion vanishes. This is obviously a necessary condition, otherwise
@@ -296,11 +303,11 @@ viscosity. One could therefore say that the upstream differencing is equal to ce
 
 \section{Taylor series}
 
-Taylor series are  expansions of a function $f(x)$ for some 
-finite distance $\Delta x$ to $f(x+\Delta x)$
+Taylor series are  expansions of a function $q(x)$ for some 
+finite distance $\Delta x$ to $q(x+\Delta x)$
 
 \beq
-f(x\pm \Delta x) = f(x) \pm \Delta x q^\prime(x) + \frac{\Delta
+q(x\pm \Delta x) = q(x) \pm \Delta x q^\prime(x) + \frac{\Delta
   x^2}{2} q^{\prime\prime}(x) \pm \frac{\Delta x^3}{3!}
 q^{\prime\prime\prime}(x) + \frac{\Delta
   x^4}{4!} q^{\prime\prime \prime\prime}(x) \pm ...
@@ -309,7 +316,7 @@ q^{\prime\prime\prime}(x) + \frac{\Delta
 What happens, if we use this expression for the forward derivative
 
 \beq
-\frac{\partial q}{\partial x} \approx \frac{f(x+\Delta x) - f(x)}{\Delta x}
+\frac{\partial q}{\partial x} \approx \frac{q(x+\Delta x) - q(x)}{\Delta x}
 \eeq
 
 which leads to

@@ -10,7 +10,23 @@ The Courant criterion is the condition to select the timestep of a hydrodynamica
 C \equiv \frac{v\Delta t}{\Delta x}
 \end{equation}
 
-The condition $C \leq 1$ means that $v\Delta t \leq \Delta x$. So, qualitatevely, it means that the timestep must be such that no flux crosses more than one grid cell at a time. This is a necessary, but not sufficient, intuitive condition for stability.
+The condition $C \leq 1$ means that $v\Delta t \leq \Delta x$. So,
+qualitatevely, it means that the timestep must be such that no flux
+crosses more than one grid cell at a time \figp{fig:cfl_condition},
+which guarantees causality. This is a necessary, but not sufficient, intuitive condition for stability.
+
+
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/cfl_condition.png}}
+  \end{center}
+  \caption[]{The Courant-Friedrichs-Lewy (CFL) condition. $u\Delta t$
+    is the distance a signal travels within a timestep. This distance
+    cannot be bigger than a grid cell ($C=u\Delta t/\Delta x < 1$, in
+    blue), since cell has to know what happened upwind. A signal cannot
+    jump grid cells ( $C >$ 1 in red), or causality is violated.}
+  \label{fig:cfl_condition}
+\end{figure}
 
 The timestep is in practice given by choosing the Courant number and solving for 
 
