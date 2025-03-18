@@ -81,11 +81,42 @@ scale in the grid. This artificial bulk viscosity will simply smooth a
 
 \begin{figure}
   \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/bulk_viscosity.png}}
+  \end{center}
+  \caption[]{Bulk viscosity (second visosity or volume viscosity) is a
+    resistance to compression / expansion that exists in liquids and
+    non-ideal gases. Microphysically, it arises from the finite time
+    it takes the energy of an expansion to be transferred to
+    rovibrational modes. During this relaxation time, the system is in
+    non-equilibrium and can dissipate energy. In the momentum
+    equation, bulk viscosity behaves like extra pressure, but in the
+    energy equation it behaves like viscosity, leading to
+    heating. Shock viscosity is an artificial viscosity added to
+    smooth discontinuities, that draws inspiration from this physical
+    process.}
+  \label{fig:bulk-viscosity}
+\end{figure}
+ 
+\begin{figure}
+  \begin{center}
     \resizebox{\textwidth}{!}{\includegraphics{./figs/shockviscosity.png}}
   \end{center}
   \caption[]{Shock viscosity is used to smooth a discontinuity to the
     point it can be resolved by the stencil.}
   \label{fig:shock-viscosity}
+\end{figure}
+
+
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/shockviscosity-diffres.png}}
+  \end{center}
+  \caption[]{Function profile after one revolution using shock
+    viscosity at low (128, left), and high (1024, right),
+    resolution. The front discontinuity is more smoothed than the back
+    discontinuity. At low resolution the diffusion is too strong, and
+    yet the shock diffusion does not prevent Gibbs phenomena.}
+  \label{fig:shockviscosity-smoothing}
 \end{figure}
 
 Consider a constant bulk viscosity coefficient, so that
@@ -323,6 +354,23 @@ as possible. In the two examples below we shall describe two such algorithms.
 
 \subsection{Donor-cell advection}
 
+\begin{figure}
+  \begin{center}
+    \resizebox{.5\textwidth}{!}{\includegraphics{./figs/donor.png}}
+  \end{center}
+  \caption[]{Donor cell}
+  \label{fig:donor}
+\end{figure}
+
+\begin{figure}
+  \begin{center}
+    \resizebox{.6\textwidth}{!}{\includegraphics{./figs/donor-advection.png}}
+  \end{center}
+  \caption[]{Donor cell advection}
+  \label{fig:donor-advection}
+\end{figure}
+
+
 The simplest flux conserving scheme is the donor-cell scheme. In this scheme the ``average
 interface state'' is simply $\tilde{q}_{i+1/2} \approx q_i$, i.e. the value of the
 upwind cell. 
@@ -332,7 +380,7 @@ f_{i+1/2}^{n+1/2} \approx q_i^n u_{i+1/2}
 \eeq
 
 The physical interpretation of this method is the following. One assumes that the density is
-constant within each cell. We then let the material flow through the cell interfaces, from left to
+constant within each cell \figp{fig:donor-advection}. We then let the material flow through the cell interfaces, from left to
 right. Since the density to the left of the cell interface is constant, and since the
 CFL condition makes sure that the flow is no further than 1 grid cell spacing at maximum, we
 know that for the whole time between time $t_n$ and time $t_{n+1}$,
@@ -351,7 +399,7 @@ q_i^{n+1} = (1-C)q_i^n  + Cq_{i-1}^n
 \eeq
 
 The Donor-Cell algorithm is easily implemented
-but, as the upstream differencing method, it is very diffusive.
+but, as the upstream differencing method, it is very diffusive \figp{fig:donor}.
 
 \subsection{Slopes of the donor cell: Piecewise linear methods}
 
@@ -404,6 +452,16 @@ The Lax-Wendroff scheme uses the forward slope
   \caption[]{Lax-Wendroff}
   \label{fig:lax-wendroff}
 \end{figure}
+
+
+\begin{figure}
+  \begin{center}
+    \resizebox{.6\textwidth}{!}{\includegraphics{./figs/laxwendroff_slope.png}}
+  \end{center}
+  \caption[]{Lax-Wendroff slope}
+  \label{fig:laxwendroff_slope}
+\end{figure}
+
 
 The result is smooth \figp{fig:lax-wendroff} with considerable overshoot (that, however, does not grow in time). This scheme might be useful for more regular initial conditions.
 

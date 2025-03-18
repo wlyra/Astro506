@@ -38,7 +38,15 @@ where $v = \mbox{max}(u,c_s) $, where u is the velocity field. In this chapter, 
 
 %\section{Time evolution}
 
-Let us start simple, one planet, one star
+Let us start simple, the two-body problem \figp{fig:two-body} 
+
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/two-body.png}}
+  \end{center}
+  \caption[]{Setup for two-body problem.}
+  \label{fig:two-body}
+\end{figure}
 
 \beqn
 \frac{dx_i}{dt} &=& v\\
@@ -79,7 +87,7 @@ x(t_{i+1}) = x(t_i) + \Delta t f(x(t_i),t_i)
 
 
 Notice that although for a single timestep the error is quadratic,
-over time the error accumulates, and becomes linear. If $x\propto
+over time the error accumulates, and becomes linear   \figp{fig:euler-error}. If $x\propto
 f\Delta t$, and one needs $N=T/\Delta t$ timesteps to achieve the
 solution, then the error is the number of timesteps $T/\Delta t$ times
 the truncation error per timestep, $\Delta t^2$, i.e.,  
@@ -146,8 +154,19 @@ N \ \mathcal{O}(\Delta t^2)  = \mathcal{O}(\Delta t)
   \begin{center}
     \resizebox{\textwidth}{!}{\includegraphics{./figs/euler_time.png}}
   \end{center}
-  \caption[]{Euler method}
+  \caption[]{Euler method. Advance to $t_{i+1}$ by using the derivative
+    at $t_i$.}
   \label{fig:euler-time}
+\end{figure}
+
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/euler_error_growth.png}}
+  \end{center}
+  \caption[]{Error in Euler timestepping. The truncation error (left) is of
+    order $\mathcal{O}(\Delta t^2)$, the accumulated error (right) is
+    of order  $\mathcal{O}(\Delta t)$.}
+  \label{fig:euler-error}
 \end{figure}
 
 \section{Middle point method}
@@ -224,7 +243,7 @@ velocities are always calculated at half timesteps, and the positions (and hence
 \subsubsection{Order of Leapfrog} 
 
 Applied to a gravitational problem, or any problem where the acceleration depends only on position,
-leapfrog in fact achieves 4th order accuracy. Consider $i=0$
+leapfrog in fact achieves 4th order accuracy \figp{fig:kdk-error-growth}. Consider $i=0$
 
 \beqn
 v_{1/2} = v_{-1/2} + g_0 \Delta t \\
@@ -252,7 +271,19 @@ x_1 + x_{-1} = 2x_0 + \frac{d^2x}{dt^2}\Delta t^2 + \mathcal{O}\left(\Delta t^4\
 \label{eq:leap2}
 \eeq
 
-comparing \eq{eq:leap1} and \eq{eq:leap2}, the truncation error is $\mathcal{O}\left(\Delta t^4\right)$
+comparing \eq{eq:leap1} and \eq{eq:leap2}, the truncation error is
+$\mathcal{O}\left(\Delta t^4\right)$.
+
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/KDK_error_growth.png}}
+  \end{center}
+  \caption[]{The kick-drift-kick method has local truncation error of
+    fourth order (left). Unlike Euler, where the error grows in time, the error in
+KDK is bounded. Because of the high-order, machine
+precision is quickly reached as the timestep decreases (right).}
+  \label{fig:kdk-error-growth}
+\end{figure}
 
 \subsection{Kick-drift-kick}
 
@@ -330,7 +361,35 @@ v_i = v_{i+1} - a_{i+1} \Delta t
 
 \noindent which is again not the same operation. 
 
-The time reversibility of KDK leads to the property that the energy error is bound. As such, it is a powerful method for gravitational problems (although there is phase error). 
+The time reversibility of KDK leads to the property that the energy
+error is bound \figp{fig:euler-leapfrog}. This is because a time-symmetric code cannot spiral out, since such
+a motion would increase the size of the orbit. If an algorithm lets an orbit
+grow in one direction in time, it lets the orbit grow when applied to the other
+direction in time as well, as so it would not be time symmetric. This energy
+conservation property makes KDK is a powerful method for gravitational problems (although there is phase error).
+
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/euler_leapfrog_energy_bound.png}}
+  \end{center}
+  \caption[]{The leapfrog algorithm is time-reversible, which leads to the property that the energy error is bounded.
+The time-reversibility is because it if you start from the future and
+set $\Delta t \rightarrow -\Delta t$, you trace back the same steps to reach the
+past. The Euler algorithm does not have this property.}
+  \label{fig:euler-leapfrog}
+\end{figure}
+
+
+A graphical summary of the schemes studied so far is presented in
+shown in \fig{fig:schemes-graphical}.
+
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/schemes_graphical.png}}
+  \end{center}
+  \caption[]{Graphical representation of the schemes.}
+  \label{fig:schemes-graphical}
+\end{figure}
 
 \section{4th order Runge Kutta}
 
@@ -346,7 +405,8 @@ worked out soon in \sect{sect:rk4-proof})
 x(t+\Delta t) = x(t) + \frac{1}{6}\left[f(x_1,t_1) + 2f(x_2,t_2) + 2f(x_3,t_3) +  f(x_4,t_4)   \right]\Delta t
 \eeq
 
-It advances by using 4 points in space (beginning end and two intermmediate) and three in time (beginning, middle point, and end)
+It advances by using 4 points in space (beginning end and two
+intermmediate) and three in time (beginning, middle point, and end)   \figp{fig:rk4-graphical}
 
 \beqn
 x_1 = x(t) &\quad& t_1 = t\\
@@ -373,6 +433,25 @@ which is the Simpson rule
 \int_a^b x(t) dx \approx  \frac{b-a}{6}\left[f(a) + 4f\left(\frac{a+b}{2}\right) + f(b)\right]
 \eeq
 
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/rk4_graphical.png}}
+  \end{center}
+  \caption[]{Graphical representation of the RK4 method. The
+    derivatives at four points are used to pass from $P_1=(t_0, y_0$) to
+   $(t_1,y_1)$, with different weights. First an euler step is used
+    to pass to the middle point in $t$, using the derivative $k_1$  at
+    $P_1$, arriving at the point $P_2$, which is the middle point in t
+    and where the tangent $k_1$ lands it on the $y$ axis. The
+    derivative $k_2$ at $P_2$ is computed, and used to find the point
+    $P_3$, which is going back to $P_1$ and doing an Euler step to
+    the middle point with $k_2$.  The point $P_4$ is found by Euler
+    stepping from $P_1$ with the derivative $k_3$ at $P_3$, until the
+    time $t_1$. The derivative at this point, $k_4$, is
+    computed. Twice the weight is given to $k_2$ and $k_3$ than to $k_1$ and
+    $k_4$.}
+  \label{fig:rk4-graphical}
+\end{figure}
 
 \section{Runge-Kutta methods}
 
