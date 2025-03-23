@@ -1,0 +1,361 @@
+\chapter{Applications: Waves and Instabilities}
+
+\section{Supernova explosions}
+
+Supernova explosions are very violent events which transfer a
+significant amount of
+energy to the interstellar medium (ISM) and are responsible for a large variety of physical
+processes. We will not discuss the actual explosion mechanisms here which are thought to
+be due to carbon deflagration of white dwarfs (type I) or the core collapse of massive stars
+(type II) but we will follow the dynamical evolution of the supernova remnant (SNR), i.e.
+the expanding cloud of hot gas in the ISM. This evolution can be divided into diﬀerent
+phases according to the dominant physical processes, and simplified models can be made
+at least for the first stages, to get an idea of typical time scales, expansion velocities and
+sizes.
+
+\subsection{Free Expansion Phase}
+
+The shock wave created by the explosion moves outwards into the (more or less homogeneous) interstellar gas at highly supersonic speed. During the first phase of the SNR
+evolution the surrounding ISM has no influence on the expansion of the shock wave, i.e.
+the pressure of the interstellar gas is negligible. Assuming that most of the supernova
+energy $E_{\rm SN}$ (on the order of $10^{51}$ erg, excluding the part
+carried away by neutrinos) is transformed into kinetic energy of the
+ejected gas we can estimate the ejection velocity $u_e$ 
+
+\beq
+E_{\rm SN} = \frac{M_e u_e^2}{2} \quad \longrightarrow \quad u_e = \left(\frac{2E_{\rm SN}}{M_e}\right)^{1/2}
+\eeq
+
+\noindent where $M_e$ is the ejected mass. A supernova has kinetic
+energy of about $10^{51}$ erg, and 1 $M_\sun$ of mass is ejected, so the
+initial blast travels at $10^4$ km/s.
+
+
+The shock radius scales as
+
+\beq
+R_s(t) = u_e t. 
+\eeq
+
+The schematic structure of the SNR at this phase can be described as follows: behind
+the strong shock front which moves outwards into the ISM, compressed interstellar gas
+is accumulating. This interstellar material is separated from the ejected stellar material
+by a so-called contact discontinuity, i.e. a surface between two diﬀerent materials with
+similar pressure and velocity but diﬀerent density (unlike a shock front where all three
+quantities change). Behind the contact discontinuity the supernova
+ejecta, traveling slower than the shock front, but faster than the
+shocked interstellar gas, is racing up to shock against the dense
+material upstream from the shock front. 
+
+After some time the accumulated mass of the ISM compressed between the forward
+shock and the contact discontinuity equals the ejected mass of stellar material, and it
+will start to aﬀect the expansion of the SNR. By definition, this is the end of the free
+expansion phase, and the corresponding radius of the SNR, the
+so-called sweep-up radius $R_{\rm SW}$, is defined by
+\beq
+M_e = \frac{4\pi}{3} R^3_{\rm SW} \rho_0 \quad \longrightarrow \quad
+R_{\rm SW} = \left(\frac{3M_e}{4\pi \rho_0}\right)^{1/3}
+\eeq
+
+\noindent where $\rho_0$ is the initial density of the interstellar
+medium. For $\rho_0=1.67\times 10^{-24}$ g/cm$^3$ (1 hydrogen atom per
+cc), this yields $R_{\rm SW}$ of about 2 parsecs. This
+radius is reached at the sweep-up time $t_{\rm SW} = R_{\rm
+  SW}/u_e$. For $u_e=10^4$ km/s, this yields $t_{\rm SW}$ of roughly
+250 years. 
+
+Around the sweep-up time $t_{\rm SW}$ the structure of the SNR changes
+due to the eﬀects of the accumulated interstellar material. The second
+the supernova ejecta has reached the shocked interstellar gas, leading
+to a second shock front. While both shock fronts move forward, the
+second shock is slower, so, from the reference frame of the ejecta it
+is receeding; hence it is called {\it reverse} shock. The
+reverse shock travel inwards through the supernova ejecta, heating
+the ejected stellar gas to high temperatures. After some time a flat pressure structure
+is established and the SNR enters the next phase where the expansion is driven by the
+thermal pressure of the hot gas. Because the swept mass is now larger
+than the ejecta mass, the free expansion is over and the shock starts
+to decellerated. 
+
+\subsection{Sedov-Taylor Phase}
+
+After the passage of the reverse shock, the interior of the SNR is so hot that the energy
+losses by radiation are very small (all atoms are ionized, no recombination). The following
+pressure-driven expansion phase can therefore be regarded as adiabatic, the cooling of the
+gas is only due to the expansion. Taylor (1950) and Sedov (1959) gave an exact self-
+similar solution for such a pressure-driven explosion but we will restrict our analysis to
+a simple estimate, that nevertheless captures the physics of the
+problem.
+
+\subsubsection{Dimensional analysis}
+
+There’s an apocryphal story that Taylor managed to estimate the yield
+of the first atomic bomb using declassified material. The story goes
+that during the early days of nuclear testing, the precise yield of
+the Trinity test was classified. However, some declassified footage of
+the explosion had been made publicly available, showing the expanding
+fireball in its early moments. Taylor then did the following
+dimensional analysis.
+
+
+Taylor reasoned that the problem was self-similar, as in
+the evolution has to be of such nature as if some initial configuration
+expands uniformly. So a subsequent configuration must appear like an
+enlargement of a previous configuration. That is, the
+explosion is homologous. 
+
+Suppose an energy $E$ is suddenly released in an explosion producing
+a spherical blast wave, which progresses in an ambient medium of
+density $\rho$. We shall consider the pressure of the ambient medium
+to be negligible compared to the pressure inside the blast wave (i.e.
+$p \approx 0$). Let $\lambda$ be a scale parameter giving the size of the blast
+wave at time $t$ after the explosion. Apart from being a monotonically
+increasing function of time, the evolution of $\lambda$ may depend on $E$ and
+$\rho$. Now the only way of combining $t$, $E$ and $\rho$ to get a dimension of
+length is
+
+\beq
+\lambda = \left(\frac{Et^2}{\rho}\right)^{1/5}
+\eeq
+
+
+Let $r(t)$ be the radius of a shell of gas inside the spherical blast. For a
+self-similar expansion, $r(t)$ has to evolve in the same way as $\lambda$. So we
+can introduce a dimensionless distance parameter
+
+\beq
+\ksi = \frac{r}{\lambda} = r \left(\frac{\rho}{Et^2}\right)^{1/5}
+\eeq
+
+such that the value of this parameter for a particular shell of gas does
+not change with time. Each shell of gas can therefore be labelled by a
+particular value of $\ksi$. Let $\ksi_0$ correspond to the shock front so that the
+radius of the spherical blast is given by
+
+\beq
+r_s(t) = \ksi_0 \left(\frac{Et^2}{\rho}\right)^{1/5}
+\eeq
+
+So the energy of the explosion is 
+
+\beq
+E = \frac{\rho}{t^2}\left(\frac{r_s}{\ksi_0}\right)^5 
+\eeq
+
+Assuming $\ksi_0=1$ (the actual factor is $\left(\sfrac{25}{4\pi}\right)^{1/5}\approx
+1.15$, to be shown a posteriori), the energy of the explosion can be 
+estimated from knowing $\rho$, and the radius $r_s$ of the blast a time $t$
+after deflagration. As the story goes, Taylor saw the image shown in
+\fig{fig:trinity} on the Time magazine, and estimated $r_s=75$ meters at
+$t=0.006$ s. Knowing the air density $\rho=1.2\times 10^{-3}$\,g/cm$^3$.
+
+\beq
+E = \frac{1.2\times 10^{-3}}{\left(6\times
+    10^{-3}\right)^2}\left(7.5\times 10^3\right)^5 \ {\rm erg}
+\approx 8\times 10^{20} {\rm erg} 
+\eeq
+
+this is about 19 kilotons (1 kiloton $\approx 4.2\times 10^{19}$
+erg), remarkably close to the actual yield of the Trinity, of 21
+kilotons. As the story goes, Taylor published this result, while the
+yield of the bomb was still classified information, generating ample embarrasment for the US
+government. 
+
+The story is probably apocryphal, as Taylor was part of the British
+delegation to the Manhattan Project, and he was present at the Trinity
+nuclear test. In any case, it illustrates how a simple analysis can
+lead to accurate results. 
+
+%contributing to the development
+%of the bomb. atomic weapons. 
+%Trinity Test and Taylor's Analysis:
+%He was present at the Trinity nuclear test in 1945 and later, in 1950, published papers detailing his method of estimating the energy yield from photographs of the explosion. 
+
+%While the details of this story have taken on a legendary quality, it remains a striking example of how pure physics can extract hidden truths from the world—even without direct access to secret information.
+
+%Taylor was part of the British delegation to the Manhattan Project, contributing to the development of atomic weapons. 
+%Trinity Test and Taylor's Analysis:
+%He was present at the Trinity nuclear test in 1945 and later, in 1950, published papers detailing his method of estimating the energy yield from photographs of the explosion. 
+
+
+%It was independently shown by Sedov (1946, 1959) and
+%Taylor (1950a) that this problem can be solved if we assume that
+%the blast wave evolves in a self-similar fashion. This means that
+%the evolution has to be of such nature as if some initial configuration
+%expands uniformly. So a subsequent configuration must appear like an
+%enlargement of a previous configuration.
+
+Continuing the dimensional analysis also yields the velocity of the
+blast 
+
+\beq
+u_s(t) = \frac{dr_s}{dt}=\frac{2}{5}\frac{r_s}{t} = \frac{2r_s}{5t} =
+\frac{2}{5}\ksi_0 \left(\frac{E}{\rho t^3}\right)^{1/2}
+\eeq
+
+so we find
+
+\beqn
+r_s &\propto& t^{2/5}\\
+u_s &\propto& t^{-3/5}
+\eeqn
+
+A striking confirmation of the
+$t^{2/5}$ dependence of size comes from the Trinity test. From a movie
+of the explosion, Taylor (1950) plotted rhe graph shown in
+\fig{fig:trinity-t25}, which shows
+the variation of size with time, where the straight line corresponds to
+the $t^{2/5}$ dependence. This plot provides a convincing proof that
+self-similarity was a good assumption for this blast wave.
+
+A typical supernova explosion ejects about $1M_\sun$ with an initial
+velocity of about $10^4$ km/s, so that the energy input can be taken as
+$E \approx 10^{51}$ erg. The blast wave expands in the interstellar medium with
+typical density $\rho \approx 10^{-24}$ g\,cm$^3$. Again taking
+$\ksi_0=1$, 
+
+\beqn
+r_s(t) &\approx& 2 \ {\rm pc} \ \left(\frac{t}{{\rm 100 \ yr}}\right)^{2/5} \\
+u_s(t) &\approx& 5000 \ {\rm km/s} \ \left(\frac{t}{{\rm 100 \ yr}}\right)^{-3/5} 
+\eeqn
+
+This solution is valid after the free expansion phase, and before
+radiative cooling starts to become important. 
+
+
+\subsection{Ansatz solution}
+
+In this section, we now find the appropriate value of $\ksi_0$. Taking
+the gas pressure $p$ into account, the equation of motion for the expanding shell can be
+formulated as force = pressure $\times$ area. Writing force as
+$d(mv)/dt$, we can then write 
+
+\beq
+\frac{d}{dt}\left(\frac{4\pi}{3}R_s^3\rho_0 \dot{R}_s\right)=4\pi
+R_s^2 p
+\label{eq:radius-evolution}
+\eeq
+
+The pressure and internal energy $E$ of an ideal gas are related by
+
+\beq
+p  = \left(\gamma-1\right) \frac{E}{V}
+\eeq
+
+\noindent where $V$ denotes the volume. In the case of an adiabatic expansion (no losses of energy
+due to radiation) we can set $E$ equal to the explosion energy $E_{\rm
+  SN}$, and $V = 4\pi R^3_s /3$. Assuming $\gamma = 5/3$ we get
+
+\beq
+p  = \frac{E_{\rm SN}}{2\pi R_s^3}
+\eeq
+
+Making a power law ansatz for the shock radius
+
+\beq
+r_s = A t^\eta
+\eeq
+
+\noindent and inserting it into \eq{eq:radius-evolution} we obtain
+
+\beq
+\eta=\frac{2}{5} \quad {\rm and} \quad A  = \left(\frac{25E_{\rm SN}}{4\pi\rho_0}\right)^{1/5}
+\eeq
+
+\noindent i.e. the shock radius $r_s$ and the corresponding velocity $v_s$
+behave like
+
+\beqn
+r_s(t) &=& \left(\frac{25E_{\rm SN}}{4\pi\rho_0}\right)^{1/5} t^{2/5}\\
+u_s(t)&=&\frac{2}{5}\left(\frac{25E_{\rm SN}}{4\pi\rho_0}\right)^{1/5} t^{-3/5}
+\eeqn
+
+so we find
+
+\beq
+\ksi_0 = \left(\frac{25}{4\pi}\right)^{1/5} \approx 1.15
+\eeq
+
+
+\subsubsection{Temperature during Sedov-Taylor expansion}
+
+The Sedov-Taylor phase of adiabatic expansion lasts until we can no longer ignore radiative
+losses. %For that we need to compute the radiative loss 
+
+%\beq
+%\dot{E} = L = 4\pi r_s \sigma T^4
+%\eeq
+
+%and integrate it
+
+%\beq
+%E_{\rm loss} = \int \dot{E} dt 
+%\eeq
+
+%to find when $E_{\rm loss}$ is comparable to $E_{\rm SN}$ and no longer negligible.
+
+The post-shock temperature of the gas can be derived using the Rankine-Hugoniot conditions (which express the basic conservation laws accross the shock front). In the limit
+of a strong shock the post-shock pressure and density are given by
+
+\beq
+p_1 = \frac{2\rho_0 v_s^2}{\gamma+1} \quad {\rm and} \quad \frac{\rho_1}{\rho_0}=\frac{\gamma+1}{\gamma-1}
+\eeq
+
+Using these two conditions together with the ideal gas law
+
+\beq
+p_1 = \frac{k}{\mu m_u} \rho_1 T_1
+\eeq
+
+\noindent and assuming $\gamma = 5/3$ we obtain
+
+\beq
+T_1 = \frac{3\mu m_u}{16 k} u_s^2
+\eeq
+
+Inserting the expression for $u_s$ derived above we find
+\beq
+T_s(t) = T_1(t) = \frac{3\mu m_u}{100k}\left(\frac{25E_{\rm
+      SN}}{4\pi\rho_0}\right)^{2/5}t^{-6/5}
+\eeq
+
+\noindent which describes the decrease of the post-shock temperature $T_s$ during the adiabatic,
+pressure-driven expansion of the Sedov-Taylor phase.
+
+\subsection{Cooling (snowplow) phase and dissipation into ISM}
+
+As the SNR expands and cools adiabatically it will reach a critical temperature of about
+$10^6$ K. At this temperature the ionized atoms start to capture free electrons and they can
+lose their excitation energy by radiation. The radiative losses of energy become significant
+putting an end to the adiabatic expansion of the SNR. Due to the eﬃcient radiative cooling
+the thermal pressure in the post-shock region decreases and the expansion slows down.
+The SNR is entering the so-called snowplow phase (called snowplow because more and more interstellar gas
+is accumulated until the swept-up mass is much larger than the ejected stellar material).
+
+Finally the shell breaks up into individual clumps, probably due to a Rayleigh-Taylor
+instability (hot thin gas, the ejecta, is pushing cool dense gas) and the SNR disperses into the ISM
+as the expansion velocity decreases and becomes subsonic, with values typical of the interstellar gas.
+
+The snowplow phase of a supernova remnant’s evolution is considered
+momentum-conserving because, at this stage, the shock wave from the
+supernova explosion has lost enough energy to radiation that the
+expansion is primarily driven by the ram pressure (momentum) of the
+ejected material rather than by thermal pressure. At this stage
+
+\beq
+mu={\rm const}
+\eeq
+
+Since $m \sim \rho r^3$ and $u=dr/dt$,
+
+\beq
+\rho r^3 \frac{dr}{dt} = {\rm const}
+\eeq
+
+solving for $r$ yields
+
+\beq
+r \propto t^{1/4}
+\eeq
+
+this phase lasts until the velocity drops to subsonic.
