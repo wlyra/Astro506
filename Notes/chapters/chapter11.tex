@@ -1,0 +1,384 @@
+\chapter{Primary Instabilities}
+
+By the end of this lesson, students will be able to:
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{itemize}
+%%%%%%%%%%%%%%%%%%%%
+\item Learning Goals\\
+%%%%%%%%%%%%%%%%%%%%  
+  By the end of this lesson, students should be able to:
+
+  \begin{enumerate}
+
+  \item Describe the physical setup and relevance of RT and KH
+    instabilities in astrophysical contexts (e.g., supernova remnants,
+    accretion flows).
+
+  \item Linearize the equations of motion for a fluid interface and apply perturbation analysis.
+
+  \item Derive and interpret the dispersion relation for both RT and KH instabilities.
+
+  \item Identify criteria for instability and relate to astrophysical phenomena.
+
+  \item Compare and contrast the behavior and growth rates of the two instabilities.
+   
+  \end{enumerate}    
+%%%%%%%%%%%%%%%%%
+\item Lesson Plan
+%%%%%%%%%%%%%%%%%  
+  \begin{enumerate}
+  \item Introduction \& Motivation (10 min)
+    \begin{itemize}
+    \item Visuals to show where RT and KH instabilities appear in astrophysics (e.g., SN remnants, solar).
+    \item Guiding question: What happens at the interface between fluids with different densities or velocities?
+    \end{itemize}
+  \item Physical Setup: RT Instability (10 min)
+    \begin{itemize}
+    \item  Two-fluid interface with gravity. Discuss initial conditions and physical intuition behind RT instability.
+    \end{itemize}
+  \item Linear Stability Analysis: RT (15 min)
+    \begin{itemize}
+    \item  Walk through linearizing Euler’s equations
+    \item Bernoulli theorem + boundary conditions.
+    \item Derive dispersion relation:
+    \item Discuss physical meaning: when is $\omega$ imaginary
+      (instability)? Dependence on wave number $k$.
+    \end{itemize}
+  \item {Quick question}
+    \begin{itemize}
+      \item What happens if $\rho_1=\rho_2$?
+      \end{itemize}
+    \item Physical Setup: KH Instability (10 min)
+    \begin{itemize}
+    \item Introduce shear flow across a contact discontinuity.
+    \item Emphasize velocity discontinuity and pressure balance
+      \end{itemize}
+
+    \item Linear Stability Analysis: KH (15 min)
+    \begin{itemize}
+      \item Derive the KH dispersion relation:
+      \end{itemize}
+
+    \item RT vs KH Summary Discussion (5 min)
+    \begin{itemize}
+      \item Venn diagram or table comparing: driving force, required
+        conditions, typical growth rates.
+      \item Ask students to contribute examples from astrophysics.
+      \end{itemize}
+
+    \item Wrap-Up \& Exit Question (5 min)
+    \begin{itemize}
+      \item Assign exit question: “In a stratified atmosphere with
+        both shear and gravity, which instability dominates and why?”
+      \item Non-linear evolution and simulations.
+      \end{itemize}
+
+    \end{enumerate}
+\end{itemize}
+
+\section{Rayleigh-Taylor instability}
+
+Consider two incompressible, inviscid fluids.
+
+Fluid 1, with density $\rho_1$, lies above fluid 2, with density
+$\rho_2$. Gravity acts downward, so $\v{g}=-g\hatz$. The fluids have a
+contact discontinuity at $z=0$, and we consider small perturbations to
+the interface, $\eta(x,t)$. 
+
+The fluid is incompressible and at rest, we consider it irrotational
+and thus a potential flow, writing $\v{u}_i =\grad{\phi_i}$ for each
+fluid. 
+
+Since the flow is potential, it obeys Laplace's equation
+
+\beq
+\Laplace{\phi_i}=0
+\eeq
+
+\noindent with the boundary conditions $\phi\vert{z=\pm\infty} =  0$. 
+
+At the interface the contact discontinuity condition of same velocity
+for both fluids implies that the velocity of the boundary, $u_z =
+\frac{\partial \eta}{\partial t}$
+must be the velocity of the fluids 
+
+\beq
+\frac{\partial \eta}{\partial t} = \frac{\partial \phi_i}{\partial z}. 
+\label{eq:contactboundary}
+\eeq
+
+Finally we apply Euler's equation
+
+\beq
+\frac{\partial \v{u}}{\partial t} + \left(\v{u}\cdot\grad\right)\v{u} = -\frac{1}{\rho}\grad{p} + \v{g} 
+\eeq
+
+substituting $\v{u}=\grad{\phi}$, then $\left(\v{u}\cdot\grad\right)\v{u} = \frac{1}{2}\grad{u^2}$
+for irrotational flow and setting $\frac{1}{\rho}\grad{p}=\grad{h}$ for
+enthalpy, we write almost all terms under a single gradient
+
+
+\beq
+\grad{\left(\frac{\partial \phi}{\partial t} +  \frac{1}{2}u^2 + h\right)} = \v{g} 
+\eeq
+
+and integrating in z
+
+\beq
+\frac{\partial \phi}{\partial t} +  \frac{1}{2}u^2 + h + gz = {\rm const}
+\eeq
+
+which is Bernoulli's theorem. Applied to the boundary, for an unperturbed state, $u=0$ and $z=0$, we
+see that the constant has to be the unpertubed enthalpy, $h_0$. 
+
+\beq
+\frac{\partial \phi}{\partial t} +  \frac{1}{2}u^2 + h + g\eta = h_0
+\eeq
+
+we thus write this in terms of the perturbed enthalphy
+
+\beq
+\rho\left(\frac{\partial \phi}{\partial t} +  \frac{1}{2}u^2 + g\eta\right) = -p^\prime
+\eeq
+
+and since the pressure is the same for both fluids
+
+\beq
+\rho_1\left(\frac{\partial \phi_1}{\partial t} +  \frac{1}{2}u^2 + g\eta\right) = \rho_2\left(\frac{\partial \phi_2}{\partial t} +  \frac{1}{2}u^2 + g\eta\right)
+\label{eq:bernoulli-boundary}
+\eeq
+
+
+
+We now seek solutions for the three functions $\eta$, $\phi_1$ and
+$\phi_2$. We apply now Fourier perturbations and consider the ansatz
+
+\beq
+\phi_1 = \hat{\phi}_1 Z_1(z) e^{i\left(kx-\omega t\right)}
+\eeq
+
+where $\hat{\phi}_1$ is an amplitude.  The ansatz
+respects the symmetry of the problem. Because $\phi_1$ fulfills
+the Laplace equation, we find
+
+\beq
+\frac{\partial^2 Z_1}{\partial z^2} = k^2 Z_1
+\eeq
+
+which has solution
+
+\beq
+Z_1(z) = C_1e^{kz} + C_2 e^{-kz}  
+\eeq
+
+Since for $z=\infty$ it must vanish, we set $C_1=0$. In a similar way, we can make an
+ansatz for $\phi_2$ and conclude that its z-dependence can only go as
+exp$(kz)$ due the boundary condition at $z=-\infty$.
+This therefore leads to the following three equations for a single Fourier mode
+
+
+\beqn
+\eta(x,t) &=& \hat{\eta} e^{i\left(kx-\omega t\right)}\\
+\phi_1(x,z,t) &=& \hat{\phi}_1 e^{-kz}e^{i\left(kx-\omega t\right)}\\
+\phi_2(x,z,t) &=& \hat{\phi}_2e^{kz}e^{i\left(kx-\omega t\right)}
+\eeqn
+
+Applying the perturbation to the contact discontinuity velocity
+condition \eq{eq:contactboundary} for each fluid 
+
+\beqn
+-i\omega \hat{\eta} &=& -k \hat{\phi}_1  \label{eq:pert1}\\
+-i\omega \hat{\eta} &=& k \hat{\phi}_2 \label{eq:pert2}
+\eeqn
+
+which yields $\phi_1 = -\phi_2$ and we can drop one of the equations. 
+
+For the last equation, we apply \eq{eq:bernoulli-boundary} to
+infinitesimal perturbations in velocity, discarding the $u^2$ term
+
+\beq
+\rho_1\left(\frac{\partial \phi_1}{\partial t} +  g\eta\right) = \rho_2\left(\frac{\partial \phi_2}{\partial t} +  g\eta\right)
+\eeq
+
+we thus find, applying the pertubation  
+
+\beq
+\rho_1\left(-i\omega\hat{\phi}_1 +  g\hat{\eta}\right) = \rho_2\left(-i\omega\hat{\phi}_2 +  g\hat{\eta}\right)
+\label{eq:pert3}
+\eeq
+
+and substituting $\phi_2$ for $-\phi_1$, 
+
+\beq
+\left(\rho_1 -\rho_2\right)g\hat{\eta}  = i\omega\hat{\phi}_1 \left(\rho_1+\rho_2\right)
+\eeq
+
+now substituting \eq{eq:pert1}
+
+\beq
+\omega^2  = \frac{\left(\rho_2-\rho_1\right)}{\left(\rho_1+\rho_2\right)} gk  
+\eeq
+
+We see that for $\rho_1 > \rho_2$, i.e. the denser fluid lies on top, unstable solutions with
+$\omega^2 < 0$ exist. This is the so-called Rayleigh-Taylor instability. It is in essence
+buoyancy driven and leads to the rise of lighter material in a stratified atmosphere.
+The free energy that is tapped here is the potential energy in the gravitational field.
+Also notice that for an ideal gas, arbitrary small wavelengths are unstable, and those
+modes will also grow fastest.
+
+If on the other hand we have $\rho_1 < \rho_2$, then the interface is stable and will only
+oscillate when perturbed.
+
+The quantity 
+
+\beq
+{\rm At} = \frac{\left(\rho_2-\rho_1\right)}{\left(\rho_1+\rho_2\right)}
+\eeq
+
+is called Atwood number. 
+
+\subsection{Physical interpretation}
+
+Let us examine what happens when a fluid parcel is translated to the new vertical position $z=
+\eta(x)$ \cite{Piriz+06}. The pressure in an incompressible
+fluid increases linearly with depth, the elements at a deeper
+position $\eta > 0$ will feel a pressure greater than $p_0$. The
+elements at $\eta < 0$ will feel a pressure less than $p_0$. The pres-
+sure increases proportionally to the fluid density so for
+$\eta > 0$, it increases more on the side of the fluid with higher
+density. The pressure of the fluids on each side of the trans-
+lated interface is
+
+\beqn
+p_1^\prime &=& p_0+\rho_1 g \eta\\
+p_2^\prime &=& p_0+\rho_2 g \eta
+\eeqn
+
+In the new position, a pressure difference $\Delta p= \left(\rho_2- \rho_1\right) g\eta$ is
+created across the interface, which tends to deform it further.
+This pressure difference drives the motion of the interface.
+We can describe this motion by means of Newton’s second
+law of motion,
+
+\beqn
+m\ddot{\eta} &=& \Delta p A\\
+&=& \left(\rho_2- \rho_1\right) g\eta A
+\label{eq:RT-Newton}
+\eeqn
+
+where $A$ is the area of the interface and $m$ is the mass of the
+fluids involved in the motion. To calculate this mass we use what
+we've found, that the perturbations
+decay from the interface as exp$(-kz)$. Therefore the total effective mass
+that participates in the motion is the mass contained within
+this distance,
+
+\beq
+m=m_1+m_2  = \frac{A}{k}\left(\rho_1 +\rho_2\right) 
+\eeq
+
+where $m_1$ and $m_2$ are, respectively, the masses of the light
+and heavy fluids that move when the interface does. Substituting this
+mass in \eq{eq:RT-Newton}
+
+\beq
+\ddot{\eta} = \frac{\left(\rho_2- \rho_1\right)}{\left(\rho_1 +\rho_2\right)} gk\eta 
+\label{eq:RT-Newton2}
+\eeq
+
+which is an oscillation with frequency
+
+\beq
+\omega^2 = \frac{\left(\rho_2- \rho_1\right)}{\left(\rho_1 +\rho_2\right)} gk
+\eeq
+
+just as we've found via linear analysis with Fourier modes. The
+physical arguments based on elementary hydrostatics used to
+derive this equation show how the driving force $\rho_2- \rho_1 g \eta
+A$ is created across the deformed interface.
+
+\section{Kelvin-Helmholtz instability}
+
+Consider a situation with no gravitational field, and with horizontal
+shear between the fluids.
+
+The equation for the boundary Langrangian perturbation is now 
+
+\beq
+\frac{\partial \eta}{\partial t} + \frac{\partial \eta}{\partial x} u_i = \frac{\partial \phi_i}{\partial z}. 
+\label{eq:contactboundary-x}
+\eeq
+
+and the Bernoulli equation is
+
+\beq
+\rho_1\left(\frac{\partial \phi_1}{\partial t} +  \frac{1}{2}u^2\right) = \rho_2\left(\frac{\partial \phi_2}{\partial t} +  \frac{1}{2}u^2\right)
+\label{eq:bernoulli-boundary-x1}
+\eeq
+
+expanding $u^2 = \bar{u}^2 + 2 \bar{u} u^\prime$ and writing
+$u^\prime=\grad \phi$,
+
+\beq
+\rho_1\left(\frac{\partial \phi_1}{\partial t} +  u_1 \frac{\partial \phi_1}{\partial x}\right) = \rho_2\left(\frac{\partial \phi_2}{\partial t} +  u_2 \frac{\partial \phi_2}{\partial x}\right)
+\label{eq:bernoulli-boundary-x2}
+\eeq
+
+expanding in Fourier modes, we find
+
+\beqn
+-i\left(\omega-k u_1\right) \hat{\eta} &=& -k \phi_1\\
+-i\left(\omega-k u_2\right) \hat{\eta} &=&  k \phi_2\\
+\rho_1 \hat{\phi}_1\left(\omega-k u_1\right) &=& \rho_2 \hat{\phi}_2\left(\omega-k u_2\right)
+\eeqn
+
+for which the dispersion relation is
+
+\beq
+\omega^2 \left(\rho_1+\rho_2\right) - 2\omega k
+\left(\rho_1u_1+\rho_2u_2\right) + k^2 \left(\rho_1u_1^2+\rho_2u_2^2\right)
+\eeq
+
+The solution is
+
+\beq
+\omega_{1,2} = \frac{k\left(\rho_1u_1+\rho_2u_2\right)}{\rho_1+\rho_2}
+\pm i \frac{\sqrt{\rho_1\rho_2}}{\rho_1+\rho_2}\vert u_1-u_2\vert
+\eeq
+
+Interestingly, in an ideal gas there is an imaginary growing mode component for every
+$\vert u_1-u_2\vert > 0$, that is, {\it whenever there is shear}.
+
+This means that a small wave-like perturbation at an interface will
+grow rapidly into large waves that take the form of characteristic Kelvin-Helmholtz
+``billows''. In the non-linear regime reached during the subsequent evolution of this
+instability the waves are rolled up, leading to the creation of vortex like structures.
+As the instability grows fastest for small scales (high k), with time the billows tend
+to get larger and larger.
+
+As the Kelvin-Helmholtz instability basically means that any sharp
+velocity gradient in a shear flow is unstable in a freely streaming
+fluid, this instability is particularly important for the creating of
+fluid turbulence.
+
+
+
+\section{Jeans Instability}
+
+\section{Toomre Instability}
+
+\subsection{Definition and Characteristics}
+
+
