@@ -373,9 +373,116 @@ velocity gradient in a shear flow is unstable in a freely streaming
 fluid, this instability is particularly important for the creating of
 fluid turbulence.
 
-
-
 \section{Jeans Instability}
+
+Jeans instability refers to the critical condition in which a cloud of
+gas and dust, under the influence of its own gravity, begins to
+collapse and form stars. This concept is pivotal in understanding star
+formation, as it connects the initial mass function—the distribution
+of masses for newly formed stars—to the rates at which these stars
+form in molecular clouds. When the internal pressure of a cloud cannot
+support the gravitational forces acting on it, the Jeans length
+becomes crucial in determining whether collapse will occur.
+
+The instability arises when the thermal pressure of a gas parcel within a cloud cannot
+counterbalance its gravitational pull. This gas parcel eventually fragmenting and
+forming stars. The fundamental question to ask is, what are the
+wavelengths that go unstable, and what is the typical mass that collapses? 
+
+The system is in hydrostatic equilibrium, and the perturbations evolve
+according to the equations of hydrodynamics. The system is similar to
+what we have considered so far, except that now, because the system is
+selfgravitating, we need to consider Poisson's equation
+
+\beqn
+\frac{\partial \rho}{\partial t} + \left(\v{u}\cdot \del\right)\rho &=& -\rho\Div{\v{u}}\\
+\frac{\partial \v{u}}{\partial t} + \left(\v{u}\cdot \del\right)\v{u}&=& -\frac{1}{\rho}\grad{p} - \grad{\varPhi}\\
+\Laplace{\varPhi} &=& 4\pi G \rho
+\eeqn
+
+The system is closed with the equation of state $p=\rho c_s^2$. We
+assume the system isothermal for simplicity.
+
+Let us again decompose the system into base and perturbation
+
+\beqn
+\frac{\partial \rho^\prime}{\partial t} + \rho_0\Div{\v{u}^\prime} &=&0\\
+\frac{\partial \v{u}^\prime}{\partial t} +\frac{c_s^2}{\rho_0}\grad{\rho^\prime} + \grad{\varPhi^\prime}&=&0\\
+\Laplace{\varPhi^\prime} - 4\pi G \rho^\prime&=& 0
+\eeqn
+
+and apply a radial perturbation $\psi^\prime = \hat{\psi} \ {\rm exp} \left[i \left(kr - \omega t \right)\right]$
+
+\beqn
+-\omega \hat{\rho} +\rho_0k\hat{u}&=&0\\
+-\omega\hat{u} +\frac{c_s^2}{\rho_0}k\hat{\rho} + k\hat{\varPhi}&=&0\\
+k^2\hat{\varPhi} + 4\pi G \hat{\rho}&=&0
+\eeqn
+
+The system is 
+
+\begin{equation}
+\begin{vmatrix}
+-\omega                       & \rho_0k    & 0 \\
+\frac{c_s^2}{\rho_0}k  & -\omega  & k\\
+ 4\pi G & 0 & k^2
+\end{vmatrix}	= 0 
+\end{equation}
+
+This leads to the dispersion relation
+
+\beq
+\omega^2  = k^2 c_s^2 - 4\pi G\rho_0 
+\eeq
+
+defining
+
+\beq
+k_J^2\equiv \frac{4\pi G\rho_0}{c_s^2} = \frac{4\pi G\rho_0 m_p \mu}{k_B T }
+\eeq
+
+we can write
+
+\beq
+\omega^2  = c_s^2 \left(k^2-k_J^2\right)
+\eeq
+
+
+Forr $k < k_J$ the complex eigenfrequency is imaginary and hence the
+disturbance grows exponentially. The wavenumber $k_J$ defines the
+{\it Jeans length}
+
+\beq
+\lambda_J \equiv \frac{2\pi}{k_J} = c_s\left(\frac{\pi}{G\rho_0}\right)^{1/2} = \left(\frac{\pi k_B T }{G\rho_0 m_p \mu}\right)^{1/2}
+\eeq
+
+It also defines the {\it Jeans mass}
+
+\beq
+M_J \equiv  \left(\frac{\lambda_J}{2}\right)^3 \rho_0 = \left(\frac{\pi k_B T }{4G m_p  \mu}\right)^{3/2} \frac{1}{\rho_0^{1/2}}
+\eeq
+
+Perturbations of size larger than this in a gas cloud would grow,
+become self-gravitating and collapse. For $T=10$\,K, $\mu= 2.3$, and
+number density $n = 10^3$ cm$^{-3}$, the Jeans mass is about 2 solar
+masses. 
+
+Notice that the dispersion relation $\omega^2  =  k^2 c_s^2 - 4\pi
+G\rho_0  $ evidences the physics of the problem. Gravity and pressure
+are competing. Gravity is trying to compress the gas, sounds waves
+remove the compressibility. Sound waves remove the compressibility at
+the sound crossing time $R/c_s$. Gravity compresses at the free fall
+time $1/\sqrt{G\rho}$. There exists a length $R$ for which they're
+equal. For larger lengths, the sound crossing time is longer than the
+free fall time, and the compressibility cannot be removed. The system
+collapses. This length is the Jeans length
+
+\beq
+\lambda_J \sim \frac{c_s}{\sqrt{G\rho}}
+\eeq
+
+which is what we derived from rigorous linear analysis except for a
+factor $\sqrt{\pi}$.
 
 \section{Toomre Instability}
 

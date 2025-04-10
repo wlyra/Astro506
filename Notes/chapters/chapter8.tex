@@ -15,12 +15,23 @@ sizes.
 
 \subsection{Free Expansion Phase}
 
-The shock wave created by the explosion moves outwards into the (more or less homogeneous) interstellar gas at highly supersonic speed. During the first phase of the SNR
+The shock wave created by the explosion moves outwards into the (more
+or less homogeneous) interstellar gas at highly supersonic speed \figp{fig:sn1}. During the first phase of the SNR
 evolution the surrounding ISM has no influence on the expansion of the shock wave, i.e.
 the pressure of the interstellar gas is negligible. Assuming that most of the supernova
 energy $E_{\rm SN}$ (on the order of $10^{51}$ erg, excluding the part
 carried away by neutrinos) is transformed into kinetic energy of the
 ejected gas we can estimate the ejection velocity $u_e$ 
+
+
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/sn1.png}}
+  \end{center}
+  \caption[]{The SN blast shocks against the ISM, sweeping it up and
+    building a shell of hot, shocked material behind the shock front.}
+  \label{fig:sn1}
+\end{figure}
 
 \beq
 E_{\rm SN} = \frac{M_e u_e^2}{2} \quad \longrightarrow \quad u_e = \left(\frac{2E_{\rm SN}}{M_e}\right)^{1/2}
@@ -28,24 +39,57 @@ E_{\rm SN} = \frac{M_e u_e^2}{2} \quad \longrightarrow \quad u_e = \left(\frac{2
 
 \noindent where $M_e$ is the ejected mass. A supernova has kinetic
 energy of about $10^{51}$ erg, and 1 $M_\sun$ of mass is ejected, so the
-initial blast travels at $10^4$ km/s.
+initial blast travels at $\approx 10^4$ km/s.
 
 
-The shock radius scales as
+At this initial phase, as the pressure of the ISM is negligible, the
+shock is not decellerated. The shock radius thus scales as
 
 \beq
 R_s(t) = u_e t. 
 \eeq
 
-The schematic structure of the SNR at this phase can be described as follows: behind
+The schematic structure of the SNR at this phase can be described as
+follows \fig{fig:SNR}: behind
 the strong shock front which moves outwards into the ISM, compressed interstellar gas
 is accumulating. This interstellar material is separated from the ejected stellar material
 by a so-called contact discontinuity, i.e. a surface between two diﬀerent materials with
-similar pressure and velocity but diﬀerent density (unlike a shock front where all three
+similar pressure and velocity but diﬀerent density
+\fig{fig:contactdiscontinuity} (unlike a shock front where all three
 quantities change). Behind the contact discontinuity the supernova
 ejecta, traveling slower than the shock front, but faster than the
 shocked interstellar gas, is racing up to shock against the dense
-material upstream from the shock front. 
+material upstream from the shock front.
+
+\begin{figure}
+  \begin{center}
+    \resizebox{.43\textwidth}{!}{\includegraphics{./figs/SNR1.png}}
+    \resizebox{.49\textwidth}{!}{\includegraphics{./figs/SNR2.png}}
+  \end{center}
+  \caption[]{Structure of an SNR. Forward shock: the initial blast
+    propagates through the ISM. Behind the forward shock there is
+    compressed interstellar gas, heated to millions of K.
+    The SN ejecta is racing behind. When it meets the compressed
+    interstellar gas, it generates a second shock. This shock is
+    traveling outwards, but it trails the ejecta, so from the
+    reference frame of the ejecta, it travels backwards. Thus it is called ``Reverse Shock''.
+    The reverse shock heats up the SN ejecta also to millions of K.
+    The shocked gas and ejecta are so hot they’re fully ionized, and
+    cannot cool down efficiently. At this stage, the expansion is adiabatic.}
+  \label{fig:snr}
+\end{figure}
+
+
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/contactdiscontinuity.png}}
+  \end{center}
+  \caption[]{The ocean-air interface is an everyday example of contact
+  discontinuity. At the discontinuity, the fluids have different
+  densities, but equal pressure
+  and normal velocity.}
+  \label{fig:contactdiscontinuity}
+\end{figure}
 
 After some time the accumulated mass of the ISM compressed between the forward
 shock and the contact discontinuity equals the ejected mass of stellar material, and it
@@ -94,9 +138,17 @@ of the first atomic bomb using declassified material. The story goes
 that during the early days of nuclear testing, the precise yield of
 the Trinity test was classified. However, some declassified footage of
 the explosion had been made publicly available, showing the expanding
-fireball in its early moments. Taylor then did the following
+fireball in its early moments \fig{fig:trinity}. Taylor then did the following
 dimensional analysis.
 
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/Trinity.png}}
+  \end{center}
+  \caption[]{Footage of the Trinity explosion confirms the $r\sim t^{2/5}$
+    power-law obtained by Taylor.}
+  \label{fig:trinity}
+\end{figure}
 
 Taylor reasoned that the problem was self-similar, as in
 the evolution has to be of such nature as if some initial configuration
@@ -276,6 +328,8 @@ so we find
 \ksi_0 = \left(\frac{25}{4\pi}\right)^{1/5} \approx 1.15
 \eeq
 
+indeed a factor of order unity.
+
 
 \subsubsection{Temperature during Sedov-Taylor expansion}
 
@@ -358,6 +412,28 @@ solving for $r$ yields
 r \propto t^{1/4}
 \eeq
 
-this phase lasts until the velocity drops to subsonic.
+this phase lasts until the velocity drops to subsonic and the shock is
+not a shock anymore: the renmant mixes with the ISM. The phases of the
+SNR are sketched in \fig{fig:phases}  and \fig{fig:powerlaws}. 
+
+
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/snrphases.png}}
+  \end{center}
+  \caption[]{The different phases of a supernova explosion.}
+  \label{fig:phases}
+\end{figure}
+
+
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/snrpowerlaws.png}}
+  \end{center}
+  \caption[]{Power-law dependency of the shell radius at different phases.}
+  \label{fig:powerlaws}
+\end{figure}
+
+
 
 
