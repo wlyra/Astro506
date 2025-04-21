@@ -1,24 +1,10 @@
 \chapter{Primary Instabilities}
 
-By the end of this lesson, students will be able to:
-
-
-
-
-
-
-
-
-
-
-
-
-
 \begin{itemize}
 %%%%%%%%%%%%%%%%%%%%
 \item Learning Goals\\
 %%%%%%%%%%%%%%%%%%%%  
-  By the end of this lesson, students should be able to:
+  By the end of this chapter, students should be able to:
 
   \begin{enumerate}
 
@@ -32,7 +18,19 @@ By the end of this lesson, students will be able to:
 
   \item Identify criteria for instability and relate to astrophysical phenomena.
 
-  \item Compare and contrast the behavior and growth rates of the two instabilities.
+  \item Compare and contrast the behavior and growth rates of RT and KH
+    instabilities.
+
+  \item Describe the physical origin of Jeans and Toomre instabilities in self-gravitating media.
+
+  \item Derive and interpret the relevant dispersion relations for
+    Jeans and Toomre instabilities.
+
+  \item Explain the roles of pressure, gravity, rotation, and shear in stabilizing/destabilizing a system.
+
+  \item Apply instability criteria (Jeans length, Toomre Q) to various astrophysical contexts.
+
+  \item Connect intuitive ideas (e.g., pressure vs gravity, centrifugal balance) to the mathematics of stability.
    
   \end{enumerate}    
 %%%%%%%%%%%%%%%%%
@@ -375,6 +373,82 @@ fluid turbulence.
 
 \section{Jeans Instability}
 
+Lesson plan
+
+\begin{itemize}
+\item Intro (10 min)
+
+  \begin{itemize}
+    \item Jeans: star formation in the ISM, stucture formation in cosmology.
+    \item Toomre: structure formation in galactic disks.
+  \end{itemize}
+  
+\item Jeans (20 min)
+
+  \begin{itemize}
+  \item Physical intuition:Competition between pressure support and
+    gravitational collapse.
+    \item Hand-wavy: sound crossing time vs free fall. Sound removes
+      compressibility. Gravity must act faster than that. Get Jeans
+      length and mass.
+    
+    \item Mathematical setup: Linear perturbation on Continuity +
+      Euler + Poisson. Compare Jeans less and mass obtained
+      before. Jeans mass about 2 solar masses for molecular cloud conditions.
+
+      \item Discussion: What kinds of perturbations grow or oscillate?
+        Question: What happens if we increase the temperature? Or the density?
+      
+  \end{itemize}
+  
+\item Toomre (20 min)
+
+  \begin{itemize}
+    \item Physical picture:
+
+        \begin{itemize}
+        \item Why rotation changes everything.
+
+        \item Differential rotation $\rightarrow$ shear $\rightarrow$ stabilization.
+
+        \item Epicyclic motion \& angular momentum.
+    \end{itemize}
+    \item     Mathematical setup: Thin, axisymmetric disk with surface
+      density $\Sigma$. Consider axisymmetric perturbations.
+
+    \item Define epicyclic frequency.
+
+    \item Toomre parameter
+
+  \end{itemize}
+  
+\item Jeans vs Toomre (15 min)
+
+  \begin{itemize}
+    \item Jeans: infinite medium, 3D, pressure vs. gravity.
+    \item Toomre: thin disk, 2D, includes shear and rotation.
+
+     \item Plot \& interpret dispersion relation curves.
+
+     \item Discussion: why disks are more stable than uniform media.
+
+     \item Typical Q values in different astrophysical systems (e.g., Milky Way, protoplanetary disks).
+  \end{itemize}
+  
+\item Wrap-up (10 min)
+
+  \begin{itemize}
+    \item Summary of key points: How dispersion relations encode the
+      physical balance of forces. Critical scales and parameters (Jeans length, Toomre Q).
+
+    \item Open questions in astrophysics: How do magnetic fields, turbulence, or cooling alter these instabilities?
+
+  \end{itemize}
+  
+\end{itemize}
+
+
+
 Jeans instability refers to the critical condition in which a cloud of
 gas and dust, under the influence of its own gravity, begins to
 collapse and form stars. This concept is pivotal in understanding star
@@ -483,6 +557,23 @@ collapses. This length is the Jeans length
 
 which is what we derived from rigorous linear analysis except for a
 factor $\sqrt{\pi}$.
+
+
+In the early universe, this applies to baryonic matter after recombination (when it decoupled from radiation). Before that, photon pressure prevented collapse. After recombination ($\sim$380,000 years after the Big Bang), perturbations in dark matter and baryons could grow under Jeans instability, seeding galaxies.
+
+
+Some numbers: for molecular cloud
+
+Let us evaluate the Jeans length and mass, Plugging in numbers typical of dense molecular cores 
+
+\beqn
+\lambda_J &\approx& 1.0\,pc \left( \frac{T}{10 \ {\rm K}}\right)^{1/2} \left( \frac{n}{10^3 \ {\rm cm}^{-3}}\right)^{1/2}\\
+M_J &\approx& 26\,M_\sun \left( \frac{T}{10 \ {\rm K}}\right)^{3/2} \left( \frac{n}{10^3 \ {\rm cm}^{-3}}\right)^{1/2}
+\eeqn
+
+\beq
+t_ff = {G\rho}^{-1/2} \approx 2.1 Myr \left( \frac{n}{10^3 \ {\rm cm^{-3}}}\right)^{-1/2}
+\eeq
 
 \section{Toomre Instability}
 
