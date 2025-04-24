@@ -1,19 +1,63 @@
 \chapter{Stellar Dynamics}
 
 
-\begin{mintedbox}{python}
-if transactions: Transaction.create_transactions() # if transactions = "true"
-node.generate_emptyState() # empty state for all nodes
-S.initial_events() # initiate initial events to start with
+\begin{itemize}
+%%%%%%%%%%%%%%%%%%%%
+\item Learning Goals\\
+%%%%%%%%%%%%%%%%%%%%  
+  By the end of this chapter, students should be able to:
 
-while not queue.isEmpty() and clock <= targetTime:
-      next_e = queue.get_next_event()
-      clock = next_e.time # move clock to the time of the event
-      Event.execute_event(next_e)
-      Queue.remove_event(next_e)
+\begin{enumerate}
+  \item Explain the physical meaning and mathematical foundation of gravitational potential theory in stellar systems.
+  \item Derive and interpret the Jeans equations from the collisionless Boltzmann equation.
+  \item Apply Jeans equations to analyze simple stellar systems and deduce mass distributions from kinematic data.
+  \item Understand limitations and assumptions behind the Jeans approach (e.g., steady-state, axisymmetry, lack of collisional effects).
+  \item Build physical intuition about how observable velocity dispersions relate to underlying gravitational potentials.
+\end{enumerate}
 
-print results
-\end{mintedbox}
+
+%%%%%%%%%%%%%%%%%
+\item Lesson Plan
+%%%%%%%%%%%%%%%%%  
+
+  \begin{enumerate}
+
+  \item Introduction \& Motivation (10 min)
+    \begin{itemize}
+      \item Brief review of gravitational potential theory: Poisson's Equation.
+      \item Why we use potential theory and kinetic theory in stellar dynamics.
+      \item Overview of the role of the Jeans equations in inferring mass distributions in galaxies.
+    \end{itemize}
+  \item Gravitational Potential Theory Refresher (15 min)
+    \begin{itemize}
+    \item Poisson equation
+    \item Examples: Spherical symmetry (e.g., Plummer, Hernquist profiles)
+    \item Link to orbital dynamics: effective potential, energy conservation.
+      \item Derivation of potential for Plummer sphere; cusp/core differences.
+    \end{itemize}
+  \item Jeans Equations (20 min)
+    \begin{itemize}
+      \item From collisionless Boltzmann equation, derive Jeans
+        continuity equation and the moment equations.
+        \item Key assumptions: steady-state, no collisions, spherical
+          vs axisymmetric cases. 
+      \end{itemize}
+    \item Applications (15 min)
+      \begin{itemize}
+      \item Spherical Jeans Equation
+      \item Define anisotropy parameter $\beta$
+      \item Infer $M(r)$ from kinematics (e.g., estimate the mass of a globular cluster from radial velocity data.)
+      \item Degeneracies due to anisotropy
+        \end{itemize}
+  \item Discussion (10 min)
+  \end{enumerate}
+
+\end{itemize} 
+
+
+%\begin{mintedbox}{python}
+
+%\end{mintedbox}
 
 \section{Potential Theory}
 

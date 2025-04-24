@@ -577,4 +577,70 @@ t_ff = {G\rho}^{-1/2} \approx 2.1 Myr \left( \frac{n}{10^3 \ {\rm cm^{-3}}}\righ
 
 \section{Toomre Instability}
 
+Jeans instability is responsible for structure formation in
+homogeneous media. Yet, we also observe structure formation in 
+flattened disks, be that Galaxies or circumstellar and circumplanetary
+disks. In this case, fragmentation is due to {\it Toomre} instability. 
+
+In these systems, the mostly 2D configuration and
+the presence of differential rotation (shear) will
+lead to different stability properties. In addition to sound waves removing compressibility, in the presence of differential rotation, a collapsing region
+will also now have to contend with shear. The collapse has to be
+faster than the timescale in which the shear is advecting the blobs
+apart.
+
+To collapse, a region must contract gravitationally faster than acoustics can remove the compression and differential
+rotation can shear it away. We can construct a criteron based on these
+constraints, as we did for Jeans instability 
+
+The timescale for acoustics is the sound-crossing time
+
+\beq
+t_c = \lambda/c_s
+\eeq
+
+The timescale for gravity is the free-fall time
+
+\beq
+t_g = \frac{1}{\sqrt{G\rho}}
+\eeq
+
+The timescale for shear is the orbital time
+
+\beq
+t_s = \varOmega^{-1}
+\eeq
+
+Constructing a dimensionless number from ``Gravity vs Shear and
+Pressure'', we find
+
+\beqn
+Q &\sim& \frac{t_g^2}{t_c t_s}\\
+&\sim&\frac{c_s\varOmega}{G\rho}
+\eeqn
+
+If $Q >$ 1, gravity is slower than the combined action of pressure and shear, and the system is stable. If $Q<1$, gravity is faster, and the
+system collapses. This analysis is off from the actual $Q$ from rigorous linear analysis by a factor $\pi^{-1}$, and the fact that shear stability is
+given by the epicyclic frequency $\kappa$ instead. The dispersion
+relation is
+
+\beq
+\omega^2 = \kappa^2 = 2\pi G\Sigma|k| + c_s^2k^2
+\eeq
+
+Gravity pushes $\omega$ to imaginary values. Pressure and rotation push it to real values.
+
+In the saturated state, it is seen that an adiabatic system evolves
+toward $Q\sim 1$. If the system compresses (lowering $Q$), it also
+heats up (increasing $Q$). If the system expands (increasing $Q$), it
+also cools down (decreasing $Q$). The process is self-regulated,
+leading to gravitational turbulence and spiral arms.
+Cooling has to be fast to allow for collapse.
+
+Toomre instability is slow cooling disks as the disk mass is increased.
+The system passes from gravitational turbulence (low mass) to spiral arms (higher mass).
+If the mass is further increased, collapse is inevitable. Toomre instability might be responsible for the
+formation of giant planets in wide orbits. The process is also called simply “gravitational
+instability” or “disk instability” in the planet formation literature.
+
 
