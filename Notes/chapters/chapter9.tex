@@ -21,6 +21,24 @@ Enter the Boussinesq approximation. This approximation removes sound
 waves, while allowing for buoyancy-driven flows by retaining density
 variations only when the term is multiplied by gravity.
 
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/fig_09_03.png}}
+  \end{center}
+  \caption[]{Comparison between a simulation in the Boussinesq
+    approximation vs fully compressible Navier-Stokes. For this small
+    temperature gradient, the two simulations are very similar.}
+  \label{fig:903}
+\end{figure}
+
+A simulation in the Boussinesq approximation of a rising convective
+plume is shown in \fig{fig:903}. The three panels are a time series,
+each subpanel shows the Boussinesq simulation in the left, and
+compressible Navier-Stokes on the right. Clearly, little difference is seen in
+the simulations, which speaks of the accuracy of the Boussinesq
+approximation. Let us study in this chapter how to derive Boussinesq
+from Navier-Stokes.
+
 \section{Decomposition}
 
 We will use the following notation for
@@ -109,6 +127,26 @@ velocity $u_x$ (and/or $u_y$) in the non-stratified direction(s)
 \Div{\v{u}}&=&0
  \eeqn
 
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/fig_09_01.png}}
+  \end{center}
+  \caption[]{Convection simulation in a patch of an accretion disk
+    with a radial entropy gradient, in the Boussinesq approximation. Vorticity in the left
+    panel, vertical velocities in the right panel. From Lesur \&
+    Papaloizou (2010).}
+  \label{fig:901}
+\end{figure}
+
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/fig_09_02.png}}
+  \end{center}
+  \caption[]{Convection in the Sun, in the Boussinesq
+    approximation. Upper panel is the surface, lower panel at a depth.}
+  \label{fig:902}
+\end{figure}
+ 
 \subsection{Brunt-V\"ais\"al\"a frequency and gravity waves}
  
 Ignoring enthalphy, we can see that this system supports oscillations
@@ -156,11 +194,57 @@ writing $\theta = \Lambda\Theta$, so finally
 \frac{Du_z}{Dt}&= -\frac{\partial\Pi}{\partial z} - N^2\theta
 \end{empheq}
 
-$\theta$ is called potential temperature, as the density variations
-are associated with temperature variations. 
+\noindent $\theta$ is called potential temperature, as the density variations
+are associated with temperature variations.
 
+\fig{fig:901} and \fig{fig:902} show two types of problem
+where the Boussinesq approximation is particularly revelant:
+\fig{fig:901} is a simulation of convection in accretion disks, and
+\fig{fig:902} is a simulation of convection in the Sun. In both cases,
+filtering the acoustics allows for longer timesteps, and to capture
+secular phenomena that happen on timescales much longer than sonic. 
 
 \section{Shallow water}
+
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/fig_09_04.png}}
+  \end{center}
+  \caption[]{Geometry for the shallow water approximation.}
+  \label{fig:904}
+\end{figure}
+
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/fig_09_08.png}}
+  \end{center}
+  \caption[]{Shallow water simulation of a perturbance in a shallow
+    pond with reflective boundaries. In the shallow water
+    approximation, height is analogous to density in the Euler
+    equation. Convergence will ``squeeze'' the column but not compress
+  it, raising the height of the column.}
+  \label{fig:908}
+\end{figure}
+
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/fig_09_09.png}}
+  \end{center}
+  \caption[]{Time series of a simulation of a disturbance in a pond,
+    in the shallow water approximation.}
+  \label{fig:909}
+\end{figure}
+
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/fig_09_10.png}}
+  \end{center}
+  \caption[]{Space-time evolution of a simulation of a disturbance in a pond,
+    in the shallow water approximation. The disturbances are gravity
+    waves. The predicted velocity of a gravity wave is plotted as
+    dotted line.}
+  \label{fig:910}
+\end{figure}
 
 Depth-integrated Navier-Stokes. 
 
@@ -414,6 +498,14 @@ faster than shorter ones in deep water.
 
 \subsection{Beach slope solution}
 
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/fig_09_11.png}}
+  \end{center}
+  \caption[]{Beach slope geometry.}
+  \label{fig:911}
+\end{figure}
+
 The constant beach slope solution follows from the shallow water equations by assuming a linearly varying depth 
 
 \beq
@@ -425,6 +517,32 @@ This leads to a steady solution where velocity increases as depth decreases, and
 \subsection{The atmosphere as shallow water}
 
 \classcomm{Show Ali's work}
+
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/fig_09_05.png}}
+  \end{center}
+  \caption[]{Polar atmosphere of Jupiter.}
+  \label{fig:905}
+\end{figure}
+
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/fig_09_06.png}}
+  \end{center}
+  \caption[]{Approximating the polar atmosphere of Jupiter as a
+    shallow water system (the ``gamma''-plane).}
+  \label{fig:906}
+\end{figure}
+
+\begin{figure}
+  \begin{center}
+    \resizebox{\textwidth}{!}{\includegraphics{./figs/fig_09_07.png}}
+  \end{center}
+  \caption[]{Simulation of cyclogenesis in the polar atmosphere of
+    Jupiter, modeled as a shallow water system.}
+  \label{fig:907}
+\end{figure}
 
 
 \section{Convection}
