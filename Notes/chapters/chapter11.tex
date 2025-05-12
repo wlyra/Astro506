@@ -567,12 +567,12 @@ Some numbers: for molecular cloud
 Let us evaluate the Jeans length and mass, Plugging in numbers typical of dense molecular cores 
 
 \beqn
-\lambda_J &\approx& 1.0\,pc \left( \frac{T}{10 \ {\rm K}}\right)^{1/2} \left( \frac{n}{10^3 \ {\rm cm}^{-3}}\right)^{1/2}\\
-M_J &\approx& 26\,M_\sun \left( \frac{T}{10 \ {\rm K}}\right)^{3/2} \left( \frac{n}{10^3 \ {\rm cm}^{-3}}\right)^{1/2}
+\lambda_J &\approx& 1.0\,{\rm pc} \ \left( \frac{T}{10 \ {\rm K}}\right)^{1/2} \left( \frac{n}{10^3 \ {\rm cm}^{-3}}\right)^{1/2}\\
+M_J &\approx& 26\,M_\sun \ \left( \frac{T}{10 \ {\rm K}}\right)^{3/2} \left( \frac{n}{10^3 \ {\rm cm}^{-3}}\right)^{1/2}
 \eeqn
 
 \beq
-t_ff = {G\rho}^{-1/2} \approx 2.1 Myr \left( \frac{n}{10^3 \ {\rm cm^{-3}}}\right)^{-1/2}
+t_{ff} = {G\rho}^{-1/2} \approx 2.1 {\rm Myr}  \ \left( \frac{n}{10^3 \ {\rm cm^{-3}}}\right)^{-1/2}
 \eeq
 
 \section{Toomre Instability}
@@ -625,7 +625,7 @@ given by the epicyclic frequency $\kappa$ instead. The dispersion
 relation is
 
 \beq
-\omega^2 = \kappa^2 = 2\pi G\Sigma|k| + c_s^2k^2
+\omega^2 = \kappa^2 - 2\pi G\Sigma|k| + c_s^2k^2
 \eeq
 
 Gravity pushes $\omega$ to imaginary values. Pressure and rotation push it to real values.
@@ -643,4 +643,228 @@ If the mass is further increased, collapse is inevitable. Toomre instability mig
 formation of giant planets in wide orbits. The process is also called simply “gravitational
 instability” or “disk instability” in the planet formation literature.
 
+To find the dispersion relation and the Toomre Q parameter from first
+principles, let us assume that the disk is infinitely thin, and
+integrate the equations in $z$, with the column density $\Sigma = \int
+\rho dz$. In cylindrical coordinates 
+
+\beqn
+\frac{\partial \varSigma}{\partial t} + \left(\v{u}\cdot\del\right)\varSigma &=& -\varSigma\Div{\v{u}}\\
+\frac{\partial u_R}{\partial t} &=&-u_R \frac{\partial u_R}{\partial R} -\frac{u_\phi}{R} \frac{\partial u_R}{\partial \phi} +\frac{u_\phi^2}{R}-\frac{1}{\varSigma}\frac{\partial P}{\partial R}-\frac{\partial \varPhi}{\partial R}\\
+\frac{\partial u_\phi}{\partial t} &=&-u_R \frac{\partial u_\phi}{\partial R} -\frac{u_\phi}{R} \frac{\partial u_\phi}{\partial \phi} -\frac{u_Ru_\phi}{R} -\frac{1}{R\varSigma}\frac{\partial P}{\partial \phi}-\frac{1}{R}\frac{\partial \varPhi}{\partial \phi}\\
+\Laplace{\varPhi}&=&4\pi G \varSigma\delta(z)
+\eeqn
+
+\noindent where in the Poisson equation we substituted
+$\rho=\varSigma\delta(z)$, as the disk is infinitely thin. Now let us define base state and perturbation. We decompose
+
+\beqn
+\varSigma &=& \varSigma_0 + \varSigma^\prime\\
+u_R &=& u_R^\prime\\
+u_\phi&=&\varOmega(R) R + u_\phi^\prime\\
+P&=&P_0 + P^\prime\\
+\varPhi&=&\varPhi_0 + \varPhi^\prime\\
+\eeqn
+
+\noindent where $\varOmega(R) R$ is the circular velocity. Using this
+decomposition and assuming azimuthal symmetry ($\partial_\phi=0$)
+
+\beqn
+\frac{\partial \varSigma^\prime}{\partial t} + \varSigma_0\Div{\v{u}}&=& 0\\
+\frac{\partial u_R^\prime}{\partial t} &=&\varOmega^2R+2\varOmega u_\phi^\prime-\frac{1}{\varSigma}\frac{\partial P}{\partial R}-\frac{\partial \varPhi_0}{\partial R}-\frac{\partial \varPhi^\prime}{\partial R}\\
+\frac{\partial u_\phi^\prime}{\partial t} &=&-\left(2-q\right)\varOmega u_R^\prime \\
+\Laplace{\varPhi_0}+\Laplace{\varPhi^\prime}&=&4\pi G \varSigma_0\delta(z)+4\pi G \varSigma^\prime\delta(z)
+\eeqn
+
+The second term in eq contains the shear term, already substituted
+
+\beqn
+\frac{\partial \left(\varOmega R\right)}{\partial R} &=&\varOmega+R\frac{\partial\varOmega}{\partial R}\\
+&=&\varOmega\left(1+\frac{\partial \ln\varOmega}{\partial \ln    R}\right)\\
+&=&\varOmega\left(1-q\right)
+\eeqn
+
+In the radial momentum equation, the centrifugal force $\varOmega^2R$
+cancels with the base gravity term $\sfrac{\partial
+  \varPhi_0}{\partial R}$, and in the Poisson equation the base
+Laplacian cancels with the base density. 
+
+\beqn
+\frac{\partial \varSigma^\prime}{\partial t} + \varSigma_0\Div{\v{u}}&=& 0\\
+\frac{\partial u_R^\prime}{\partial t} &=&2\varOmega u_\phi^\prime-\frac{1}{\varSigma}\frac{\partial P}{\partial R}-\frac{\partial \varPhi^\prime}{\partial R}\\
+\frac{\partial u_\phi^\prime}{\partial t} &=&-\left(2-q\right)\varOmega u_R^\prime \\
+\Laplace{\varPhi^\prime}&=&4\pi G \varSigma^\prime\delta(z)
+\eeqn
+
+Applying the Fourier mode
+
+\beqn
+\varSigma^\prime &=& \hat{\varSigma}e^{i(kR-\omega t)}\\
+u_R^\prime &=& \hat{u}_Re^{i(kR-\omega t)}\\
+u_\phi^\prime &=& \hat{u}_\phi e^{i(kR-\omega t)}\\
+\varPhi^\prime_{z=0} &=& \hat{\varPhi}e^{i(kR-\omega t)}\label{eq:varphi}
+\eeqn
+
+the equations of motion in Fourier space become
+
+
+\beqn
+-\omega \hat{\varSigma} + k\varSigma_0 \hat{u}_R&=& 0\\
+-i\omega\hat{u}_R -2\varOmega \hat{u}_\phi+\frac{ikc_s^2}{\varSigma_0}\hat{\varSigma}+ik \hat{\varPhi}&=&0\label{eq:urad}\\
+-i\omega \hat{u}_\phi +\left(2-q\right)\varOmega \hat{u}_R&=&0 \\
+\eeqn
+
+\noindent and we still need to work further on the Poisson
+equation. \eq{eq:varphi} is only valid for $z=0$, because of the Dirac
+delta. At $z\neq 0$, the Poisson equation becomes Laplace's equation
+$\Laplace \varPhi^\prime = 0$. We assume that the potential has a
+$z$-dependency 
+
+\beq
+\varPhi^\prime = \hat{\varPhi}e^{i(kR-\omega t)} f(z)
+\eeq
+
+\noindent and Laplace's equation yields
+
+\beq
+\frac{d^2f}{dz^2} = k^2 f
+\eeq
+
+\noindent which we solve to find
+
+\beq
+f(z) = Ae^{-|kz|} + B e^{|kz|}
+\eeq
+
+\noindent the modulus is needed because both $z$ and $k$ can be
+negative. The potential perturbation $\varPhi^\prime$ must not be infinite at
+$\pm\infty$, so $B=0$. The potential perturbation is thus
+
+\beq
+\varPhi^\prime = \hat{\varPhi}e^{i(kR-\omega t)-|kz|}
+\eeq
+
+We now integrate Poisson's equation, between $-\epsilon$ and $\epsilon$ to get rid of the Dirac's delta 
+
+\beq
+\int_{-\epsilon}^{\epsilon} \Laplace{\varPhi^\prime} dz = 4\pi G \varSigma^\prime \int_{-\epsilon}^{\epsilon} \delta (z) dz
+\eeq
+
+\noindent in the RHS, the integral is one. In the LHS the only $z$-dependency comes
+from the exponential, thus
+
+\beq
+\hat{\varPhi}\int_{-\epsilon}^{\epsilon} \frac{d^2}{dz^2}{e^{-|kz|}} dz = 4\pi G \hat{\varSigma}
+\eeq
+
+The integral of the 2nd derivative is the first derivative, thus
+
+\beqn
+\hat{\varPhi} \left(\frac{d}{dz}{e^{-|kz|}}\right)_{\vert_{-\epsilon}^{\epsilon}}&=& 4\pi G \hat{\varSigma} \\
+-2|k|\hat{\varPhi} e^{-|k \epsilon|}&=& 4\pi G \hat{\varSigma} \\
+\eeqn
+
+\noindent and since we can make $\epsilon$ as small as we want, now we take the limit
+$\epsilon\rightarrow 0$,  canceling the exponential, and thus relating
+$\hat{\varPhi}$ to $\hat{\varSigma}$
+
+
+\beq
+\hat{\varPhi} = -\frac{2\pi G \hat{\varSigma}}{|k|} 
+\eeq
+
+\noindent we substitute this into \eq{eq:urad}, finding 
+
+\beqn
+-\omega \hat{\varSigma} + k\varSigma_0 \hat{u}_R&=& 0\\
+-i\omega\hat{u}_R -2\varOmega\hat{u}_\phi+ik\hat{\varSigma}\left(\frac{c_s^2}{\varSigma_0}-\frac{2\pi G}{|k|} \right)&=&0\label{eq:urad}\\
+-i\omega \hat{u}_\phi +\left(2-q\right)\varOmega \hat{u}_R&=&0 \\
+\eeqn
+
+This is a linear system of 3 variables and 3 equations. The solution
+is given by the determinant  
+
+\begin{equation}
+\begin{vmatrix}
+-\omega                                                                  & k\varSigma_0                     & 0 \\
+ik\left(\frac{c_s^2}{\varSigma_0}-\frac{2\pi G}{|k|}\right) & -i\omega                           & -2\varOmega\\
+  0                                                                            & \left(2-q\right)\varOmega & -i\omega\\
+\end{vmatrix}	= 0 
+\end{equation}
+
+This yields the dispersion relation we wanted to prove
+
+\beq
+\omega^2 = \left(2-q\right)\varOmega^2+k^2 c_s^2-2\pi G \varSigma_0|k| 
+\eeq
+
+\noindent the first term is due to rotation; the second is pressure, the third
+is gravity. In the absence of pressure and and selfgravity, the
+solution is
+
+\beq
+\omega^2 = \left(2-q\right)\varOmega^2
+\eeq
+
+\noindent which defines the epicyclic frequency 
+
+\beq
+\kappa^2 \equiv \left(2-q\right)\varOmega^2
+\eeq
+
+This is a natural frequency of the system. If a particle or gas parcel
+is disturbed from its orbit, it will oscillate around its equilibrium
+orbital position at this freequency. The system will be stable if
+$\omega^2 > 0$, and unstable if $\omega^2<0$. Like in Jeans
+instability, gravity is the only destabilizing term. The dispersion
+relation is parabolic in $k$
+
+\beq
+\omega^2 = ak^2 + b|k| + c 
+\eeq
+
+\noindent with $a=c_s^2$, $b=-2\pi G \varSigma_0$ and $c=\kappa^2$. The critical
+wavelength is the vertex $-b/(2a)$ of the parabola
+
+\beq
+k_{\rm crit} = \frac{\pi G \Sigma_0}{c_s^2}
+\eeq
+
+\noindent and the instability properties are given by $\Delta = b^2-4ac$
+
+\beqn
+\Delta &=& 4\left(\pi^2 G^2 \varSigma_0^2 - c_s^2\kappa^2\right)\\
+           &=& \frac{4}{\pi^2 G^2 \varSigma_0^2}\left(1-Q^2\right)\\
+\eeqn
+
+\noindent where the dimensionless quantity
+
+\beq
+Q \equiv \frac{c_s\kappa}{\pi G\Sigma_0}
+\eeq
+
+\noindent is called the {\it Toomre parameter}.  When $\Delta = 0$ (i.e. $Q=1$), the
+system is critical, a positive $\Delta$ (i.e. $Q<1$) yields two roots,
+so the system has an unstable region, a negative $\Delta$ (i.e. $Q>1$)  means
+the system is always stable. We conclude $Q$ defines the stability
+property of the system.
+
+The critical wavelength 
+
+\beq
+\lambda_{\rm crit} = \frac{2c_s^2}{G\Sigma}
+\eeq
+
+\noindent will yield a collapsing mass
+
+\beqn
+M_p &\sim& \pi \left(\frac{\lambda}{2}\right)^2 \varSigma\\
+&\sim& \frac{\pi c_s^4}{G^2\Sigma}
+\eeqn
+
+For typical circumstellar disk parameters, $c_s \sim 0.5$ km/s, $Q=1$ means $\Sigma
+\sim 1.5\times 10^3$ g/cm$^2$, and thus $M_p \sim 1$ Jupiter mass. 
+
+This shows that this mechanism, if operative, should produce gas
+giant planets. 
 
